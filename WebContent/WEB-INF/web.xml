@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
+  <welcome-file-list>
+    <welcome-file>accueil1</welcome-file>
+  </welcome-file-list>
+  <servlet>
+  
+    <servlet-name>JSP_INSCRIPTION</servlet-name>
+    <jsp-file>/WEB-INF/jsp/inscription.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>JSP_INSCRIPTION</servlet-name>
+    <url-pattern>/inscription</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>JSP_CONNECT</servlet-name>
+    <jsp-file>/WEB-INF/jsp/connexion.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>JSP_CONNECT</servlet-name>
+    <url-pattern>/connexion</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+     <servlet-name>JSP_ACCUEILNORMALE</servlet-name>
+    <jsp-file>/WEB-INF/jsp/accueil.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>JSP_ACCUEILNORMALE</servlet-name>
+    <url-pattern>/accueil1</url-pattern>
+  </servlet-mapping>
+  
+    <servlet>
+     <servlet-name>JSP_VENDREARTICLE</servlet-name>
+    <jsp-file>/WEB-INF/jsp/ajouterArticle.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>JSP_ACCUEILNORMALE</servlet-name>
+    <url-pattern>/AjouterArticle</url-pattern>
+  </servlet-mapping>
+  
+   <servlet>
+     <servlet-name>JSP_AFFICHERPROFIL</servlet-name>
+    <jsp-file>/WEB-INF/jsp/AfficherUtilisateur.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>JSP_AFFICHERPROFIL</servlet-name>
+    <url-pattern>/monprofil</url-pattern>
+  </servlet-mapping>
+</web-app>
