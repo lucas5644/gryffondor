@@ -45,7 +45,7 @@ public class ServletAffichageArticleDeconnecte extends HttpServlet {
 			} catch (BusinessException e) {
 				e.printStackTrace();
 				request.setAttribute("listeCodesErreur", e.getListeCodesErreur());
-			}
+			} 
 		}
 		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/accueil.jsp");
 		rd.forward(request, response);
