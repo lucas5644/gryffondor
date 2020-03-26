@@ -88,11 +88,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 		List<Article> listeArticleDeconnecte = new ArrayList<Article>();
 		try (Connection con = ConnectionProvider.getConnection();
 				PreparedStatement psmt = con.prepareStatement(SELECT_ARTICLE_DECONNECTE);){
-//			Connection con = null;
 			BusinessException be = new BusinessException();
-			// Ouverture de la connexion
-//			con = ConnectionProvider.getConnection();
-//			PreparedStatement psmt = con.prepareStatement(SELECT_ARTICLE_DECONNECTE);
 			psmt.setString(1, "%"+nomArticle+"%");
 			psmt.setString(2, "%"+nomCategorie+"%");
 			ResultSet rs = psmt.executeQuery();

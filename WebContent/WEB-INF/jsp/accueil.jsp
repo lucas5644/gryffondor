@@ -63,7 +63,7 @@
 									<input type="submit" value="Rechercher" class="btn btn-primary" />
 								</div>
 							</form>
-						</div>
+						</div> 
 					</div>
 				</div>
 			</div>
