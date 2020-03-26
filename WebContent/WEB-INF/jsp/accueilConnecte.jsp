@@ -20,7 +20,7 @@
 	
 	
 </head>
-<h1>Bienvenu</h1>
+<h1>Bienvenue</h1>
 <body>
 	<!-- Navigation -->
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
