@@ -70,14 +70,14 @@
 	
 	<ul> 
 	
-		<li>Pseudo : ${utilisateur.pseudo}</li> 
-		<li>Nom : ${utilisateur.nom}</li>
-		<li>Prénom : ${utilisateur.prenom}</li>
-		<li>Email : ${utilisateur.email}</li>
-		<li>Téléphone : ${utilisateur.telephone}</li>
-		<li>Rue : ${utilisateur.rue}</li>
-		<li>Code postal : ${utilisateur.codePostal}</li>
-		<li>Ville : ${utilisateur.ville}</li> 
+		<li>Pseudo : ${userConnected.pseudo}</li> 
+		<li>Nom : ${{userConnected.nom}</li>
+		<li>Prénom : ${{userConnected.prenom}</li>
+		<li>Email : ${{userConnected.email}</li>
+		<li>Téléphone : ${{userConnected.telephone}</li>
+		<li>Rue : ${{userConnected.rue}</li>
+		<li>Code postal : ${{userConnected.codePostal}</li>
+		<li>Ville : ${{userConnected.ville}</li> 
 		
 	</ul>
 		<form action="">

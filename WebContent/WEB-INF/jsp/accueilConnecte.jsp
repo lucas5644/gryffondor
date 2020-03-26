@@ -32,7 +32,7 @@
 			</div>
 			
 			<div>
-				<a href="">Mon profil</a>
+				<a href="monprofil">Mon profil</a>
 			</div>
 			
 			<div>

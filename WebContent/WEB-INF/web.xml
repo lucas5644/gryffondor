@@ -51,7 +51,7 @@
   
    <servlet>
      <servlet-name>JSP_AFFICHERPROFIL</servlet-name>
-    <jsp-file>/WEB-INF/jsp/AfficherUtilisateur.jsp</jsp-file>
+    <jsp-file>/WEB-INF/jsp/UtilisateurBtnModifier.jsp</jsp-file>
   </servlet>
   <servlet-mapping>
     <servlet-name>JSP_AFFICHERPROFIL</servlet-name>
