@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -71,17 +72,17 @@
 	<ul> 
 	
 		<li>Pseudo : ${userConnected.pseudo}</li> 
-		<li>Nom : ${{userConnected.nom}</li>
-		<li>Prénom : ${{userConnected.prenom}</li>
-		<li>Email : ${{userConnected.email}</li>
-		<li>Téléphone : ${{userConnected.telephone}</li>
-		<li>Rue : ${{userConnected.rue}</li>
-		<li>Code postal : ${{userConnected.codePostal}</li>
-		<li>Ville : ${{userConnected.ville}</li> 
+		<li>Nom : ${userConnected.nom}</li>
+		<li>Prénom : ${userConnected.prenom}</li>
+		<li>Email : ${userConnected.email}</li>
+		<li>Téléphone : ${userConnected.telephone}</li>
+		<li>Rue : ${userConnected.rue}</li>
+		<li>Code postal : ${userConnected.codePostal}</li>
+		<li>Ville : ${userConnected.ville}</li> 
 		
 	</ul>
 		<form action="">
-		<input type="button" name="Modifier" >
+		<input type="submit" name="Modifier" value="Modifier">
 		</form>
 </body>
 
