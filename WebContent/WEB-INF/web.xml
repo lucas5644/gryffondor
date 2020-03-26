@@ -28,7 +28,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>JSP_ACCUEILNORMALE</servlet-name>
-    <url-pattern>/accueil1</url-pattern>
+    <url-pattern>/accueil</url-pattern>
   </servlet-mapping>
   
     <servlet>

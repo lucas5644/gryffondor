@@ -20,7 +20,7 @@ public class ServletDeconnexion extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher rd = request.getRequestDispatcher("accueil");
 		HttpSession session = request.getSession();
-		session.removeAttribute("userConnected");
+		session.invalidate();
 		rd.forward(request, response);	
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
