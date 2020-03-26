@@ -51,9 +51,7 @@
 							</form>
 						</div>
 						<div class="contenu"> 
-							<form action="inscrire" method="post">
-								<input type="submit" value="S'inscrire">
-							</form>
+							<a href="inscription">Inscription</a>
 						</div>
 					</div>
 				</div>

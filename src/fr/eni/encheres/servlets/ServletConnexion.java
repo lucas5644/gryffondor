@@ -34,12 +34,12 @@ public class ServletConnexion extends HttpServlet {
 		}
 		if(tryUser.getNom().equals("non")) {
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/connexion.jsp");
-			request.setAttribute("connexionRefused", "La connexion est RefusÃ©e");
+			request.setAttribute("connexionRefused", "La connexion est Refusée");
 			rd.forward(request, response);
 		}else {
 			HttpSession sessionUtilisateur = request.getSession();
 			sessionUtilisateur.setAttribute("userConnected", tryUser);
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/accueilConnecte.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/Accueil/Utilisateur");
 			rd.forward(request, response);			
 		}
 	}

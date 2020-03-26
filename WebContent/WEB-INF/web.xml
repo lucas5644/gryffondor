@@ -32,6 +32,15 @@
   </servlet-mapping>
   
     <servlet>
+     <servlet-name>JSP_ACCUEILNCONNECTE</servlet-name>
+    <jsp-file>/WEB-INF/jsp/accueilConnecte.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>JSP_ACCUEILNCONNECTE</servlet-name>
+    <url-pattern>/Accueil/Utilisateur</url-pattern>
+  </servlet-mapping>
+  
+    <servlet>
      <servlet-name>JSP_VENDREARTICLE</servlet-name>
     <jsp-file>/WEB-INF/jsp/ajouterArticle.jsp</jsp-file>
   </servlet>
