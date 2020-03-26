@@ -52,16 +52,15 @@
 								<div class="form-group">
 									<label for="nomCategorie"></label> <select name="nomCategorie"
 										size="1">
-										<option value="1">Informatique
-										<option value="2">Ameublement
-										<option value="3">Vêtement
-										<option value="4">Sport et loisir
+										<option value="e">Toutes </option>
+										<option value="Informatique">Informatique </option>
+										<option value="Ameublement">Ameublement </option>
+										<option value="Vêtement">Vêtement </option>
+										<option value="Sport et loisir">Sport et loisir </option>
 									</select>
 								</div>
 								<div>
-								
-									<a href="<%=request.getContextPath()%>/accueil"> <input
-										type="submit" value="Rechercher" class="btn btn-primary" /></a>
+									<input type="submit" value="Rechercher" class="btn btn-primary" />
 								</div>
 							</form>
 						</div>
@@ -95,7 +94,6 @@
 										<td><%=article.getNomArticle()%></td>
 										<td><%=article.getMiseAPrix()%></td>
 										<td><%=article.getDateFinEncheres().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))%></td>
-										<td><%=article.getVendeur().getPseudo()%></td>
 									</tr>
 									<%
 										}

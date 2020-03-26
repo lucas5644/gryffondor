@@ -84,10 +84,6 @@ public class ServletAjoutArticle extends HttpServlet {
 			// j'ajoute l'article
 			EncheresManager encheresManager = new EncheresManager();
 			try {
-				//TODO  creation de l'objet article en appellant le constructeur de l'article.
-			//aevec tout les parametres
-				//Appeler un manager qui appellera la fonction ajoutequi prendra en parametre un ovbjet article
-				//TODO Penser à refactor le nom article par nomArticle
 				Article newArticle = new Article();
 				Categorie newCategorie = new Categorie();
 				switch (categorie) {

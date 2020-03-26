@@ -83,10 +83,10 @@
 								<div>
 									<label for="categorie">Catégorie : </label> <select
 										name="categorie" size="1">
-										<option value="1">Informatique
-										<option value="2">Ameublement
-										<option value="3">Vêtement
-										<option value="4">Sport et loisir
+										<option value="1">Informatique </option>
+										<option value="2">Ameublement </option>
+										<option value="3">Vêtement </option>
+										<option value="4">Sport et loisir </option>
 									</select>
 								</div>
 								<div>

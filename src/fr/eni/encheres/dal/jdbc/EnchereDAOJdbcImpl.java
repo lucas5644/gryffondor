@@ -79,22 +79,22 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 		newArticle.setNomArticle(rs.getString("nom_article"));
 		newArticle.setPrixVente(rs.getInt("prix_initial"));
 		newArticle.setDateFinEncheres(rs.getDate("date_fin_encheres").toLocalDate());
-		newArticle.getVendeur().setPseudo(rs.getString("pseudo"));
+//		newArticle.getVendeur().setPseudo(rs.getString("pseudo"));
 		return newArticle;
 	}
 
 	@Override
 	public List<Article> selectArticleDeconnecte(String nomCategorie, String nomArticle) throws BusinessException {
 		List<Article> listeArticleDeconnecte = new ArrayList<Article>();
-		try {
-			Connection con = null;
+		try (Connection con = ConnectionProvider.getConnection();
+				PreparedStatement psmt = con.prepareStatement(SELECT_ARTICLE_DECONNECTE);){
+//			Connection con = null;
 			BusinessException be = new BusinessException();
 			// Ouverture de la connexion
-			con = ConnectionProvider.getConnection();
-			con.setAutoCommit(false);
-			PreparedStatement psmt = con.prepareStatement(SELECT_ARTICLE_DECONNECTE);
-			psmt.setString(1, nomArticle);
-			psmt.setString(2, nomCategorie);
+//			con = ConnectionProvider.getConnection();
+//			PreparedStatement psmt = con.prepareStatement(SELECT_ARTICLE_DECONNECTE);
+			psmt.setString(1, "%"+nomArticle+"%");
+			psmt.setString(2, "%"+nomCategorie+"%");
 			ResultSet rs = psmt.executeQuery();
 			Article articleCourant = new Article();
 			while (rs.next()) {
