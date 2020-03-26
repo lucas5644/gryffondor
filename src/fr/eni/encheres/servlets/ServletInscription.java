@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import fr.eni.encheres.bll.EncheresManager;
 import fr.eni.encheres.bo.Utilisateur;
+import fr.eni.encheres.exception.BusinessException;
 
 /**
  * Servlet implementation class ServletTestConnexion
@@ -55,14 +56,19 @@ public class ServletInscription extends HttpServlet {
 			encheresManager.ajouterUser(user);
 			if(user.getNoUtilisateur()!= -1)
 			{
-				HttpSession session = request.getSession();
-				session.setAttribute("UtilisateurCourant", user);
-				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/accueilConnecte.jsp");
-				rd.forward(request, response);
+				try {
+					Utilisateur tryUser = new Utilisateur();
+					tryUser = encheresManager.checkConnexion(user.getPseudo(), user.getMotDePasse());
+					HttpSession session = request.getSession();
+					session.setAttribute("userConnected", tryUser);
+					RequestDispatcher rd = request.getRequestDispatcher("/Accueil/Utilisateur");
+					rd.forward(request, response);
+					
+				} catch (BusinessException e) {
+					e.printStackTrace();
+				}
 			}
-			else {
 
-			}
 		} catch (Exception e) {
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/inscription.jsp");
 			rd.forward(request, response);
