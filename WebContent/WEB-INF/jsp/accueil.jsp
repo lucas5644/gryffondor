@@ -1,6 +1,7 @@
 <%@page import="java.time.format.DateTimeFormatter"%>
 <%@page import="java.util.List"%>
 <%@page import="fr.eni.encheres.bo.Article"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <!DOCTYPE html>
@@ -42,7 +43,6 @@
 					<div class="card-body contenu">
 						<div class="contenu">
 
-							<!-- ici mettre la liste Colonne 1  -->
 							<form action="AffichageArticleDeconnecte" method="post"
 								class="justify-content-center mb-2">
 								<div class="form-group">
@@ -94,6 +94,7 @@
 										<td><%=article.getNomArticle()%></td>
 										<td><%=article.getMiseAPrix()%></td>
 										<td><%=article.getDateFinEncheres().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))%></td>
+										<td>${userConnected.pseudo}</td>
 									</tr>
 									<%
 										}
