@@ -17,4 +17,6 @@ public interface EnchereDAO {
 	boolean checkPseudoMail(String pseudo, String mail) throws BusinessException;
 	//Vérifier
 	public Utilisateur checkConnexion(String tryPseudo, String tryMdp) throws BusinessException;
+	//teste
+	public Utilisateur selectUtilisateur(String pseudo)throws BusinessException;
 }

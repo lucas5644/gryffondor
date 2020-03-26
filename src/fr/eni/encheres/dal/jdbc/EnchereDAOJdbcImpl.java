@@ -24,7 +24,8 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 	private static final String CHECK_CONNEXION = "select no_utilisateur ,pseudo , nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, administrateur, credit from UTILISATEURS where pseudo = ? and mot_de_passe = ?;";
 	private static final String CHECK_PSEUDO = "SELECT pseudo FROM UTILISATEURS WHERE pseudo = ?";
 	private static final String CHECK_MAIL = "SELECT email FROM UTILISATEURS WHERE email = ?";
-
+	private static final String SELECT_UTILISATEUR = "SELECT pseudo,nom,prenom,email,telephone,rue,code_postal,ville FROM UTILISATEURS WHERE pseudo = ?";
+	
 	public void insertArticle(Article article) throws BusinessException {
 		Connection con = null;
 		BusinessException be = new BusinessException();
@@ -268,5 +269,51 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 		}
 		return newUtilisateur;
 	}
+
+	public Utilisateur selectUtilisateur(String pseudo) throws BusinessException {
+		Connection cnx = null;
+		 BusinessException be = new BusinessException();
+
+		try {
+			cnx = ConnectionProvider.getConnection();
+			cnx.setAutoCommit(false);
+
+			PreparedStatement psmt = cnx.prepareStatement(SELECT_UTILISATEUR);
+			psmt.setString(1, pseudo);
+
+			ResultSet rs = psmt.executeQuery();
+			Utilisateur utilisateurselect = null;
+
+			if(rs.next()) {
+				
+			utilisateurselect = mappingUtilisateur(rs);
+			}
+			return utilisateurselect;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		
+			throw be;
+		}
+
+	}
+
+	private Utilisateur mappingUtilisateur(ResultSet rs) throws SQLException {
+		Utilisateur newUtilisateur = new Utilisateur();
+		newUtilisateur.setPseudo(rs.getString("pseudo"));
+		newUtilisateur.setNom(rs.getString("nom"));
+		newUtilisateur.setPrenom(rs.getString("prenom"));
+		newUtilisateur.setEmail(rs.getString("email"));
+		if (rs.getString("telephone") != null)
+			newUtilisateur.setTelephone(rs.getString("telephone"));
+		newUtilisateur.setRue(rs.getString("rue"));
+		newUtilisateur.setCodePostal(rs.getString("code_postal"));
+		newUtilisateur.setVille(rs.getString("ville"));
+
+		return newUtilisateur;
+
+	}
+
+	
 
 }

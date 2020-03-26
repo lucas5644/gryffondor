@@ -1,4 +1,4 @@
-package fr.eni.encheres.servlet;
+package fr.eni.encheres.servlets;
 
 import java.io.IOException;
 
@@ -9,7 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import fr.eni.encheres.bll.EnchereManager;
+
+import fr.eni.encheres.bll.EncheresManager;
 import fr.eni.encheres.bo.Utilisateur;
 import fr.eni.encheres.exception.BusinessException;
 
@@ -28,7 +29,7 @@ public class ServletUtilisateur extends HttpServlet {
 		String pseudo;
 		
 		pseudo =request.getParameter("rechercheUtilisateur");
-		EnchereManager em = new EnchereManager(); 
+		EncheresManager em = new EncheresManager(); 
 		
 		try {
 			Utilisateur user ;

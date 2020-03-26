@@ -103,6 +103,14 @@ public class EncheresManager {
 		return tryUser;
 		
 	}
+
+	public Utilisateur rechercheUtilisateur(String pseudo)throws BusinessException{
+		Utilisateur user ; 
+		user=enchereDAO.selectUtilisateur(pseudo);
+		
+		return user;
+	
+	}
 }
 
 
