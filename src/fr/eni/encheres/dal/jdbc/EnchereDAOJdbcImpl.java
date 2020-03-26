@@ -257,6 +257,8 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 			newUtilisateur.setPseudo(rs.getString("pseudo"));
 
 			return newUtilisateur;
+			
+			//commentaire
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
