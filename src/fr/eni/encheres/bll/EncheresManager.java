@@ -117,6 +117,13 @@ public class EncheresManager {
 		verification = enchereDAO.delete(noUtilisateur);
 	return verification;
 	}
+
+public Utilisateur updateUtilisateur (Utilisateur utilisateur)throws BusinessException{
+	Utilisateur user ;
+	user = enchereDAO.updateUtilisateur(utilisateur);
+	return user;
+	
+}
 }
 
 

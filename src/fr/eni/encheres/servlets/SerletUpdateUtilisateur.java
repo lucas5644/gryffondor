@@ -37,7 +37,7 @@ public class SerletUpdateUtilisateur extends HttpServlet {
 		try {
 			
 		 user=(Utilisateur) session.getAttribute("userConnected");	
-		 
+		 System.out.println(user);
 		 String pseudo = request.getParameter("pseudo");
 		 String nom = request.getParameter("nom");
 		 String prenom = request.getParameter("prenom");
@@ -50,7 +50,8 @@ public class SerletUpdateUtilisateur extends HttpServlet {
 		 String code_postal = request.getParameter("codePostal");
 		 String ville = request.getParameter("ville");
 		 String motDePasse = request.getParameter("motDePasse");
-		 String nouveauMotDePasse="";
+		 String nouveauMotDePasse=request.getParameter("motDePasse");
+		 String cNouveauMotDePasse=request.getParameter("motDePasse");
 		 
 		 updateUtilisateur.setNoUtilisateur(user.getNoUtilisateur());
 		 updateUtilisateur.setPseudo(pseudo);
@@ -64,6 +65,8 @@ public class SerletUpdateUtilisateur extends HttpServlet {
 		 updateUtilisateur.setMotDePasse(motDePasse);
 		 
 		enchereManager.checkUser(updateUtilisateur, be);
+		user=enchereManager.updateUtilisateur(updateUtilisateur);
+		System.out.println(user);
 		} catch (Exception e) {
 			e.printStackTrace();
 		
