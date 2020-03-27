@@ -101,7 +101,16 @@
 									<label for="dateFin">Fin de l'enchère</label> <input
 										class="form-control" type="date" name="dateFin">
 								</div>
-								<div></div>
+								<div>
+									<br><h3>Retrait</h3>
+									<label for="rue">Rue : </label>
+									<input class="form-control" name="rue" value="<%=request.getAttribute("rue")%>">
+									<label for="codePostal">Code postal : </label>
+									<input class="form-control" name="codePostal" value="<%=request.getAttribute("codePostal")%>">
+									<label for="ville">Ville : </label>
+									<input class="form-control" name="ville" value="<%=request.getAttribute("ville")%>">
+								</div>
+								<br>
 
 								<div>
 									<input type="submit" value="Enregistrer"
