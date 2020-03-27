@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.websocket.Session;
 
 import fr.eni.encheres.bll.EncheresManager;
@@ -86,6 +87,10 @@ public class ServletAjoutArticle extends HttpServlet {
 			try {
 				Article newArticle = new Article();
 				Categorie newCategorie = new Categorie();
+				Utilisateur user = new Utilisateur();
+				HttpSession session = request.getSession();
+				user = (Utilisateur) session.getAttribute("userConnected");
+				System.out.println(user.getPseudo());
 				switch (categorie) {
 				case "1":
 					newCategorie.setNoCategorie(1);
@@ -109,6 +114,7 @@ public class ServletAjoutArticle extends HttpServlet {
 				newArticle.setCategorieArticle(newCategorie);
 				newArticle.setDateDebutEncheres(debutEnchere);
 				newArticle.setDateFinEncheres(finEnchere);
+				newArticle.setVendeur(user);
 				encheresManager.ajouterArticle(newArticle);
 				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/ajouterArticle.jsp");
 				rd.forward(request, response);
