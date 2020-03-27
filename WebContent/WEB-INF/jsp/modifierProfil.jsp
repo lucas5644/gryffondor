@@ -137,6 +137,9 @@
 							
 									<input type="hidden" name="noUtilisateur" value="<%=iduserConnected%>"/>
 									<input type="submit" value="Supprimer Utilisateur" class="btn btn-primary" />
+									<%if(request.getAttribute("echec" )!= null){ %>
+									<a><%=request.getAttribute("echec") %></a>
+									<%} %>
 							</form>
 							
 

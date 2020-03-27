@@ -61,8 +61,16 @@ public class ServletDeleteUser extends HttpServlet {
 				
 				rd.forward(request, response);		
 			}
+			else {
+				request.setAttribute("echec", "Erreur, le compte n'a pas été suprimé");
+				RequestDispatcher rd = request.getRequestDispatcher("/profilCompte");
+				rd.forward(request, response);
+			}
+			
 		} catch (BusinessException e) {
-			// TODO Auto-generated catch block
+			request.setAttribute("echec", "Erreur, le compte n'a pas été suprimé");
+			RequestDispatcher rd = request.getRequestDispatcher("/accueil");
+			rd.forward(request, response);			
 			e.printStackTrace();
 		}
 		
