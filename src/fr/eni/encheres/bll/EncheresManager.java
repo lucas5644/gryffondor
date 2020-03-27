@@ -59,7 +59,7 @@ public class EncheresManager {
 		}
 	}
 	
-	private void checkUser(Utilisateur user, BusinessException be) {
+	public void checkUser(Utilisateur user, BusinessException be) {
 		if(user.getCodePostal().trim().length() != 5) {
 			be.ajouterErreur(10000);
 			System.out.println("erreur cp");

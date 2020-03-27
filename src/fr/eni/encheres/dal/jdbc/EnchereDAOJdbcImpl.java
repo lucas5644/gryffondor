@@ -27,6 +27,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 	private static final String CHECK_MAIL = "SELECT email FROM UTILISATEURS WHERE email = ?";
 	private static final String SELECT_UTILISATEUR = "SELECT pseudo,nom,prenom,email,telephone,rue,code_postal,ville FROM UTILISATEURS WHERE pseudo = ?";
 	private static final String DELETE = "DELETE FROM UTILISATEURS WHERE no_utilisateur = ?;";
+	private static final String UPDATE_UTILISATEUR = "update UTILISATEURS set pseudo = ?, nom = ?, prenom =  ?, email = ?, telephone = ?, rue = ?, code_postal = ?, ville = ?, mot_de_passe = ? where no_utilisateur = ?;";
 	
 	public void insertArticle(Article article) throws BusinessException {
 		Connection con = null;
@@ -335,6 +336,45 @@ public boolean delete(int nbUtilisateur) throws BusinessException{
 			e.printStackTrace();
 			throw be;
 		}
-	}
+
+}
+
+
+public  Utilisateur updateUtilisateur(Utilisateur utilisateur)throws BusinessException {
+	Connection cnx = null;
+	 BusinessException be = new BusinessException();
+	 try {
+			cnx = ConnectionProvider.getConnection();
+			cnx.setAutoCommit(false);
+
+			PreparedStatement psmt = cnx.prepareStatement(UPDATE_UTILISATEUR);
+			
+			psmt.setString(1, utilisateur.getPseudo());
+			psmt.setString(2, utilisateur.getNom());
+			psmt.setString(3, utilisateur.getPrenom());
+			psmt.setString(4, utilisateur.getEmail());
+			if (utilisateur.getTelephone() != null) {
+				psmt.setString(5, utilisateur.getTelephone());
+			}
+
+			psmt.setString(6, utilisateur.getRue());
+			psmt.setString(7, utilisateur.getCodePostal());
+			psmt.setString(8, utilisateur.getVille());
+			psmt.setString(9, utilisateur.getMotDePasse());
+			psmt.setInt(10, utilisateur.getNoUtilisateur());
+			
+		if(	psmt.executeUpdate()==1) {
+			cnx.commit();
+		}
+			return utilisateur;
+			
+	 } catch (SQLException e) {
+		 e.printStackTrace();
+
+		 throw be;
+	 }
+
+}
+
 
 }

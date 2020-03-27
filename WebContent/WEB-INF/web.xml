@@ -4,7 +4,6 @@
     <welcome-file>accueil</welcome-file>
   </welcome-file-list>
   <servlet>
-  
     <servlet-name>JSP_INSCRIPTION</servlet-name>
     <jsp-file>/WEB-INF/jsp/inscription.jsp</jsp-file>
   </servlet>
@@ -12,7 +11,6 @@
     <servlet-name>JSP_INSCRIPTION</servlet-name>
     <url-pattern>/inscription</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <servlet-name>JSP_CONNECT</servlet-name>
     <jsp-file>/WEB-INF/jsp/connexion.jsp</jsp-file>
@@ -21,40 +19,44 @@
     <servlet-name>JSP_CONNECT</servlet-name>
     <url-pattern>/connexion</url-pattern>
   </servlet-mapping>
-  
   <servlet>
-     <servlet-name>JSP_ACCUEILNORMALE</servlet-name>
+    <servlet-name>JSP_ACCUEILNORMALE</servlet-name>
     <jsp-file>/WEB-INF/jsp/accueil.jsp</jsp-file>
   </servlet>
   <servlet-mapping>
     <servlet-name>JSP_ACCUEILNORMALE</servlet-name>
     <url-pattern>/accueil</url-pattern>
   </servlet-mapping>
-  
-    <servlet>
-     <servlet-name>JSP_ACCUEILNCONNECTE</servlet-name>
+  <servlet>
+    <servlet-name>JSP_ACCUEILNCONNECTE</servlet-name>
     <jsp-file>/WEB-INF/jsp/accueilConnecte.jsp</jsp-file>
   </servlet>
   <servlet-mapping>
     <servlet-name>JSP_ACCUEILNCONNECTE</servlet-name>
     <url-pattern>/Accueil/Utilisateur</url-pattern>
   </servlet-mapping>
-  
-    <servlet>
-     <servlet-name>JSP_VENDREARTICLE</servlet-name>
+  <servlet>
+    <servlet-name>JSP_VENDREARTICLE</servlet-name>
     <jsp-file>/WEB-INF/jsp/ajouterArticle.jsp</jsp-file>
   </servlet>
   <servlet-mapping>
     <servlet-name>JSP_VENDREARTICLE</servlet-name>
     <url-pattern>/AjouterArticle</url-pattern>
   </servlet-mapping>
-  
-   <servlet>
-     <servlet-name>JSP_AFFICHERPROFIL</servlet-name>
+  <servlet>
+    <servlet-name>JSP_AFFICHERPROFIL</servlet-name>
     <jsp-file>/WEB-INF/jsp/utilisateurBtnModifier.jsp</jsp-file>
   </servlet>
   <servlet-mapping>
     <servlet-name>JSP_AFFICHERPROFIL</servlet-name>
     <url-pattern>/monprofil</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>JSP_AFFICHERPROFILMODIFIER</servlet-name>
+    <jsp-file>/WEB-INF/jsp/modifierProfil.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>JSP_AFFICHERPROFILMODIFIER</servlet-name>
+    <url-pattern>/profilmodifie</url-pattern>
   </servlet-mapping>
 </web-app>
