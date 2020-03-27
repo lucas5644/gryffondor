@@ -75,6 +75,15 @@ public class ServletAjoutArticle extends HttpServlet {
 			e.printStackTrace();
 			listeCodesErreur.add(CodesResultatServlets.FORMAT_DATE_ERREUR);
 		}
+		//Ajout du lieu de retrait
+		
+		Utilisateur utilisateurCourant = new Utilisateur();
+		String rue = utilisateurCourant.getRue();
+		String codePostal = utilisateurCourant.getCodePostal();
+		String ville = utilisateurCourant.getVille();
+		request.setAttribute("rue", rue);
+		request.setAttribute("codePostal", codePostal);
+		request.setAttribute("ville", ville);
 		// Réalisation du traitement
 		if (listeCodesErreur.size() > 0) {
 			// Je renvoie les codes d'erreurs
