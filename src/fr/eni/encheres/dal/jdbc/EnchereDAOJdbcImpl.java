@@ -16,6 +16,7 @@ import fr.eni.encheres.dal.ConnectionProvider;
 import fr.eni.encheres.dal.EnchereDAO;
 import fr.eni.encheres.exception.BusinessException;
 
+
 public class EnchereDAOJdbcImpl implements EnchereDAO {
 	private static final String INSERT_ARTICLE = "INSERT INTO ARTICLES(nom_article,description,date_debut_encheres,date_fin_encheres,no_utilisateur,no_categorie) VALUES(?,?,?,?,?,?);";
 	private static final String SELECT_ARTICLE_DECONNECTE = "SELECT a.nom_article, a.prix_initial, a.date_fin_encheres, u.pseudo FROM ARTICLES a INNER JOIN CATEGORIES c on c.no_categorie = a.no_categorie INNER JOIN UTILISATEURS u on u.no_utilisateur = a.no_utilisateur WHERE a.nom_article LIKE ? AND c.libelle LIKE ?;";
@@ -25,6 +26,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 	private static final String CHECK_PSEUDO = "SELECT pseudo FROM UTILISATEURS WHERE pseudo = ?";
 	private static final String CHECK_MAIL = "SELECT email FROM UTILISATEURS WHERE email = ?";
 	private static final String SELECT_UTILISATEUR = "SELECT pseudo,nom,prenom,email,telephone,rue,code_postal,ville FROM UTILISATEURS WHERE pseudo = ?";
+	private static final String DELETE = "DELETE FROM UTILISATEURS WHERE no_utilisateur = ?;";
 	
 	public void insertArticle(Article article) throws BusinessException {
 		Connection con = null;
@@ -310,6 +312,29 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 
 	}
 
-	
+public boolean delete(int nbUtilisateur) throws BusinessException{
+	BusinessException be = new BusinessException();
+		try {
+			Connection con = ConnectionProvider.getConnection();
+			con.setAutoCommit(false);
+			
+			PreparedStatement psmt = con.prepareStatement(DELETE);
+			psmt.setInt(1, nbUtilisateur);
+			int nbEnr = psmt.executeUpdate();
+			if (nbEnr != 1) {
+				con.rollback();
+				be.ajouterErreur(CodesResultatDAL.DELETE_OBJET_ECHEC);
+				
+			}
+			con.commit();
+			con.close();
+			psmt.close();
+			return  true;
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+			throw be;
+		}
+	}
 
 }

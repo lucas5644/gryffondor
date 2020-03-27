@@ -9,6 +9,7 @@ import fr.eni.encheres.dal.DAOFactory;
 import fr.eni.encheres.dal.EnchereDAO;
 import fr.eni.encheres.exception.BusinessException;
 
+
 public class EncheresManager {
 	private EnchereDAO enchereDAO;
 	
@@ -111,6 +112,12 @@ public class EncheresManager {
 		return user;
 	
 	}
+	public void removeUtilisateur (int noUtilisateur) throws BusinessException{
+
+			enchereDAO.delete(noUtilisateur);
+		
+	
+}
 }
 
 
