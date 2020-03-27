@@ -59,4 +59,9 @@
     <servlet-name>JSP_AFFICHERPROFILMODIFIER</servlet-name>
     <url-pattern>/profilmodifie</url-pattern>
   </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>JSP_MODIFIERPROFIL</servlet-name>
+  	<url-pattern>/deleteuser</url-pattern>
+  
+  </servlet-mapping>
 </web-app>

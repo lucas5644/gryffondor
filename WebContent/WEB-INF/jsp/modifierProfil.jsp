@@ -1,7 +1,7 @@
 <%@page import="fr.eni.encheres.messages.LecteurMessage"%>
 <%@page import="java.util.List"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="fr.eni.encheres.bo.Utilisateur"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,7 +29,7 @@
 </head>
 <body>
 <% Utilisateur userConnected = (Utilisateur)session.getAttribute("userConnected");
-								String iduserConnected = userConnected.getumUtilisateur();
+								String iduserConnected = String.valueOf(userConnected.getNoUtilisateur());
 							%>
 	<!-- Navigation -->
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
@@ -73,7 +73,7 @@
 									<ul>
 										<%for(Integer code : listeCodesErreur) {%>
 										
-											<li><%=LectureMessages.getMessageErreur(code)%></li>
+											<li><%=LecteurMessage.getMessageErreur(code)%></li>
 										<%} %>
 									</ul>
 								</div>
@@ -135,13 +135,10 @@
 							<!-- -Pour le doPost -->
 							<form action="DeleteUser" method ="post">
 							
-							
 									<input type="hidden" name="noUtilisateur" value="<%=iduserConnected%>"/>
 									<input type="submit" value="Supprimer Utilisateur" class="btn btn-primary" />
 							</form>
-							<!-- Pour le doGet -->
-							<a href="<%=request.getContextPath()/DeleteUser?noUtilisateur="+iduserConnected%>"><input
-										type="button" value="Suprimer mon compte" class="btn btn-primary" /></a>
+							
 
 						</div>
 					</div>
@@ -156,7 +153,13 @@
 
 	<!-- Footer -->
 	<footer class="py-5 bg-dark">
-		
+		  <div class="container">
+        <p class="m-0 text-center text-white">Copyright &copy; Maison
+            Gryffondor 2020    <img src="<%=request.getContextPath()%>/images/gryffondor.jpg"
+            width="100px" alt="photo Gryffondor">
+        </p>
+    </div>
+    <!-- /.container -->
 	</footer>
 
 	<!-- Bootstrap core JavaScript -->
