@@ -52,7 +52,7 @@
 								<div class="form-group">
 									<label for="nomCategorie"></label> <select name="nomCategorie"
 										size="1">
-										<option value="e">Toutes</option>
+										<option value="">Toutes</option>
 										<option value="Informatique">Informatique</option>
 										<option value="Ameublement">Ameublement</option>
 										<option value="Vêtement">Vêtement</option>

@@ -28,7 +28,7 @@
 			<a class="navbar-brand" href="<%=request.getContextPath()%>">Accueil
 				Enchère</a>
 			<div>
-				<a href="">Vendre un Article</a>
+				<a href="AjouterArticle">Vendre un Article</a>
 			</div>
 			
 			<div>
