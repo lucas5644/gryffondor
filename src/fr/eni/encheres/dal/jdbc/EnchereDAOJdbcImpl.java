@@ -80,10 +80,12 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 
 	private Article mappingArticle(ResultSet rs) throws SQLException {
 		Article newArticle = new Article();
+		Utilisateur newUtilisateur = new Utilisateur();
+		newUtilisateur.setPseudo(rs.getString("pseudo"));
 		newArticle.setNomArticle(rs.getString("nom_article"));
 		newArticle.setPrixVente(rs.getInt("prix_initial"));
 		newArticle.setDateFinEncheres(rs.getDate("date_fin_encheres").toLocalDate());
-//		newArticle.getVendeur().setPseudo(rs.getString("pseudo"));
+		newArticle.setVendeur(newUtilisateur);
 		return newArticle;
 	}
 
@@ -313,68 +315,67 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 
 	}
 
-public boolean delete(int nbUtilisateur) throws BusinessException{
-	BusinessException be = new BusinessException();
-		try {
-			Connection con = ConnectionProvider.getConnection();
-			con.setAutoCommit(false);
-			
-			PreparedStatement psmt = con.prepareStatement(DELETE);
-			psmt.setInt(1, nbUtilisateur);
-			int nbEnr = psmt.executeUpdate();
-			if (nbEnr != 1) {
-				con.rollback();
-				be.ajouterErreur(CodesResultatDAL.DELETE_OBJET_ECHEC);
+	public boolean delete(int nbUtilisateur) throws BusinessException{
+		BusinessException be = new BusinessException();
+			try {
+				Connection con = ConnectionProvider.getConnection();
+				con.setAutoCommit(false);
 				
+				PreparedStatement psmt = con.prepareStatement(DELETE);
+				psmt.setInt(1, nbUtilisateur);
+				int nbEnr = psmt.executeUpdate();
+				if (nbEnr != 1) {
+					con.rollback();
+					be.ajouterErreur(CodesResultatDAL.DELETE_OBJET_ECHEC);
+					
+				}
+				con.commit();
+				con.close();
+				psmt.close();
+				return  true;
 			}
-			con.commit();
-			con.close();
-			psmt.close();
-			return  true;
-		}
-		catch (SQLException e) {
-			e.printStackTrace();
-			throw be;
-		}
-
-}
-
-
-public  Utilisateur updateUtilisateur(Utilisateur utilisateur)throws BusinessException {
-	Connection cnx = null;
-	 BusinessException be = new BusinessException();
-	 try {
-			cnx = ConnectionProvider.getConnection();
-			cnx.setAutoCommit(false);
-
-			PreparedStatement psmt = cnx.prepareStatement(UPDATE_UTILISATEUR);
-			
-			psmt.setString(1, utilisateur.getPseudo());
-			psmt.setString(2, utilisateur.getNom());
-			psmt.setString(3, utilisateur.getPrenom());
-			psmt.setString(4, utilisateur.getEmail());
-			if (utilisateur.getTelephone() != null) {
-				psmt.setString(5, utilisateur.getTelephone());
+			catch (SQLException e) {
+				e.printStackTrace();
+				throw be;
 			}
 
-			psmt.setString(6, utilisateur.getRue());
-			psmt.setString(7, utilisateur.getCodePostal());
-			psmt.setString(8, utilisateur.getVille());
-			psmt.setString(9, utilisateur.getMotDePasse());
-			psmt.setInt(10, utilisateur.getNoUtilisateur());
-			
-		if(	psmt.executeUpdate()==1) {
-			cnx.commit();
-		}
-			return utilisateur;
-			
-	 } catch (SQLException e) {
-		 e.printStackTrace();
+	}
 
-		 throw be;
-	 }
 
-}
+	public  Utilisateur updateUtilisateur(Utilisateur utilisateur)throws BusinessException {
+		Connection cnx = null;
+		 BusinessException be = new BusinessException();
+		 try {
+				cnx = ConnectionProvider.getConnection();
+				cnx.setAutoCommit(false);
 
+				PreparedStatement psmt = cnx.prepareStatement(UPDATE_UTILISATEUR);
+				
+				psmt.setString(1, utilisateur.getPseudo());
+				psmt.setString(2, utilisateur.getNom());
+				psmt.setString(3, utilisateur.getPrenom());
+				psmt.setString(4, utilisateur.getEmail());
+				if (utilisateur.getTelephone() != null) {
+					psmt.setString(5, utilisateur.getTelephone());
+				}
+
+				psmt.setString(6, utilisateur.getRue());
+				psmt.setString(7, utilisateur.getCodePostal());
+				psmt.setString(8, utilisateur.getVille());
+				psmt.setString(9, utilisateur.getMotDePasse());
+				psmt.setInt(10, utilisateur.getNoUtilisateur());
+				
+			if(	psmt.executeUpdate()==1) {
+				cnx.commit();
+			}
+				return utilisateur;
+				
+		 } catch (SQLException e) {
+			 e.printStackTrace();
+
+			 throw be;
+		 }
+
+	}
 
 }
