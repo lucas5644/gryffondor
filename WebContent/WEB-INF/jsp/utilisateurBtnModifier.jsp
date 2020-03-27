@@ -26,6 +26,21 @@
 	rel="stylesheet">
 
 
+
+
+<!-- Page Heading -->
+
+
+
+
+					<title>Afficher utilisateur</title>
+					<style>
+ul {
+	list-style-type: none;
+}
+</style>
+</head>
+<body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
 	<div class="container">
 		<a class="navbar-brand"
@@ -41,21 +56,7 @@
 	</div>
 
 </nav>
-
-<!-- Page Heading -->
-<h1 class="my-4">Utilisateur</h1>
-
-
-
-					<title>Afficher utilisateur</title>
-					<style>
-ul {
-	list-style-type: none;
-}
-</style>
-</head>
-<body>
-	<h1>${utilisateur.pseudo}</h1>
+	<h1 class="my-4">Utilisateur : ${userConnected.pseudo}</h1>
 
 	<div class="col-lg-12 col-md-12 col-sm-12 portfolio-item">
 	
