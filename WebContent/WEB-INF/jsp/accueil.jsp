@@ -52,18 +52,18 @@
 								<div class="form-group">
 									<label for="nomCategorie"></label> <select name="nomCategorie"
 										size="1">
-										<option value="e">Toutes </option>
-										<option value="Informatique">Informatique </option>
-										<option value="Ameublement">Ameublement </option>
-										<option value="Vêtement">Vêtement </option>
-										<option value="Sport et loisir">Sport et loisir </option>
+										<option value="e">Toutes</option>
+										<option value="Informatique">Informatique</option>
+										<option value="Ameublement">Ameublement</option>
+										<option value="Vêtement">Vêtement</option>
+										<option value="Sport et loisir">Sport et loisir</option>
 									</select>
 								</div>
 								<div>
 									<input type="submit" value="Rechercher" class="btn btn-primary" />
 								</div>
 							</form>
-						</div> 
+						</div>
 					</div>
 				</div>
 			</div>
@@ -71,48 +71,14 @@
 				<div class="card h-100">
 					<div class="card-body contenu">
 						<div class="contenu">
-							<%
-								if (request.getAttribute("listeArticle") != null) {
-									List<Article> listeArticle = (List<Article>) request.getAttribute("listeArticle");
-									if (listeArticle.size() > 0) {
-							%>
-							<table class="table">
-								<thead class="thead-dark">
-									<tr>
-										<th scope="col">Nom de l'article :</th>
-										<th scope="col">Prix :</th>
-										<th scope="col">Fin de l'enchère</th>
-										<th scope="col">Vendeur</th>
-									</tr>
-								</thead>
-								<tbody>
-									<%
-										for (Article article : listeArticle) {
-									%>
-
-									<tr>
-										<td><%=article.getNomArticle()%></td>
-										<td><%=article.getMiseAPrix()%></td>
-										<td><%=article.getDateFinEncheres().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))%></td>
-										<td>${userConnected.pseudo}</td>
-									</tr>
-									<%
-										}
-									%>
-								</tbody>
-							</table>
-							<%
-								} else {
-							%>
-
-							<div class="alert alert-info" role="alert">
-								<strong>Il n'y a aucun article à afficher</strong>
-							</div>
-							<%
-								}
-								}
-							%>
-
+							<c:forEach var="article" items="${listeArticle}">
+								<div class="col-lg-5 d-inline-block contenu portfolio-item">
+									<a>Nom de l'article : ${article.nomArticle}</a><br> <a>Prix
+										de départ : ${article.miseAPrix}</a><br> <a>Fin de
+										l'enchère : ${article.dateFinEncheres}</a><br> <a>Pseudo
+										: ${article.vendeur.pseudo}</a>
+								</div>
+							</c:forEach>
 						</div>
 					</div>
 				</div>
@@ -124,7 +90,15 @@
 
 </body>
 
- <%@ include file="footer.html"  %>
+<footer class="py-5 bg-dark">
+	<div class="container">
+		<p class="m-0 text-center text-white">
+			Copyright &copy; Maison Gryffondor 2020 <img
+				src="<%=request.getContextPath()%>/images/gryffondor.jpg"
+				width="100px" alt="photo Gryffondor">
+		</p>
 
-
+	</div>
+	<!-- /.container -->
+</footer>
 </html>
