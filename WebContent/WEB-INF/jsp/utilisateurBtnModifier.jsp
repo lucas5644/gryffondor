@@ -25,13 +25,7 @@
 <link href="<%=request.getContextPath()%>/css/style.css"
 	rel="stylesheet">
 
-
-
-
 <!-- Page Heading -->
-
-
-
 
 					<title>Afficher utilisateur</title>
 					<style>
@@ -75,10 +69,12 @@ ul {
 			
 		</div>
 	
-	<form action="">
+	
+	<a href="<%=request.getContextPath()%>/profilmodifie" class="button" >Modifier </a>
+	
 		<input type="submit" name="Modifier" value="Modifier"
 			class="btn btn-primary">
-	</form>
+	
 
 	<%@ include file="footer.html"%>
 	<!-- Bootstrap core JavaScript -->
