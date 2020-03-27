@@ -89,8 +89,8 @@ public class ServletAjoutArticle extends HttpServlet {
 				Categorie newCategorie = new Categorie();
 				Utilisateur user = new Utilisateur();
 				HttpSession session = request.getSession();
+				System.out.println(session);
 				user = (Utilisateur) session.getAttribute("userConnected");
-				System.out.println(user.getPseudo());
 				switch (categorie) {
 				case "1":
 					newCategorie.setNoCategorie(1);
@@ -116,6 +116,7 @@ public class ServletAjoutArticle extends HttpServlet {
 				newArticle.setDateFinEncheres(finEnchere);
 				newArticle.setVendeur(user);
 				encheresManager.ajouterArticle(newArticle);
+				System.out.println(newArticle);
 				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/ajouterArticle.jsp");
 				rd.forward(request, response);
 
