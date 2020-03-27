@@ -17,6 +17,13 @@ public class ServletTest extends HttpServlet {
 	// VERSION DE LUCAS
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.getWriter().append("Served at: ").append(request.getContextPath());
+	// ici c'est victor qui parle pour check le pullcommit
+		
+	
+	
+	
+	
+	
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
