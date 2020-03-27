@@ -58,4 +58,5 @@
 	
 
 </body>
+ <%@ include file="footer.html"  %>
 </html>

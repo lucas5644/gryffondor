@@ -71,18 +71,26 @@
 									</select>
 								</div>
 								<div>
-									<input type="radio" name="mode" id="modeAchat">
-									<label for="modeAchat">Achats</label>
-									
+									<div>
+										<input type="radio" name="mode" id="modeAchat">
+										<label for="modeAchat">Achats</label><br>
+										<input type="checkbox" id="achatOuvert" name="achatOuvert" value="achatOuvert">
+										<label for="achatOuvert">Enchère Ouvertes</label><br>
+										
+										<input type="checkbox" id="achatEnCours" name="achatEnCours" value="achatEnCours">
+										<label for="achatEnCours">Mes enchères en Cours</label><br>
+										
+										<input type="checkbox" id="achatRemport" name="achatRemport" value="achatRemport">
+										<label for="achatRemport">Enchère Ouvertes</label><br>
+										
+									</div>
 								
-								
-								
-								</div>
-								
-								<div>
-									<input type="radio" name="mode" id="modeVente">
-									<label for="modeVente">Mes Ventes</label>
-								
+									<div>
+										<input type="radio" name="mode" id="modeVente">
+										<label for="modeVente">Mes Ventes</label>
+										
+										
+									</div>
 								</div>
 								<div>
 									<input type="submit" value="Rechercher" class="btn btn-primary" />
