@@ -39,7 +39,7 @@ public class ServletConnexion extends HttpServlet {
 		}else {
 			HttpSession sessionUtilisateur = request.getSession();
 			sessionUtilisateur.setAttribute("userConnected", tryUser);
-			RequestDispatcher rd = request.getRequestDispatcher("/Accueil/Utilisateur");
+			RequestDispatcher rd = request.getRequestDispatcher("/AccueilUtilisateur");
 			rd.forward(request, response);			
 		}
 	}

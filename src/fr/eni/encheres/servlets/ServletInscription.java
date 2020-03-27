@@ -61,7 +61,7 @@ public class ServletInscription extends HttpServlet {
 					tryUser = encheresManager.checkConnexion(user.getPseudo(), user.getMotDePasse());
 					HttpSession session = request.getSession();
 					session.setAttribute("userConnected", tryUser);
-					RequestDispatcher rd = request.getRequestDispatcher("/Accueil/Utilisateur");
+					RequestDispatcher rd = request.getRequestDispatcher("/AccueilUtilisateur");
 					rd.forward(request, response);
 					
 				} catch (BusinessException e) {

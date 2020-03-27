@@ -33,7 +33,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>JSP_ACCUEILNCONNECTE</servlet-name>
-    <url-pattern>/Accueil/Utilisateur</url-pattern>
+    <url-pattern>/AccueilUtilisateur</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>JSP_VENDREARTICLE</servlet-name>
