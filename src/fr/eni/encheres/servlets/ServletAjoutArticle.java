@@ -45,6 +45,10 @@ public class ServletAjoutArticle extends HttpServlet {
 		int prixDepart = 0;
 		LocalDate debutEnchere = null;
 		LocalDate finEnchere = null;
+		Utilisateur user = new Utilisateur();
+		HttpSession session = request.getSession();
+		System.out.println(session);
+		user = (Utilisateur) session.getAttribute("userConnected");
 		request.setCharacterEncoding("UTF-8");
 		List<Integer> listeCodesErreur = new ArrayList<>();
 		// lecture article
@@ -75,15 +79,7 @@ public class ServletAjoutArticle extends HttpServlet {
 			e.printStackTrace();
 			listeCodesErreur.add(CodesResultatServlets.FORMAT_DATE_ERREUR);
 		}
-		//Ajout du lieu de retrait
-		
-		Utilisateur utilisateurCourant = new Utilisateur();
-		String rue = utilisateurCourant.getRue();
-		String codePostal = utilisateurCourant.getCodePostal();
-		String ville = utilisateurCourant.getVille();
-		request.setAttribute("rue", rue);
-		request.setAttribute("codePostal", codePostal);
-		request.setAttribute("ville", ville);
+
 		// Réalisation du traitement
 		if (listeCodesErreur.size() > 0) {
 			// Je renvoie les codes d'erreurs
@@ -96,10 +92,7 @@ public class ServletAjoutArticle extends HttpServlet {
 			try {
 				Article newArticle = new Article();
 				Categorie newCategorie = new Categorie();
-				Utilisateur user = new Utilisateur();
-				HttpSession session = request.getSession();
-				System.out.println(session);
-				user = (Utilisateur) session.getAttribute("userConnected");
+				
 				switch (categorie) {
 				case "1":
 					newCategorie.setNoCategorie(1);
@@ -114,7 +107,7 @@ public class ServletAjoutArticle extends HttpServlet {
 					newCategorie.setLibelle("Vêtement");
 					break;
 				case "4":
-					newCategorie.setNoCategorie(4);
+ 					newCategorie.setNoCategorie(4);
 					newCategorie.setLibelle("Sport et loisir");
 					break;
 				}
@@ -123,10 +116,11 @@ public class ServletAjoutArticle extends HttpServlet {
 				newArticle.setCategorieArticle(newCategorie);
 				newArticle.setDateDebutEncheres(debutEnchere);
 				newArticle.setDateFinEncheres(finEnchere);
+				newArticle.setMiseAPrix(prixDepart);
 				newArticle.setVendeur(user);
 				encheresManager.ajouterArticle(newArticle);
 				System.out.println(newArticle);
-				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/ajouterArticle.jsp");
+				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/accueilConnecte.jsp");
 				rd.forward(request, response);
 
 			} catch (BusinessException e) {

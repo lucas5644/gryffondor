@@ -104,11 +104,11 @@
 								<div>
 									<br><h3>Retrait</h3>
 									<label for="rue">Rue : </label>
-									<input class="form-control" name="rue" value="<%=request.getAttribute("rue")%>">
+									<input class="form-control" name="rue" value="${userConnected.rue}">
 									<label for="codePostal">Code postal : </label>
-									<input class="form-control" name="codePostal" value="<%=request.getAttribute("codePostal")%>">
+									<input class="form-control" name="codePostal" value="${userConnected.codePostal}">
 									<label for="ville">Ville : </label>
-									<input class="form-control" name="ville" value="<%=request.getAttribute("ville")%>">
+									<input class="form-control" name="ville" value="${userConnected.ville}">
 								</div>
 								<br>
 
