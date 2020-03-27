@@ -119,6 +119,9 @@
 		<!-- /.row -->
 
 	</div>
+	
+	 <%@ include file="footer.html"  %>
+	
 	<!-- /.container -->
 	<!-- Bootstrap core JavaScript -->
 	<script src="vendor/jquery/jquery.min.js"></script>

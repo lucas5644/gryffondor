@@ -124,17 +124,7 @@
 
 </body>
 
-<footer class="py-5 bg-dark">
-	<div class="container">
-		<p class="m-0 text-center text-white">
-			Copyright &copy; Maison Gryffondor 2020 <img
-				src="<%=request.getContextPath()%>/images/gryffondor.jpg"
-				width="100px" alt="photo Gryffondor">
-		</p>
-
-	</div>
-	<!-- /.container -->
-</footer>
+ <%@ include file="footer.html"  %>
 
 
 </html>

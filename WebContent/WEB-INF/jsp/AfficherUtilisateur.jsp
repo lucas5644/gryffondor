@@ -84,18 +84,7 @@
 	
 </body>
 
-<footer class="py-5 bg-dark">
-		<div class="container">
-			<p class="m-0 text-center text-white">Copyright &copy; Maison Gryffondor
-				2020 </p>
-			
-				
-				<img src="<%=request.getContextPath()%>/img/gryffondor.jpg"
-         			   width="100px" height="100px" alt="photo Gryffondor">
-				
-		</div>
-		<!-- /.container -->
-	</footer>
+ <%@ include file="footer.html"  %>
 
 	<!-- Bootstrap core JavaScript -->
 	<script src="vendor/jquery/jquery.min.js"></script>
