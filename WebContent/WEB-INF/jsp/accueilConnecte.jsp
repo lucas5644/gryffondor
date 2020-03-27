@@ -47,23 +47,72 @@
 	<div class="container">
 
 		<!-- Page Heading -->
-		<br></br>
+		<h1 class="my-4">Site d'enchères de dingue</h1>
 		<div class="row">
 			<div class="col-lg-12 col-md-12 col-sm-12 portfolio-item">
 				<div class="card h-100">
 					<div class="card-body contenu">
 						<div class="contenu">
-							
-								<!-- On fait ce qu'on veut ici  -->
 
+							<form action="AffichageArticleDeconnecte" method="post"
+								class="justify-content-center mb-2">
+								<div class="form-group">
+									<label for="nomArticle">Nom de l'article</label>
+									<textarea name="nomArticle" class="form-control"></textarea>
+								</div>
+								<div class="form-group">
+									<label for="nomCategorie"></label> <select name="nomCategorie"
+										size="1">
+										<option value="">Toutes</option>
+										<option value="Informatique">Informatique</option>
+										<option value="Ameublement">Ameublement</option>
+										<option value="Vêtement">Vêtement</option>
+										<option value="Sport et loisir">Sport et loisir</option>
+									</select>
+								</div>
+								<div>
+									<input type="radio" name="mode" id="modeAchat">
+									<label for="modeAchat">Achats</label>
+									
+								
+								
+								
+								</div>
+								
+								<div>
+									<input type="radio" name="mode" id="modeVente">
+									<label for="modeVente">Mes Ventes</label>
+								
+								</div>
+								<div>
+									<input type="submit" value="Rechercher" class="btn btn-primary" />
+								</div>
+							</form>
 						</div>
 					</div>
 				</div>
 			</div>
+			<div class="col-lg-12 col-md-12 col-sm-12 portfolio-item">
+				<div class="card h-100">
+					<div class="card-body contenu">
+						<div class="contenu">
+							<c:forEach var="article" items="${listeArticle}">
+								<div class="col-lg-5 d-inline-block contenu portfolio-item">
+									<a>Nom de l'article : ${article.nomArticle}</a><br> <a>Prix
+										de départ : ${article.miseAPrix}</a><br> <a>Fin de
+										l'enchère : ${article.dateFinEncheres}</a><br> <a>Pseudo
+										: ${article.vendeur.pseudo}</a>
+								</div>
+							</c:forEach>
+						</div>
+					</div>
+				</div>
 
+			</div>
 		</div>
 		<!-- /.row -->
 	</div>
+
 </body>
 
 
