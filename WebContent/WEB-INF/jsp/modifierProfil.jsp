@@ -109,7 +109,7 @@
 								<div>
 								<div>
 									 <label for="codePostal">Code postal : </label>
-                                     <input type="text" name="codePostal" id="code_postal" />
+                                     <input type="text" name="codePostal" id="codePostal" />
 								</div>
 								<div>
 								     <label for="ville">Ville : </label>

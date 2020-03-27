@@ -47,9 +47,9 @@ public class SerletUpdateUtilisateur extends HttpServlet {
 			  telephone = request.getParameter("telephone");
 		 }
 		 String rue = request.getParameter("rue");
-		 String code_postal = request.getParameter("code_postal");
+		 String code_postal = request.getParameter("codePostal");
 		 String ville = request.getParameter("ville");
-		 String motDePasse = request.getParameter("mot_de_passe");
+		 String motDePasse = request.getParameter("motDePasse");
 		 String nouveauMotDePasse="";
 		 
 		 updateUtilisateur.setNoUtilisateur(user.getNoUtilisateur());
