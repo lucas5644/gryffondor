@@ -45,11 +45,6 @@
 <!-- Page Heading -->
 <h1 class="my-4">Utilisateur</h1>
 
-<div class="row">
-	<div class="col-lg-12 col-md-12 col-sm-12 portfolio-item">
-		<div class="card h-100">
-			<div class="card-body contenu">
-				<div class="contenu">
 
 
 					<title>Afficher utilisateur</title>
@@ -63,7 +58,7 @@ ul {
 	<h1>${utilisateur.pseudo}</h1>
 
 	<div class="col-lg-12 col-md-12 col-sm-12 portfolio-item">
-		<div class="">
+	
 			<ul>
 
 				<li>Pseudo : ${userConnected.pseudo}</li>
@@ -76,8 +71,9 @@ ul {
 				<li>Ville : ${userConnected.ville}</li>
 
 			</ul>
+			
 		</div>
-	</div>
+	
 	<form action="">
 		<input type="submit" name="Modifier" value="Modifier"
 			class="btn btn-primary">
