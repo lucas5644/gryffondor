@@ -38,7 +38,7 @@
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav ml-auto">
 					<li class="nav-item active"><a class="nav-link"
-						href="<%=request.getContextPath()%>">Accueil <span
+						href="<%=request.getContextPath()%>/WebContent\WEB-INF\jsp\accueilConnecte.jsp">Accueil <span
 							class="sr-only">(current)</span>
 					</a></li>
 					
