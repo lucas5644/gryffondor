@@ -112,12 +112,11 @@ public class EncheresManager {
 		return user;
 	
 	}
-	public void removeUtilisateur (int noUtilisateur) throws BusinessException{
-
-			enchereDAO.delete(noUtilisateur);
-		
-	
-}
+	public boolean removeUtilisateur (int noUtilisateur) throws BusinessException{
+		boolean verification; 
+		verification = enchereDAO.delete(noUtilisateur);
+	return verification;
+	}
 }
 
 

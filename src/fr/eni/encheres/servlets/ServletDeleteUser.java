@@ -1,18 +1,24 @@
 package fr.eni.encheres.servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import fr.eni.encheres.bll.EncheresManager;
+import fr.eni.encheres.exception.BusinessException;
 
 /**
  * Servlet implementation class ServletDeleteUser
  */
-@WebServlet("/ServletDeleteUser")
+@WebServlet("/DeleteUser")
 public class ServletDeleteUser extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -28,7 +34,7 @@ public class ServletDeleteUser extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
@@ -36,17 +42,30 @@ public class ServletDeleteUser extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-		String noUtilisateur = request.getParameter("noUtilisateur");
-		EnchereManager enchereManager
+		List<Integer> listeCodesErreur = new ArrayList<Integer>();
+		request.setAttribute("listeCodesErreur",listeCodesErreur);
 		
-		//TODO à parir du numeroUtilisateur je récupere un objet Utilisateur.
-		//Appel du ManagerUtilisateur qui en lui passant l'id de  l utilisateur retourne un objet utilisateur.
-		//Le manager Utilisateur lui applle la DAO Utilisateur
-		//Appel du managerUtilisateur avec la fonction delete qui prend un idUtilisateur en parametre.
-		///une fois supprimé redirection vers la page d'accueil.
-		this.getServletContext().getRequestDispatcher("/WEB-INF/profilCompte.jsp").forward(request, response);
+		String noUtilisateur = request.getParameter("noUtilisateur");
+		EncheresManager enchereManager = new EncheresManager();
+		
+		int noUtilisaateur = Integer.parseInt(noUtilisateur);
+		boolean verification;
+		try {
+			
+			verification = enchereManager.removeUtilisateur(noUtilisaateur);
+			
+			if(verification == true) {
+				HttpSession session = request.getSession();
+				session.invalidate();
+				RequestDispatcher rd = request.getRequestDispatcher("/accueil");
+				
+				rd.forward(request, response);		
+			}
+		} catch (BusinessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 }
