@@ -34,7 +34,7 @@
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav ml-auto">
 					<li class="nav-item active"><a class="nav-link"
-						href="<%=request.getContextPath()%>">Accueil <span
+						href="<%=request.getContextPath()%>/AccueilUtilisateur">Accueil <span
 							class="sr-only">(current)</span>
 					</a></li>
 
@@ -45,7 +45,7 @@
 	<!-- Page Content -->
 	<div class="container">
 		<!-- Page Heading -->
-		<h1 class="my-4">Nouvelle vente</h1>
+		<h1 class="my-4">Nouvelle vente <img alt="photo vente" width="100px" src="<%=request.getContextPath()%>/images/handshake.png"></h1>
 		<div class="row">
 			<div class="col-lg-12 col-md-12 col-sm-12 portfolio-item">
 				<div class="card h-100">
@@ -74,11 +74,11 @@
 							<form action="ajoutArticle" method="post">
 								<div class="saisie">
 									<label for="article">Article : </label>
-									<textarea class="form-control" name="article"></textarea>
+									<input class="form-control" name="article">
 								</div>
 								<div class="saisie">
 									<label for="description">Description : </label>
-									<textarea class="form-control" name="description"></textarea>
+									<intput class="form-control" name="description">
 								</div>
 								<div>
 									<label for="categorie">Catégorie : </label> <select

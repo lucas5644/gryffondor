@@ -28,7 +28,7 @@
 		<div class="container">
 			<a class="navbar-brand" href="<%=request.getContextPath()%>">Accueil</a>
 			<div>
-				<a href="connexion">Inscription / Se connecter</a>
+				<a class="btn btn-primary" role="button" href="connexion">Inscription / Se connecter</a>
 			</div>
 		</div>
 	</nav>
