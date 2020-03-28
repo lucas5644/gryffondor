@@ -27,60 +27,60 @@
 
 <!-- Page Heading -->
 
-					<title>Afficher utilisateur</title>
-					<style>
+<title>Afficher utilisateur</title>
+<style>
 ul {
 	list-style-type: none;
 }
 </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-	<div class="container">
-		<a class="navbar-brand"
-			href="<%=request.getContextPath()%>/AccueilUtilisateur">
-			Accueil</a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse"
-			data-target="#navbarResponsive" aria-controls="navbarResponsive"
-			aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-
-
-	</div>
-
-</nav>
-	<h1 class="my-4">Utilisateur : ${userConnected.pseudo}</h1>
-
-	<div class="col-lg-12 col-md-12 col-sm-12 portfolio-item">
-	
-			<ul>
-
-				<li>Pseudo : ${userConnected.pseudo}</li>
-				<li>Nom : ${userConnected.nom}</li>
-				<li>Prénom : ${userConnected.prenom}</li>
-				<li>Email : ${userConnected.email}</li>
-				<li>Téléphone : ${userConnected.telephone}</li>
-				<li>Rue : ${userConnected.rue}</li>
-				<li>Code postal : ${userConnected.codePostal}</li>
-				<li>Ville : ${userConnected.ville}</li>
-
-			</ul>
-			
+	<!-- Navigation -->
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+		<div class="container">
+			<a class="navbar-brand"
+				href="<%=request.getContextPath()%>/AccueilUtilisateur"> Accueil</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarResponsive" aria-controls="navbarResponsive"
+				aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
 		</div>
-	
-	
-	<a href="<%=request.getContextPath()%>/profilmodifie" class="button" >Modifier </a>
-	
-		<input type="submit" name="Modifier" value="Modifier"
-			class="btn btn-primary">
-	
+	</nav>
+	<div class="container">
+		<!-- Page Heading -->
+		<h1 class="my-4">Utilisateur : ${userConnected.pseudo}</h1>
+		<div class="row">
+			<div class="col-lg-12 col-md-12 col-sm-12 portfolio-item">
+				<div class="card h-100">
+					<div class="card-body contenu">
+						<div class="contenu">
+							<ul>
+								<li>Pseudo : ${userConnected.pseudo}</li>
+								<li>Nom : ${userConnected.nom}</li>
+								<li>Prénom : ${userConnected.prenom}</li>
+								<li>Email : ${userConnected.email}</li>
+								<li>Téléphone : ${userConnected.telephone}</li>
+								<li>Rue : ${userConnected.rue}</li>
+								<li>Code postal : ${userConnected.codePostal}</li>
+								<li>Ville : ${userConnected.ville}</li>
+							</ul>
+							<a href="<%=request.getContextPath()%>/profilmodifie"
+								class="button"><input type="submit" name="Modifier"
+								value="Modifier" class="btn btn-primary"></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /.row -->
+	</div>
+	<!-- /.container -->
 
 	<%@ include file="footer.html"%>
+
 	<!-- Bootstrap core JavaScript -->
 	<script src="vendor/jquery/jquery.min.js"></script>
 	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
-
-
 </html>

@@ -25,7 +25,9 @@
 	<!-- Navigation -->
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
 		<div class="container">
-			<a class="navbar-brand" href="<%=request.getContextPath()%>/AccueilUtilisateur">Mon application d'enchères</a>
+			<a class="navbar-brand"
+				href="<%=request.getContextPath()%>/AccueilUtilisateur">Mon
+				application d'enchères</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#navbarResponsive" aria-controls="navbarResponsive"
 				aria-expanded="false" aria-label="Toggle navigation">
@@ -34,8 +36,8 @@
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav ml-auto">
 					<li class="nav-item active"><a class="nav-link"
-						href="<%=request.getContextPath()%>/AccueilUtilisateur">Accueil <span
-							class="sr-only">(current)</span>
+						href="<%=request.getContextPath()%>/AccueilUtilisateur">Accueil
+							<span class="sr-only">(current)</span>
 					</a></li>
 
 				</ul>
@@ -45,7 +47,10 @@
 	<!-- Page Content -->
 	<div class="container">
 		<!-- Page Heading -->
-		<h1 class="my-4">Nouvelle vente <img alt="photo vente" width="100px" src="<%=request.getContextPath()%>/images/handshake.png"></h1>
+		<h1 class="my-4">
+			Nouvelle vente <img alt="photo vente" width="100px"
+				src="<%=request.getContextPath()%>/images/handshake.png">
+		</h1>
 		<div class="row">
 			<div class="col-lg-12 col-md-12 col-sm-12 portfolio-item">
 				<div class="card h-100">
@@ -73,8 +78,8 @@
 							%>
 							<form action="ajoutArticle" method="post">
 								<div class="saisie">
-									<label for="article">Article : </label>
-									<input class="form-control" name="article">
+									<label for="article">Article : </label> <input
+										class="form-control" name="article">
 								</div>
 								<div class="saisie">
 									<label for="description">Description : </label>
@@ -83,10 +88,10 @@
 								<div>
 									<label for="categorie">Catégorie : </label> <select
 										name="categorie" size="1">
-										<option value="1">Informatique </option>
-										<option value="2">Ameublement </option>
-										<option value="3">Vêtement </option>
-										<option value="4">Sport et loisir </option>
+										<option value="1">Informatique</option>
+										<option value="2">Ameublement</option>
+										<option value="3">Vêtement</option>
+										<option value="4">Sport et loisir</option>
 									</select>
 								</div>
 								<div>
@@ -102,13 +107,15 @@
 										class="form-control" type="date" name="dateFin">
 								</div>
 								<div>
-									<br><h3>Retrait</h3>
-									<label for="rue">Rue : </label>
-									<input class="form-control" name="rue" value="${userConnected.rue}">
-									<label for="codePostal">Code postal : </label>
-									<input class="form-control" name="codePostal" value="${userConnected.codePostal}">
-									<label for="ville">Ville : </label>
-									<input class="form-control" name="ville" value="${userConnected.ville}">
+									<br>
+									<h3>Retrait</h3>
+									<label for="rue">Rue : </label> <input class="form-control"
+										name="rue" value="${userConnected.rue}"> <label
+										for="codePostal">Code postal : </label> <input
+										class="form-control" name="codePostal"
+										value="${userConnected.codePostal}"> <label
+										for="ville">Ville : </label> <input class="form-control"
+										name="ville" value="${userConnected.ville}">
 								</div>
 								<br>
 
@@ -123,15 +130,13 @@
 					</div>
 				</div>
 			</div>
-
 		</div>
 		<!-- /.row -->
-
 	</div>
-	
-	 <%@ include file="footer.html"  %>
-	
 	<!-- /.container -->
+	
+	<%@ include file="footer.html"%>
+
 	<!-- Bootstrap core JavaScript -->
 	<script src="vendor/jquery/jquery.min.js"></script>
 	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

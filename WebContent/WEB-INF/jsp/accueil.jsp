@@ -1,7 +1,7 @@
 <%@page import="java.time.format.DateTimeFormatter"%>
 <%@page import="java.util.List"%>
 <%@page import="fr.eni.encheres.bo.Article"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <!DOCTYPE html>
@@ -16,7 +16,7 @@
 <link href="<%=request.getContextPath()%>/css/4-col-portfolio.css"
 	rel="stylesheet">
 <link rel="icon" href="<%=request.getContextPath()%>/images/favicon.ico">
- 
+
 <link href="<%=request.getContextPath()%>/css/style.css"
 	rel="stylesheet">
 <title>Accueil</title>
@@ -28,7 +28,8 @@
 		<div class="container">
 			<a class="navbar-brand" href="<%=request.getContextPath()%>">Accueil</a>
 			<div>
-				<a class="btn btn-primary" role="button" href="connexion">Inscription / Se connecter</a>
+				<a class="btn btn-primary" role="button" href="connexion">Inscription
+					/ Se connecter</a>
 			</div>
 		</div>
 	</nav>
@@ -87,7 +88,8 @@
 		</div>
 		<!-- /.row -->
 	</div>
-
+	<!-- /.container -->
+	<%@ include file="footer.html"%>
 </body>
 
 <footer class="py-5 bg-dark">
@@ -99,6 +101,6 @@
 		</p>
 
 	</div>
-	<!-- /.container -->
+
 </footer>
 </html>
