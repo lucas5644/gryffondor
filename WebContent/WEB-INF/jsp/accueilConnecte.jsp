@@ -20,34 +20,29 @@
 	
 	
 </head>
-<h1>Bienvenue</h1>
 <body>
 	<!-- Navigation -->
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
 		<div class="container">
-			<a class="navbar-brand" href="<%=request.getContextPath()%>">Accueil
-				Enchère</a>
+			<a class="navbar-brand" href="<%=request.getContextPath()%>/AccueilUtilisateur">Mon application d'enchères</a>
 			<div>
-				<a href="AjouterArticle">Vendre un Article</a>
+				<a class="btn btn-primary" role="button" href="AjouterArticle">Vendre un Article</a>
 			</div>
 			
 			<div>
-				<a href="monprofil">Mon profil</a>
+				<a class="btn btn-primary" role="button" href="monprofil">Mon profil</a>
 			</div>
 			
 			<div>
-				<a href="deconnexion">Déconnexion</a>
+				<a class="btn btn-primary" role="button" href="deconnexion">Déconnexion</a>
 			</div>
 		</div>
 	</nav>
-
-<p>Bonjour Mr ${userConnected.nom}</p>
-
-
+	
 	<div class="container">
 
 		<!-- Page Heading -->
-		<h1 class="my-4">Site d'enchères de dingue</h1>
+		<h1 class="my-4">Bienvenue ${userConnected.prenom} ${userConnected.nom}</h1>
 		<div class="row">
 			<div class="col-lg-12 col-md-12 col-sm-12 portfolio-item">
 				<div class="card h-100">
@@ -58,7 +53,7 @@
 								class="justify-content-center mb-2">
 								<div class="form-group">
 									<label for="nomArticle">Nom de l'article</label>
-									<textarea name="nomArticle" class="form-control"></textarea>
+									<input name="nomArticle" class="form-control">
 								</div>
 								<div class="form-group">
 									<label for="nomCategorie"></label> <select name="nomCategorie"

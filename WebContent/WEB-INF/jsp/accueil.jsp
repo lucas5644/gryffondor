@@ -47,7 +47,7 @@
 								class="justify-content-center mb-2">
 								<div class="form-group">
 									<label for="nomArticle">Nom de l'article</label>
-									<textarea name="nomArticle" class="form-control"></textarea>
+									<input name="nomArticle" class="form-control">
 								</div>
 								<div class="form-group">
 									<label for="nomCategorie"></label> <select name="nomCategorie"
