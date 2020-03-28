@@ -20,7 +20,7 @@
 <link href="<%=request.getContextPath()%>/css/4-col-portfolio.css"
 	rel="stylesheet">
 <link rel="icon"
-	href="<%=request.getContextPath()%>/images/favicon.ico">
+<link rel="icon" href="<%=request.getContextPath()%>/images/gryffondor.jpg">
 
 <link href="<%=request.getContextPath()%>/css/style.css"
 	rel="stylesheet">
