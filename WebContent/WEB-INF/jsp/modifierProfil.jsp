@@ -33,8 +33,7 @@
 	<!-- Navigation -->
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
 		<div class="container">
-			<a class="navbar-brand" href="<%=request.getContextPath()%>">Application
-				Suivi de repas</a>
+			<a class="navbar-brand" href="<%=request.getContextPath()%>/AccueilUtilisateur">Mon application d'enchères</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#navbarResponsive" aria-controls="navbarResponsive"
 				aria-expanded="false" aria-label="Toggle navigation">
@@ -43,7 +42,7 @@
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav ml-auto">
 					<li class="nav-item active"><a class="nav-link"
-						href="<%=request.getContextPath()%>">Accueil <span
+						href="<%=request.getContextPath()%>/AccueilUtilisateur">Accueil <span
 							class="sr-only">(current)</span>
 					</a></li>
 					
@@ -54,7 +53,6 @@
 
 	<!-- Page Content -->
 	<div class="container">
-
 		<!-- Page Heading -->
 		<h1 class="my-4"></h1>
 
@@ -86,33 +84,33 @@
 								</div>
 								<div class="saisie">
 									<label for="nom">Nom : </label>
-           							<input type="text" name="nom" id="nom" />
+           							<input type="text" name="nom" id="nom" value="${userConnected.nom}"/>
 								</div>
 								<div class="saisie">
 									 <label for="prenom">Prénom : </label>
-                                     <input type="text" name="prenom" id="prenom" />
+                                     <input type="text" name="prenom" id="prenom" value="${userConnected.prenom}" />
 								</div>
 								<div>
 								      <label for="email">Email : </label>
-                                      <input type="text" name="email" id="email" />
+                                      <input type="text" name="email" id="email" value="${userConnected.email}" />
 								</div>
 								<div>
 							          <label for="telephone">Téléphone : </label>
-                                      <input type="text" name="telephone" id="telephone" />
+                                      <input type="text" name="telephone" id="telephone" value="${userConnected.telephone}" />
 								</div>
 								<div>
 								
 								</div>
 								      <label for="rue">Rue : </label>
-                                      <input type="text" name="rue" id="rue" />
+                                      <input type="text" name="rue" id="rue" value="${userConnected.rue}" />
 								<div>
 								<div>
 									 <label for="codePostal">Code postal : </label>
-                                     <input type="text" name="codePostal" id="codePostal" />
+                                     <input type="text" name="codePostal" id="codePostal" value="${userConnected.codePostal}" />
 								</div>
 								<div>
 								     <label for="ville">Ville : </label>
-                                     <input type="text" name="ville" id="ville" />
+                                     <input type="text" name="ville" id="ville" value="${userConnected.ville}" />
 								</div>
 								<div>
 								      <label for="mot de passe actuel">Mot de passe actuel : </label>
