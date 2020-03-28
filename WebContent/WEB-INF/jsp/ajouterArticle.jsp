@@ -95,7 +95,7 @@
 									</select>
 								</div>
 								<div>
-									<label for="prix">Mise à prix : </label> <input type="number"
+									<label for="prixDepart">Mise à prix : </label> <input type="number"
 										name="prixDepart" min="0" step="10">
 								</div>
 								<div>

@@ -10,7 +10,7 @@ public class Article {
 	private String description;
 	private LocalDate dateDebutEncheres;
 	private LocalDate dateFinEncheres;
-	private int miseAPrix = 0;
+	private int miseAPrix;
 	private int prixVente;
 	private String etatVente;
 	//ASSOCIATIONS
