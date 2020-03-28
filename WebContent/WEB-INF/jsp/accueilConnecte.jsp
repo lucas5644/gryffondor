@@ -42,7 +42,7 @@
 	<div class="container">
 
 		<!-- Page Heading -->
-		<h1 class="my-4">Bienvenue ${userConnected.prenom} ${userConnected.nom}</h1>
+		<h1 class="my-4">Bienvenue ${userConnected.prenom} ${userConnected.nom} <img alt="icône connecté" src="<%=request.getContextPath()%>/images/connected.png" width="40px"></h1>
 		<div class="row">
 			<div class="col-lg-12 col-md-12 col-sm-12 portfolio-item">
 				<div class="card h-100">
