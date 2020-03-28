@@ -18,7 +18,7 @@ import fr.eni.encheres.exception.BusinessException;
 
 
 public class EnchereDAOJdbcImpl implements EnchereDAO {
-	private static final String INSERT_ARTICLE = "INSERT INTO ARTICLES(nom_article,description,date_debut_encheres,date_fin_encheres,no_utilisateur,no_categorie) VALUES(?,?,?,?,?,?);";
+	private static final String INSERT_ARTICLE = "INSERT INTO ARTICLES(nom_article,description,prix_initial,date_debut_encheres,date_fin_encheres,no_utilisateur,no_categorie) VALUES(?,?,?,?,?,?,?);";
 	private static final String SELECT_ARTICLE_DECONNECTE = "SELECT a.nom_article, a.prix_initial, a.date_fin_encheres, u.pseudo FROM ARTICLES a INNER JOIN CATEGORIES c on c.no_categorie = a.no_categorie INNER JOIN UTILISATEURS u on u.no_utilisateur = a.no_utilisateur WHERE a.nom_article LIKE ? AND c.libelle LIKE ?;";
 	private static final String INSERT_UTILISATEUR = "INSERT INTO UTILISATEURS (pseudo, nom, prenom , email ,telephone ,rue , code_postal, ville, mot_de_passe, credit, administrateur) "
 			+ "VALUES (?,?,?,?,?,?,?,?,?,?,?);";
@@ -41,10 +41,11 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 			// Insertion des données
 			psmt.setString(1, article.getNomArticle());
 			psmt.setString(2, article.getDescription());
-			psmt.setDate(3, Date.valueOf(article.getDateDebutEncheres()));
-			psmt.setDate(4, Date.valueOf(article.getDateFinEncheres()));
-			psmt.setInt(5, article.getVendeur().getNoUtilisateur());
-			psmt.setInt(6, article.getCategorieArticle().getNoCategorie());
+			psmt.setInt(3, article.getMiseAPrix());
+			psmt.setDate(4, Date.valueOf(article.getDateDebutEncheres()));
+			psmt.setDate(5, Date.valueOf(article.getDateFinEncheres()));
+			psmt.setInt(6, article.getVendeur().getNoUtilisateur());
+			psmt.setInt(7, article.getCategorieArticle().getNoCategorie());
 			// génération de la clé
 			int nombreEnregistrementInsere = psmt.executeUpdate();
 			if (nombreEnregistrementInsere == 1) {
@@ -83,7 +84,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 		Utilisateur newUtilisateur = new Utilisateur();
 		newUtilisateur.setPseudo(rs.getString("pseudo"));
 		newArticle.setNomArticle(rs.getString("nom_article"));
-		newArticle.setPrixVente(rs.getInt("prix_initial"));
+		newArticle.setMiseAPrix(rs.getInt("prix_initial"));
 		newArticle.setDateFinEncheres(rs.getDate("date_fin_encheres").toLocalDate());
 		newArticle.setVendeur(newUtilisateur);
 		return newArticle;

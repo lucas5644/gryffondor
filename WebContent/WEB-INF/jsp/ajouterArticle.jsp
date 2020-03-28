@@ -83,8 +83,9 @@
 								</div>
 								<div class="saisie">
 									<label for="description">Description : </label>
-									<intput class="form-control" name="description">
+									<input class="form-control" name="description">
 								</div>
+								<br>
 								<div>
 									<label for="categorie">Catégorie : </label> <select
 										name="categorie" size="1">

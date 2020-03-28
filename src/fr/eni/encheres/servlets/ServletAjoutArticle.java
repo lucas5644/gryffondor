@@ -113,10 +113,10 @@ public class ServletAjoutArticle extends HttpServlet {
 				}
 				newArticle.setNomArticle(nomArticle);
 				newArticle.setDescription(description);
+				newArticle.setMiseAPrix(prixDepart);
 				newArticle.setCategorieArticle(newCategorie);
 				newArticle.setDateDebutEncheres(debutEnchere);
 				newArticle.setDateFinEncheres(finEnchere);
-				newArticle.setMiseAPrix(prixDepart);
 				newArticle.setVendeur(user);
 				encheresManager.ajouterArticle(newArticle);
 				System.out.println(newArticle);

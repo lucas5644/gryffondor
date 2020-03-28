@@ -33,7 +33,7 @@ public class EncheresManager {
 	public void validerDate(LocalDate debutEnchere, LocalDate finEnchere, BusinessException be) {
 		// la date ne peut pas être nulle et antérieure à la date du jour
 		LocalDate now = LocalDate.now();
-		if (debutEnchere == null || debutEnchere.isBefore(now)) {
+		if (debutEnchere == null || debutEnchere.isBefore(now) || finEnchere.isBefore(now) || finEnchere.isBefore(debutEnchere)) {
 			be.ajouterErreur(CodesResultatBLL.DATE_ERREUR);
 		}
 	}
