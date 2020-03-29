@@ -21,6 +21,17 @@ public abstract class CodesResultatServlets {
 	 * Format prix incorrect
 	 */
 	public static final int FORMAT_PRIX_ERREUR=30003;
-	
+	/**
+	 * Format rue incorrect
+	 */
+	public static final int FORMAT_RUE_ERREUR=30004;
+	/**
+	 * Format code postal incorrect
+	 */
+	public static final int FORMAT_CODE_POSTAL_ERREUR=30005;
+	/**
+	 * Format ville incorrect
+	 */
+	public static final int FORMAT_VILLE_ERREUR=30006;
 	
 }

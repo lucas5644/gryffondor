@@ -19,6 +19,7 @@ import javax.servlet.http.HttpSession;
 import fr.eni.encheres.bll.EncheresManager;
 import fr.eni.encheres.bo.Article;
 import fr.eni.encheres.bo.Categorie;
+import fr.eni.encheres.bo.Retrait;
 import fr.eni.encheres.bo.Utilisateur;
 import fr.eni.encheres.exception.BusinessException;
 
@@ -37,7 +38,7 @@ public class ServletAjoutArticle extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+
 		String nomArticle = null;
 		String description = null;
 		String categorie;
@@ -45,6 +46,9 @@ public class ServletAjoutArticle extends HttpServlet {
 		LocalDate debutEnchere = null;
 		LocalDate finEnchere = null;
 		String etatVente = null;
+		String rue = null;
+		String codePostal = null;
+		String ville = null;
 		Utilisateur user = new Utilisateur();
 		HttpSession session = request.getSession();
 		System.out.println(session);
@@ -67,7 +71,7 @@ public class ServletAjoutArticle extends HttpServlet {
 		try {
 			prixDepart = Integer.parseInt(request.getParameter("prixDepart"));
 		} catch (Exception e) {
-			System.out.println("ERREUR DE MERDE");
+			listeCodesErreur.add(CodesResultatServlets.FORMAT_PRIX_ERREUR);
 		}
 
 		// lecture date
@@ -78,6 +82,21 @@ public class ServletAjoutArticle extends HttpServlet {
 		} catch (DateTimeParseException e) {
 			e.printStackTrace();
 			listeCodesErreur.add(CodesResultatServlets.FORMAT_DATE_ERREUR);
+		}
+		// lecture de la rue
+		rue = request.getParameter("rue");
+		if (rue == null || rue.trim().isEmpty()) {
+			listeCodesErreur.add(CodesResultatServlets.FORMAT_RUE_ERREUR);
+		}
+		// lecture du code postal
+		codePostal = request.getParameter("codePostal");
+		if (codePostal == null || codePostal.trim().isEmpty()) {
+			listeCodesErreur.add(CodesResultatServlets.FORMAT_CODE_POSTAL_ERREUR);
+		}
+		// lecture de la ville
+		ville = request.getParameter("ville");
+		if (ville == null || ville.trim().isEmpty()) {
+			listeCodesErreur.add(CodesResultatServlets.FORMAT_VILLE_ERREUR);
 		}
 
 		// Réalisation du traitement
@@ -93,7 +112,8 @@ public class ServletAjoutArticle extends HttpServlet {
 				Article newArticle = new Article();
 				Categorie newCategorie = new Categorie();
 				LocalDate now = LocalDate.now();
-				
+				Retrait newLieuDeRetrait = new Retrait(rue, codePostal, ville);
+
 				switch (categorie) {
 				case "1":
 					newCategorie.setNoCategorie(1);
@@ -108,7 +128,7 @@ public class ServletAjoutArticle extends HttpServlet {
 					newCategorie.setLibelle("Vêtement");
 					break;
 				case "4":
- 					newCategorie.setNoCategorie(4);
+					newCategorie.setNoCategorie(4);
 					newCategorie.setLibelle("Sport et loisir");
 					break;
 				}
@@ -129,7 +149,8 @@ public class ServletAjoutArticle extends HttpServlet {
 				}
 				newArticle.setEtatVente(etatVente);
 				newArticle.setVendeur(user);
-				encheresManager.ajouterArticle(newArticle);
+				newArticle.setLieuRetrait(newLieuDeRetrait);
+				encheresManager.ajouterArticle(newArticle, newLieuDeRetrait);
 				System.out.println(newArticle);
 				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/accueilConnecte.jsp");
 				rd.forward(request, response);

@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import fr.eni.encheres.bo.Article;
+import fr.eni.encheres.bo.Retrait;
 import fr.eni.encheres.bo.Utilisateur;
 import fr.eni.encheres.dal.DAOFactory;
 import fr.eni.encheres.dal.EnchereDAO;
@@ -18,13 +19,12 @@ public class EncheresManager {
 		enchereDAO = DAOFactory.getEnchereDAO();
 	}
 	
-	public Article ajouterArticle(Article article) throws BusinessException {
+	public Article ajouterArticle(Article article, Retrait lieuRetrait) throws BusinessException {
 		BusinessException be = new BusinessException();
 		//valider la date
 		validerDate(article.getDateDebutEncheres(), article.getDateFinEncheres(), be);
 		if (!be.hasErreurs()) {
-			
-			enchereDAO.insertArticle(article);
+			enchereDAO.insertArticle(article, lieuRetrait);
 		}else {
 			throw be;
 		}

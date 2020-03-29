@@ -3,13 +3,14 @@ package fr.eni.encheres.dal;
 import java.util.List;
 
 import fr.eni.encheres.bo.Article;
+import fr.eni.encheres.bo.Retrait;
 import fr.eni.encheres.bo.Utilisateur;
 import fr.eni.encheres.exception.BusinessException;
 
 
 public interface EnchereDAO {
 	//Ajouter un article
-	void insertArticle(Article data) throws BusinessException;
+	void insertArticle(Article data, Retrait lieuRetrait) throws BusinessException;
 	//Afficher les articles sur l'écran déconnecté
 	List<Article> selectArticleDeconnecte(String nomCategorie, String nomArticle) throws BusinessException;
 	//Ajouter un utilisateur

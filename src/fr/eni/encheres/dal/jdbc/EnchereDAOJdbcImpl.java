@@ -12,6 +12,7 @@ import java.util.List;
 import fr.eni.encheres.bo.Article;
 import fr.eni.encheres.bo.Categorie;
 import fr.eni.encheres.bo.Enchere;
+import fr.eni.encheres.bo.Retrait;
 import fr.eni.encheres.bo.Utilisateur;
 import fr.eni.encheres.dal.CodesResultatDAL;
 import fr.eni.encheres.dal.ConnectionProvider;
@@ -22,6 +23,7 @@ import microsoft.sql.DateTimeOffset;
 
 public class EnchereDAOJdbcImpl implements EnchereDAO {
 	private static final String INSERT_ARTICLE = "INSERT INTO ARTICLES(nom_article,description,prix_initial,date_debut_encheres,date_fin_encheres,no_utilisateur,no_categorie,etat_vente) VALUES(?,?,?,?,?,?,?,?);";
+	private static final String INSERT_LIEU_RETRAIT="INSERT INTO RETRAITS(no_article,rue,code_postal,ville) VALUES (?,?,?,?);";
 	private static final String SELECT_ARTICLE_DECONNECTE = "SELECT a.no_article, a.nom_article, a.description, a.date_debut_encheres,a.date_fin_encheres,a.prix_initial,a.prix_vente,a.no_utilisateur,a.no_categorie,a.etat_vente,c.libelle, u.pseudo,u.nom,u.prenom,u.email,u.telephone,u.rue,u.code_postal,u.ville,u.mot_de_passe,u.credit,u.administrateur,e.date_enchere,e.montant_enchere FROM ARTICLES a LEFT JOIN CATEGORIES c on c.no_categorie = a.no_categorie LEFT JOIN UTILISATEURS u on u.no_utilisateur = a.no_utilisateur LEFT JOIN RETRAITS r on r.no_article = a.no_article LEFT JOIN ENCHERES e on e.no_article = a.no_article WHERE a.nom_article LIKE ? AND c.libelle LIKE ?;";
 	private static final String INSERT_UTILISATEUR = "INSERT INTO UTILISATEURS (pseudo, nom, prenom , email ,telephone ,rue , code_postal, ville, mot_de_passe, credit, administrateur) "
 			+ "VALUES (?,?,?,?,?,?,?,?,?,?,?);";
@@ -32,16 +34,17 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 	private static final String DELETE = "DELETE FROM UTILISATEURS WHERE no_utilisateur = ?;";
 	private static final String UPDATE_UTILISATEUR = "update UTILISATEURS set pseudo = ?, nom = ?, prenom =  ?, email = ?, telephone = ?, rue = ?, code_postal = ?, ville = ?, mot_de_passe = ? where no_utilisateur = ?;";
 	
-	public void insertArticle(Article article) throws BusinessException {
+	public void insertArticle(Article article, Retrait retrait) throws BusinessException {
 		Connection con = null;
 		BusinessException be = new BusinessException();
+		int numeroArticle;
 
 		try {
 			// Ouverture de la connexion
 			con = ConnectionProvider.getConnection();
 			con.setAutoCommit(false);
 			PreparedStatement psmt = con.prepareStatement(INSERT_ARTICLE, Statement.RETURN_GENERATED_KEYS);
-			// Insertion des données
+			// Insertion des données de l'article
 			psmt.setString(1, article.getNomArticle());
 			psmt.setString(2, article.getDescription());
 			psmt.setInt(3, article.getMiseAPrix());
@@ -62,6 +65,17 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 				be.ajouterErreur(CodesResultatDAL.INSERT_OBJET_ECHEC);
 			}
 			psmt.close();
+			
+			psmt = con.prepareStatement(INSERT_LIEU_RETRAIT);
+			numeroArticle = article.getNoArticle();
+			//Insertion des données du lieu de retrait
+			psmt.setInt(1, numeroArticle);
+			psmt.setString(2, retrait.getRue());
+			psmt.setString(3, retrait.getCodePostal());
+			psmt.setString(4, retrait.getVille());
+			psmt.executeUpdate();
+			psmt.close();
+			
 			con.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -84,10 +98,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 	}
 
 	private Article mappingArticle(ResultSet rs) throws SQLException {
-//		SELECT a.no_article, a.nom_article, a.description, a.date_debut_encheres,
-//		a.date_fin_encheres,a.prix_initial,a.prix_vente,a.no_utilisateur,
-//		a.no_categorie,a.etat_vente,c.libelle, u.pseudo,u.nom,u.prenom,u.email,u.telephone,
-//		u.rue,u.code_postal,u.ville,u.mot_de_passe,u.credit,u.administrateur,e.date_enchere,e.montant_enchere
+
 		Article newArticle = new Article();
 		Utilisateur newUtilisateur = new Utilisateur();
 		Categorie newCategorie = new Categorie();
