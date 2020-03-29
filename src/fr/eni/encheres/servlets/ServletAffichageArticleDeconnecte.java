@@ -27,7 +27,7 @@ public class ServletAffichageArticleDeconnecte extends HttpServlet {
 		String nomCategorie = null;
 		String nomArticle = null;
 		List<Integer> listeCodesErreur = new ArrayList<>();
-		//Lecture nom de la catégorie et nom de l'article
+		//Lecture nom de la catégorie, nom de l'article et état de vente
 		nomCategorie = request.getParameter("nomCategorie");
 		nomArticle = request.getParameter("nomArticle");
 		

@@ -10,16 +10,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.eni.encheres.bo.Article;
+import fr.eni.encheres.bo.Categorie;
+import fr.eni.encheres.bo.Enchere;
 import fr.eni.encheres.bo.Utilisateur;
 import fr.eni.encheres.dal.CodesResultatDAL;
 import fr.eni.encheres.dal.ConnectionProvider;
 import fr.eni.encheres.dal.EnchereDAO;
 import fr.eni.encheres.exception.BusinessException;
+import microsoft.sql.DateTimeOffset;
 
 
 public class EnchereDAOJdbcImpl implements EnchereDAO {
-	private static final String INSERT_ARTICLE = "INSERT INTO ARTICLES(nom_article,description,prix_initial,date_debut_encheres,date_fin_encheres,no_utilisateur,no_categorie) VALUES(?,?,?,?,?,?,?);";
-	private static final String SELECT_ARTICLE_DECONNECTE = "SELECT a.nom_article, a.prix_initial, a.date_fin_encheres, u.pseudo FROM ARTICLES a INNER JOIN CATEGORIES c on c.no_categorie = a.no_categorie INNER JOIN UTILISATEURS u on u.no_utilisateur = a.no_utilisateur WHERE a.nom_article LIKE ? AND c.libelle LIKE ?;";
+	private static final String INSERT_ARTICLE = "INSERT INTO ARTICLES(nom_article,description,prix_initial,date_debut_encheres,date_fin_encheres,no_utilisateur,no_categorie,etat_vente) VALUES(?,?,?,?,?,?,?,?);";
+	private static final String SELECT_ARTICLE_DECONNECTE = "SELECT a.no_article, a.nom_article, a.description, a.date_debut_encheres,a.date_fin_encheres,a.prix_initial,a.prix_vente,a.no_utilisateur,a.no_categorie,a.etat_vente,c.libelle, u.pseudo,u.nom,u.prenom,u.email,u.telephone,u.rue,u.code_postal,u.ville,u.mot_de_passe,u.credit,u.administrateur,e.date_enchere,e.montant_enchere FROM ARTICLES a LEFT JOIN CATEGORIES c on c.no_categorie = a.no_categorie LEFT JOIN UTILISATEURS u on u.no_utilisateur = a.no_utilisateur LEFT JOIN RETRAITS r on r.no_article = a.no_article LEFT JOIN ENCHERES e on e.no_article = a.no_article WHERE a.nom_article LIKE ? AND c.libelle LIKE ?;";
 	private static final String INSERT_UTILISATEUR = "INSERT INTO UTILISATEURS (pseudo, nom, prenom , email ,telephone ,rue , code_postal, ville, mot_de_passe, credit, administrateur) "
 			+ "VALUES (?,?,?,?,?,?,?,?,?,?,?);";
 	private static final String CHECK_CONNEXION = "select no_utilisateur ,pseudo , nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, administrateur, credit from UTILISATEURS where pseudo = ? and mot_de_passe = ?;";
@@ -46,6 +49,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 			psmt.setDate(5, Date.valueOf(article.getDateFinEncheres()));
 			psmt.setInt(6, article.getVendeur().getNoUtilisateur());
 			psmt.setInt(7, article.getCategorieArticle().getNoCategorie());
+			psmt.setString(8, article.getEtatVente());
 			// génération de la clé
 			int nombreEnregistrementInsere = psmt.executeUpdate();
 			if (nombreEnregistrementInsere == 1) {
@@ -80,13 +84,37 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 	}
 
 	private Article mappingArticle(ResultSet rs) throws SQLException {
+//		SELECT a.no_article, a.nom_article, a.description, a.date_debut_encheres,
+//		a.date_fin_encheres,a.prix_initial,a.prix_vente,a.no_utilisateur,
+//		a.no_categorie,a.etat_vente,c.libelle, u.pseudo,u.nom,u.prenom,u.email,u.telephone,
+//		u.rue,u.code_postal,u.ville,u.mot_de_passe,u.credit,u.administrateur,e.date_enchere,e.montant_enchere
 		Article newArticle = new Article();
 		Utilisateur newUtilisateur = new Utilisateur();
-		newUtilisateur.setPseudo(rs.getString("pseudo"));
+		Categorie newCategorie = new Categorie();
+		newArticle.setNoArticle(rs.getInt("no_article"));
 		newArticle.setNomArticle(rs.getString("nom_article"));
-		newArticle.setMiseAPrix(rs.getInt("prix_initial"));
+		newArticle.setDescription(rs.getString("description"));
+		newArticle.setDateDebutEncheres(rs.getDate("date_debut_encheres").toLocalDate());
 		newArticle.setDateFinEncheres(rs.getDate("date_fin_encheres").toLocalDate());
+		newArticle.setMiseAPrix(rs.getInt("prix_initial"));
+		newArticle.setPrixVente(rs.getInt("prix_vente"));
+		newUtilisateur.setNoUtilisateur(rs.getInt("no_utilisateur"));
+		newCategorie.setNoCategorie(rs.getInt("no_categorie"));
+		newArticle.setEtatVente(rs.getString("etat_vente"));
+		newCategorie.setLibelle(rs.getString("libelle"));
+		newUtilisateur.setPseudo(rs.getString("pseudo"));
+		newUtilisateur.setNom(rs.getString("nom"));
+		newUtilisateur.setPrenom(rs.getString("prenom"));
+		newUtilisateur.setEmail(rs.getString("email"));
+		newUtilisateur.setTelephone(rs.getString("telephone"));
+		newUtilisateur.setRue(rs.getString("rue"));
+		newUtilisateur.setCodePostal(rs.getString("code_postal"));
+		newUtilisateur.setVille(rs.getString("ville"));
+		newUtilisateur.setMotDePasse(rs.getString("mot_de_passe"));
+		newUtilisateur.setCredit(rs.getInt("credit"));
+		newUtilisateur.setAdministrateur(rs.getInt("administrateur"));
 		newArticle.setVendeur(newUtilisateur);
+		newArticle.setCategorieArticle(newCategorie);
 		return newArticle;
 	}
 
@@ -102,7 +130,9 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 			Article articleCourant = new Article();
 			while (rs.next()) {
 				articleCourant = mappingArticle(rs);
-				listeArticleDeconnecte.add(articleCourant);
+				if (articleCourant.getEtatVente().equals("En cours")) {
+					listeArticleDeconnecte.add(articleCourant);
+				}
 			}
 			return listeArticleDeconnecte;
 		} catch (SQLException e) {

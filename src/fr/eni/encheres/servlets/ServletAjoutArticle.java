@@ -2,6 +2,7 @@ package fr.eni.encheres.servlets;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -14,14 +15,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.websocket.Session;
 
 import fr.eni.encheres.bll.EncheresManager;
 import fr.eni.encheres.bo.Article;
 import fr.eni.encheres.bo.Categorie;
 import fr.eni.encheres.bo.Utilisateur;
 import fr.eni.encheres.exception.BusinessException;
-import javafx.application.Application;
 
 /**
  * Servlet implementation class ServletAjoutRepas
@@ -45,6 +44,7 @@ public class ServletAjoutArticle extends HttpServlet {
 		int prixDepart = 0;
 		LocalDate debutEnchere = null;
 		LocalDate finEnchere = null;
+		String etatVente = null;
 		Utilisateur user = new Utilisateur();
 		HttpSession session = request.getSession();
 		System.out.println(session);
@@ -92,6 +92,7 @@ public class ServletAjoutArticle extends HttpServlet {
 			try {
 				Article newArticle = new Article();
 				Categorie newCategorie = new Categorie();
+				LocalDate now = LocalDate.now();
 				
 				switch (categorie) {
 				case "1":
@@ -117,6 +118,16 @@ public class ServletAjoutArticle extends HttpServlet {
 				newArticle.setCategorieArticle(newCategorie);
 				newArticle.setDateDebutEncheres(debutEnchere);
 				newArticle.setDateFinEncheres(finEnchere);
+				if (debutEnchere.isAfter(now)) {
+					etatVente = "Créée";
+				}
+				if (debutEnchere.isEqual(now)) {
+					etatVente = "En cours";
+				}
+				if (debutEnchere.isEqual(finEnchere)) {
+					etatVente = "Enchères terminées";
+				}
+				newArticle.setEtatVente(etatVente);
 				newArticle.setVendeur(user);
 				encheresManager.ajouterArticle(newArticle);
 				System.out.println(newArticle);
