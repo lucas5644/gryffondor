@@ -76,7 +76,7 @@
 								</div>
 								<div class="col-lg-12 col-md-12 col-sm-12 portfolio-item">
 									<div class="col-lg-6 col-md-6 col-sm-6 portfolio-item">
-										<input type="radio" name="mode" id="modeAchat"> <label
+										<input type="radio" name="mode" id="modeAchat" value="modeAchat"> <label
 											for="modeAchat">Achats</label><br> 
 										<input type="checkbox" id="achatOuvert" name="achatOuvert" value="achatOuvert"> <label for="achatOuvert">Enchère
 											Ouvertes</label><br> 
@@ -90,17 +90,16 @@
 									</div>
 
 									<div class="col-lg-6 col-md-6 col-sm-6 portfolio-item">
-										<input type="radio" name="mode" id="modeVente"> <label
+										<input type="radio" name="mode" id="modeVente" value="modeVente"> <label
 											for="modeVente">Mes Ventes</label> 
 										<input type="checkbox"
-											id="achatOuvert" name="achatOuvert" value="achatOuvert">
-											<label for="achatOuvert">Enchère Ouvertes</label><br> 
-										<input type="checkbox" id="achatEnCours" name="achatEnCours"
-											value="achatEnCours"> <label for="achatEnCours">Mes
-											enchères en Cours</label><br> 
+											id="venteEnCours" name="venteEnCours" value="venteEnCours">
+											<label for="venteEnCours">Mes Ventes en cours</label><br> 
+										<input type="checkbox" id="venteNonDebutees" name="venteNonDebutees"
+											value="venteNonDebutees"> <label for="venteNonDebutees">Ventes non débutées</label><br> 
 										<input type="checkbox"
-											id="achatRemport" name="achatRemport" value="achatRemport">
-											<label for="achatRemport">Enchère Ouvertes</label><br>
+											id="venteTerminees" name="venteTerminees" value="venteTerminees">
+											<label for="venteTerminees">Ventes terminées</label><br>
 									</div>
 								</div>
 								<div>
