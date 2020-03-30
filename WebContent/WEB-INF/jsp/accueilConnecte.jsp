@@ -114,7 +114,7 @@
 				<div class="card h-100">
 					<div class="card-body contenu">
 						<div class="contenu">
-							<c:forEach var="article" items="${listeArticle}">
+							<c:forEach var="article" items="${ListeResultat}">
 								<div class="col-lg-5 d-inline-block contenu portfolio-item">
 									<a>Nom de l'article : ${article.nomArticle}</a><br> <a>Prix
 										de départ : ${article.miseAPrix}</a><br> <a>Fin de
