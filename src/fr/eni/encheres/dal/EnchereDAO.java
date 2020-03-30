@@ -22,10 +22,12 @@ public interface EnchereDAO {
 	//teste
 	public Utilisateur selectUtilisateur(String pseudo)throws BusinessException;
 	// Suprimer l'utilsateur
-	boolean delete (int id) throws BusinessException;
+	boolean delete (int noUtilisateur) throws BusinessException;
 		
 	public Utilisateur updateUtilisateur(Utilisateur utilisateur)throws BusinessException;
 	
 	public List<Article> selectAllArticles() throws BusinessException;
+	// Supprimer un article
+	public boolean delete_article(int noArticle) throws BusinessException;
 
 }

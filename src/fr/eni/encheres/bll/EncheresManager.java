@@ -131,6 +131,11 @@ public class EncheresManager {
 		listArt = enchereDAO.selectAllArticles();
 		return listArt;
 	}
+	public boolean removeArticle (int noArticle) throws BusinessException{
+		boolean verification;
+		verification = enchereDAO.delete(noArticle);
+		return verification;
+	}
 
 
 

@@ -35,6 +35,10 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 	private static final String SELECT_UTILISATEUR = "SELECT pseudo,nom,prenom,email,telephone,rue,code_postal,ville FROM UTILISATEURS WHERE pseudo = ?";
 	private static final String DELETE = "DELETE FROM UTILISATEURS WHERE no_utilisateur = ?;";
 	private static final String UPDATE_UTILISATEUR = "update UTILISATEURS set pseudo = ?, nom = ?, prenom =  ?, email = ?, telephone = ?, rue = ?, code_postal = ?, ville = ?, mot_de_passe = ? where no_utilisateur = ?;";
+	private static final String DELETE_ARTICLE = "DELETE FROM ARTICLES WHERE no_article = ?";
+	private static final String DELETE_RETRAIT = "DELETE FROM RETRAITS WHERE no_article = ?";
+	
+	
 	
 	public void insertArticle(Article article, Retrait retrait) throws BusinessException {
 		Connection con = null;
@@ -441,5 +445,42 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 		 }
 
 	}
+	
+	public boolean delete_article(int noArticle) throws BusinessException{
+		BusinessException be = new BusinessException();
+		
+			try {
+				Connection con = ConnectionProvider.getConnection();
+				con.setAutoCommit(false);
+				
+				PreparedStatement psmt = con.prepareStatement(DELETE_ARTICLE);
+				psmt.setInt(1, noArticle);
+				int nbEnr = psmt.executeUpdate();
+				if (nbEnr != 1) {
+					con.rollback();
+					be.ajouterErreur(CodesResultatDAL.DELETE_OBJET_ECHEC);
+					return false;
+				}
+					
+				PreparedStatement psm = con.prepareStatement(DELETE_RETRAIT);
+				psm.setInt(1, noArticle);
+				int nmbEnr = psmt.executeUpdate();
+				if (nmbEnr != 1) {
+					con.rollback();
+					be.ajouterErreur(CodesResultatDAL.DELETE_OBJET_ECHEC);
+					return false;
+				}
+				con.commit();
+				con.close();
+				psmt.close();
+				return  true;
+			}
+			catch (SQLException e) {
+				e.printStackTrace();
+				throw be;
+			}
+
+	}
 
 }
+
