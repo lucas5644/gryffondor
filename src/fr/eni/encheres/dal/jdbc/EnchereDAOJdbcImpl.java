@@ -38,6 +38,8 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 	private static final String DELETE_ARTICLE = "DELETE FROM ARTICLES WHERE no_article = ?";
 	private static final String DELETE_RETRAIT = "DELETE FROM RETRAITS WHERE no_article = ?";
 	
+	private static final String UPDATE_ARTICLE = "UPDATE ARTICLES set nom_article = ?,description  = ?, no_categorie  = ?,prix_initial  = ?, date_debut_encheres  = ?, date_fin_encheres  = ? where no_article = ?;";
+	private static final String UPDATE_RETRAIT = "UPDATE RETRAITS set rue = ?, code_postal = ?, ville = ? where no_article = ? ;";
 	
 	
 	public void insertArticle(Article article, Retrait retrait) throws BusinessException {
@@ -482,5 +484,46 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 
 	}
 
+	public Article updateArticle(Article art, Retrait retrait)throws BusinessException{
+		int noArticle;
+		Connection cnx = null;
+		 BusinessException be = new BusinessException();
+		 try {
+				cnx = ConnectionProvider.getConnection();
+				cnx.setAutoCommit(false);
+
+				PreparedStatement psmt = cnx.prepareStatement(UPDATE_ARTICLE);
+				
+				psmt.setString(1, art.getNomArticle());
+				psmt.setString(2,art.getDescription());
+				psmt.setInt(3,art.getCategorieArticle().getNoCategorie());
+				psmt.setInt(4,art.getMiseAPrix());
+				psmt.setDate(5,Date.valueOf(art.getDateDebutEncheres()));
+				psmt.setDate(6,Date.valueOf(art.getDateFinEncheres()));
+				psmt.setString(7, art.getLieuRetrait().getRue());
+				psmt.setInt(7,art.getNoArticle());
+				
+			if(	psmt.executeUpdate()==1) {
+				cnx.commit();
+			}
+			psmt.close();
+		
+			psmt=cnx.prepareStatement(UPDATE_RETRAIT);
+			noArticle=art.getNoArticle();
+			
+			psmt.setString(1,retrait.getRue());
+			psmt.setString(2,retrait.getCodePostal());
+			psmt.setString(3,retrait.getVille()); 
+			psmt.setInt(4, noArticle);
+			psmt.executeUpdate();
+			cnx.commit();
+			
+			return art;
+		 } catch (SQLException e) {
+			 e.printStackTrace();
+
+			 throw be;
+		 }
+	}
 }
 
