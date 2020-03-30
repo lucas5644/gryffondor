@@ -58,7 +58,7 @@
 					<div class="card-body contenu">
 						<div class="contenu">
 
-							<form action="AffichageArticleDeconnecte" method="post"
+							<form action="RechercheArticleConnecte" method="post"
 								class="justify-content-center mb-2">
 								<div class="form-group">
 									<label for="nomArticle">Nom de l'article</label> <input
@@ -77,13 +77,13 @@
 								<div class="col-lg-12 col-md-12 col-sm-12 portfolio-item">
 									<div class="col-lg-6 col-md-6 col-sm-6 portfolio-item">
 										<input type="radio" name="mode" id="modeAchat"> <label
-											for="modeAchat">Achats</label><br> <input
-											type="checkbox" id="achatOuvert" name="achatOuvert"
-											value="achatOuvert"> <label for="achatOuvert">Enchère
-											Ouvertes</label><br> <input type="checkbox" id="achatEnCours"
+											for="modeAchat">Achats</label><br> 
+										<input type="checkbox" id="achatOuvert" name="achatOuvert" value="achatOuvert"> <label for="achatOuvert">Enchère
+											Ouvertes</label><br> 
+										<input type="checkbox" id="achatEnCours"
 											name="achatEnCours" value="achatEnCours"> <label
-											for="achatEnCours">Mes enchères en Cours</label><br> <input
-											type="checkbox" id="achatRemport" name="achatRemport"
+											for="achatEnCours">Mes enchères en Cours</label><br> 
+										<input type="checkbox" id="achatRemport" name="achatRemport"
 											value="achatRemport"> <label for="achatRemport">Enchère
 											Ouvertes</label><br>
 
@@ -91,14 +91,16 @@
 
 									<div class="col-lg-6 col-md-6 col-sm-6 portfolio-item">
 										<input type="radio" name="mode" id="modeVente"> <label
-											for="modeVente">Mes Ventes</label> <input type="checkbox"
+											for="modeVente">Mes Ventes</label> 
+										<input type="checkbox"
 											id="achatOuvert" name="achatOuvert" value="achatOuvert">
-										<label for="achatOuvert">Enchère Ouvertes</label><br> <input
-											type="checkbox" id="achatEnCours" name="achatEnCours"
+											<label for="achatOuvert">Enchère Ouvertes</label><br> 
+										<input type="checkbox" id="achatEnCours" name="achatEnCours"
 											value="achatEnCours"> <label for="achatEnCours">Mes
-											enchères en Cours</label><br> <input type="checkbox"
+											enchères en Cours</label><br> 
+										<input type="checkbox"
 											id="achatRemport" name="achatRemport" value="achatRemport">
-										<label for="achatRemport">Enchère Ouvertes</label><br>
+											<label for="achatRemport">Enchère Ouvertes</label><br>
 									</div>
 								</div>
 								<div>
