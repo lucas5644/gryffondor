@@ -24,7 +24,6 @@ public class ServletRechercheArticleConnecte extends HttpServlet {
 		switch (request.getParameter("mode")) {
 		case "modeAchat":
 			
-			EM.
 			
 			
 			

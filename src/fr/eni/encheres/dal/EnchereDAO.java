@@ -24,6 +24,8 @@ public interface EnchereDAO {
 	// Suprimer l'utilsateur
 	boolean delete (int id) throws BusinessException;
 		
-	public Utilisateur updateUtilisateur(Utilisateur utilisateur)throws BusinessException; 
+	public Utilisateur updateUtilisateur(Utilisateur utilisateur)throws BusinessException;
+	
+	public List<Article> selectAllArticles() throws BusinessException;
 
 }

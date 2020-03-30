@@ -384,7 +384,27 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 			}
 
 	}
-
+	
+	public List<Article> selectAllArticles() throws BusinessException{
+		
+		List<Article> listeArticle = new ArrayList<Article>();
+		try (Connection con = ConnectionProvider.getConnection();
+				PreparedStatement psmt = con.prepareStatement(SELECT_ARTICLE);){
+			BusinessException be = new BusinessException();
+			ResultSet rs = psmt.executeQuery();
+			Article articleCourant = new Article();
+			while (rs.next()) {
+				articleCourant = mappingArticle(rs);
+				listeArticle.add(articleCourant);
+			}
+			return listeArticle;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			BusinessException be = new BusinessException();
+			be.ajouterErreur(CodesResultatDAL.SELECT_ARTICLES);
+			throw be;
+		}
+	}
 
 	public  Utilisateur updateUtilisateur(Utilisateur utilisateur)throws BusinessException {
 		Connection cnx = null;
