@@ -46,6 +46,10 @@ public class ServletRechercheArticleConnecte extends HttpServlet {
 		}
 		
 		List<Article> MaListe = new ArrayList<Article>();
+		MaListe = null;
+		if(request.getParameter("mode").isEmpty()) {
+			request.setAttribute("erreur", "Il faut choisir Achat ou Vente");
+		}
 		switch (request.getParameter("mode")) {
 		
 		case "modeAchat":
