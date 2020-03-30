@@ -46,26 +46,32 @@ public class ServletRechercheArticleConnecte extends HttpServlet {
 		}
 		
 		List<Article> MaListe = new ArrayList<Article>();
-		MaListe = null;
-		if(request.getParameter("mode").isEmpty()) {
-			request.setAttribute("erreur", "Il faut choisir Achat ou Vente");
-		}
 		switch (request.getParameter("mode")) {
 		
 		case "modeAchat":
 			
-			String EnCours = request.getParameter("achatEnCours");
-			String AchatOuvert = request.getParameter("achatOuvert");
-			String AchatRemport = request.getParameter("achatRemport");
+			String EnCours = "non";
+			if(request.getParameter("achatEnCours") != null) {
+				EnCours = request.getParameter("achatEnCours");
+			}
+			String AchatOuvert = "non";
+			if(request.getParameter("achatOuvert")!= null) {
+				AchatOuvert =request.getParameter("achatOuvert");
+			}
+			String AchatRemport = "non";
+			if(request.getParameter("achatRemport")!= null) {
+				AchatRemport = request.getParameter("achatRemport");
+			}
 			//On commence l'écrémage en fonction des parametres
-			if(!AchatOuvert.equals(null)) {
+			
+			if(!AchatOuvert.equals("non")) {
 				for (Article article : listeArticles) {
 					if(article.getEtatVente().equals("Créée")) {
 						MaListe.add(article);
 					}
 				}
 			}
-			if(!EnCours.equals(null)) {
+			if(!EnCours.equals("non")) {
 				for (Article article : listeArticles) {
 					if(article.getEtatVente().equals("En cours")) {
 						List<Utilisateur> checkList = article.getListeAcheteurs();
@@ -77,7 +83,7 @@ public class ServletRechercheArticleConnecte extends HttpServlet {
 					}
 				}
 			}
-			if(!AchatRemport.equals(null)) {
+			if(!AchatRemport.equals("non")) {
 				for (Article article : listeArticles) {
 					if(article.getEtatVente().equals("Enchères terminées")) {
 						List<Utilisateur> checkList = article.getListeAcheteurs();
@@ -91,24 +97,34 @@ public class ServletRechercheArticleConnecte extends HttpServlet {
 			}
 			break;
 		case "modeVente":
-			String VEnCours = request.getParameter("venteEnCours");
-			String VNonDebutees = request.getParameter("venteNonDebutees");
-			String venteTerminees = request.getParameter("venteTerminees");
-			if(!VNonDebutees.equals(null)) {
+			String VEnCours = "non";
+			if(request.getParameter("venteEnCours")!= null) {
+				VEnCours = request.getParameter("venteEnCours");
+			}
+			String VNonDebutees = "non"; 
+			if(request.getParameter("venteNonDebutees")!= null) {
+				VNonDebutees = request.getParameter("venteNonDebutees");
+			}
+			String venteTerminees = "non"; 
+			if(request.getParameter("venteTerminees")!= null) {
+				venteTerminees = request.getParameter("venteTerminees");
+			}
+			System.out.println(VEnCours +" "+VNonDebutees + ""+ VNonDebutees);
+			if(!VNonDebutees.equals("non")) {
 				for (Article article : listeArticles) {
 					if(article.getEtatVente().equals("Créée") && article.getVendeur().getNoUtilisateur() == userConnected.getNoUtilisateur() ) {
 						MaListe.add(article);
 					}
 				}
 			}
-			if(!VEnCours.equals(null)) {
+			if(!VEnCours.equals("non")) {
 				for (Article article : listeArticles) {
 					if(article.getEtatVente().equals("En cours")&& article.getVendeur().getNoUtilisateur() == userConnected.getNoUtilisateur()) {
 						MaListe.add(article);
 					}
 				}
 			}
-			if(!venteTerminees.equals(null)) {
+			if(!venteTerminees.equals("non")) {
 				for (Article article : listeArticles) {
 					if(article.getEtatVente().equals("Enchères terminées") && article.getVendeur().getNoUtilisateur() == userConnected.getNoUtilisateur()) {
 						MaListe.add(article);

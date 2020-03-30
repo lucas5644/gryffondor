@@ -76,7 +76,7 @@
 								</div>
 								<div class="col-lg-12 col-md-12 col-sm-12 portfolio-item">
 									<div class="col-lg-6 col-md-6 col-sm-6 portfolio-item">
-										<input type="radio" name="mode" id="modeAchat" value="modeAchat"> <label
+										<input type="radio" name="mode" id="modeAchat" value="modeAchat" checked> <label
 											for="modeAchat">Achats</label><br> 
 										<input type="checkbox" id="achatOuvert" name="achatOuvert" value="achatOuvert"> <label for="achatOuvert">Enchère
 											Ouvertes</label><br> 
