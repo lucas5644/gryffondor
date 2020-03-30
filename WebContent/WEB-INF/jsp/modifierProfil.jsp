@@ -114,15 +114,15 @@
 								</div>
 								<div>
 								      <label for="mot de passe actuel">Mot de passe actuel : </label>
-                                      <input type="text" name="motDePasse" id="mot de passe actuel" />
+                                      <input type="password" name="motDePasse" id="mot de passe actuel" />
 								</div>
 								<div>
 								      <label for="nouveau mot de passe">Nouveau mot de passe : </label>
-                                      <input type="text" name="nouveauMotDePasse" id="neuveau mot de passe" />
+                                      <input type="password" name="nouveauMotDePasse" id="neuveau mot de passe" />
 								</div>
 								<div>
 									  <label for="confirmation">Confirmation : </label>
-                                      <input type="text" name="cNouveauMotDePasse" id="confirmation" />
+                                      <input type="password" name="cNouveauMotDePasse" id="confirmation" />
 								</div>
 									<input type="submit" value="Enregistrer" class="btn btn-primary" />
 									
