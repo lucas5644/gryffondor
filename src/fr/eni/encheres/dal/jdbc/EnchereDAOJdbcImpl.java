@@ -26,7 +26,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 	private static final String INSERT_LIEU_RETRAIT = "INSERT INTO RETRAITS(no_article,rue,code_postal,ville) VALUES (?,?,?,?);";
 	private static final String SELECT_ARTICLE = "SELECT a.no_article, a.nom_article, a.description, a.date_debut_encheres,a.date_fin_encheres,a.prix_initial,a.prix_vente,a.no_utilisateur,a.no_categorie,a.etat_vente,c.libelle, u.pseudo,u.nom,u.prenom,u.email,u.telephone,u.rue,u.code_postal,u.ville,u.mot_de_passe,u.credit,u.administrateur,e.date_enchere,e.montant_enchere FROM ARTICLES a LEFT JOIN CATEGORIES c on c.no_categorie = a.no_categorie LEFT JOIN UTILISATEURS u on u.no_utilisateur = a.no_utilisateur LEFT JOIN RETRAITS r on r.no_article = a.no_article LEFT JOIN ENCHERES e on e.no_article = a.no_article";
 	private static final String SELECT_ARTICLE_BY_ID = "SELECT a.no_article, a.nom_article, a.description, a.date_debut_encheres,a.date_fin_encheres,a.prix_initial,a.prix_vente,a.no_utilisateur,a.no_categorie,a.etat_vente,c.libelle, u.pseudo,u.nom,u.prenom,u.email,u.telephone,u.rue,u.code_postal,u.ville,u.mot_de_passe,u.credit,u.administrateur,e.date_enchere,e.montant_enchere, r.rue,r.code_postal,r.ville FROM ARTICLES a LEFT JOIN CATEGORIES c on c.no_categorie = a.no_categorie LEFT JOIN UTILISATEURS u on u.no_utilisateur = a.no_utilisateur LEFT JOIN RETRAITS r on r.no_article = a.no_article LEFT JOIN ENCHERES e on e.no_article = a.no_article WHERE a.no_article=?";
-	private static final String SELECT_ARTICLE_DECONNECTE = "SELECT a.no_article, a.nom_article, a.description, a.date_debut_encheres,a.date_fin_encheres,a.prix_initial,a.prix_vente,a.no_utilisateur,a.no_categorie,a.etat_vente,c.libelle, u.pseudo,u.nom,u.prenom,u.email,u.telephone,u.rue,u.code_postal,u.ville,u.mot_de_passe,u.credit,u.administrateur,e.date_enchere,e.montant_enchere FROM ARTICLES a LEFT JOIN CATEGORIES c on c.no_categorie = a.no_categorie LEFT JOIN UTILISATEURS u on u.no_utilisateur = a.no_utilisateur LEFT JOIN RETRAITS r on r.no_article = a.no_article LEFT JOIN ENCHERES e on e.no_article = a.no_article WHERE a.nom_article LIKE ? AND c.libelle LIKE ?;";
+	private static final String SELECT_ARTICLE_DECONNECTE = "SELECT a.no_article, a.nom_article, a.description, a.date_debut_encheres,a.date_fin_encheres,a.prix_initial,a.prix_vente,a.no_utilisateur,a.no_categorie,a.etat_vente,c.libelle, u.pseudo,u.nom,u.prenom,u.email,u.telephone,u.rue,u.code_postal,u.ville,u.mot_de_passe,u.credit,u.administrateur,e.date_enchere,e.montant_enchere,r.rue,r.code_postal,r.ville FROM ARTICLES a LEFT JOIN CATEGORIES c on c.no_categorie = a.no_categorie LEFT JOIN UTILISATEURS u on u.no_utilisateur = a.no_utilisateur LEFT JOIN RETRAITS r on r.no_article = a.no_article LEFT JOIN ENCHERES e on e.no_article = a.no_article WHERE a.nom_article LIKE ? AND c.libelle LIKE ?;";
 	private static final String INSERT_UTILISATEUR = "INSERT INTO UTILISATEURS (pseudo, nom, prenom , email ,telephone ,rue , code_postal, ville, mot_de_passe, credit, administrateur) "
 			+ "VALUES (?,?,?,?,?,?,?,?,?,?,?);";
 	private static final String CHECK_CONNEXION = "select no_utilisateur ,pseudo , nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, administrateur, credit from UTILISATEURS where pseudo = ? and mot_de_passe = ?;";
@@ -42,6 +42,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 	
 	public Article selectArticleById(int numeroArticle) throws BusinessException {
 		Article articleCourant = new Article();
+		Retrait lieuRetrait = new Retrait();
 		Connection con = null;
 
 		try {
@@ -55,6 +56,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 			while (rs.next()) {
 				mappingArticle(rs);
 				if (mappingArticle(rs).getNoArticle() == numeroArticle) {
+					articleCourant.setLieuRetrait(lieuRetrait);
 					articleCourant = mappingArticle(rs);
 				}
 			}
@@ -129,12 +131,13 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 			}
 		}
 	}
-
+	
 	private Article mappingArticle(ResultSet rs) throws SQLException {
 
 		Article newArticle = new Article();
 		Utilisateur newUtilisateur = new Utilisateur();
 		Categorie newCategorie = new Categorie();
+		Retrait newLieuRetrait = new Retrait();
 		newArticle.setNoArticle(rs.getInt("no_article"));
 		newArticle.setNomArticle(rs.getString("nom_article"));
 		newArticle.setDescription(rs.getString("description"));
@@ -157,6 +160,10 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 		newUtilisateur.setMotDePasse(rs.getString("mot_de_passe"));
 		newUtilisateur.setCredit(rs.getInt("credit"));
 		newUtilisateur.setAdministrateur(rs.getInt("administrateur"));
+		newLieuRetrait.setRue(rs.getString("rue"));
+		newLieuRetrait.setCodePostal(rs.getString("code_postal"));
+		newLieuRetrait.setVille(rs.getString("ville"));
+		newArticle.setLieuRetrait(newLieuRetrait);
 		newArticle.setVendeur(newUtilisateur);
 		newArticle.setCategorieArticle(newCategorie);
 		return newArticle;

@@ -31,7 +31,7 @@ public class ServletEncherir extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int numeroArticle = Integer.parseInt(request.getParameter("numeroArticle"));
-		System.out.println(numeroArticle);
+		System.out.println("Numéro de l'article" + numeroArticle);
 		try {
 			articleCourant = enchereManager.selectArticleById(numeroArticle);
 			System.out.println(articleCourant);
