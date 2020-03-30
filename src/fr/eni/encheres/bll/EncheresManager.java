@@ -139,7 +139,7 @@ public class EncheresManager {
 
 public Article updateArticle(Article art, Retrait retrait)throws BusinessException{
 	Article article;
-	article = enchereDao.updateArticle(art, retrait);
+	article = enchereDAO.updateArticle(art, retrait);
 	return article;
 }
 

@@ -30,4 +30,5 @@ public interface EnchereDAO {
 	// Supprimer un article
 	public boolean delete_article(int noArticle) throws BusinessException;
 
+	public Article updateArticle(Article art, Retrait retrait)throws BusinessException;
 }
