@@ -72,7 +72,7 @@ public class SerletUpdateUtilisateur extends HttpServlet {
 		
 		}
 		
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/modifierProfil.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/afficherUtilisateur.jsp");
 		rd.forward(request, response);
 	
 	

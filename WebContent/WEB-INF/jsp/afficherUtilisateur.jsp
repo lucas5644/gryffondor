@@ -25,37 +25,13 @@
 	rel="stylesheet">
 
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-		<div class="container">
-			<a class="navbar-brand" href="<%=request.getContextPath()%>"> Utilisateur</a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse"
-				data-target="#navbarResponsive" aria-controls="navbarResponsive"
-				aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarResponsive">
-				<ul class="navbar-nav ml-auto">
-					<li class="nav-item active"><a class="nav-link"
-						href="<%=request.getContextPath()%>">Accueil <span
-							class="sr-only">(current)</span>
-					</a></li>
-					
-				</ul>
-			</div>
-		</div>
-	</nav>
+
 
 <!-- Page Heading -->
 		<h1 class="my-4">Utilisateur</h1>
 
-		<div class="row">
-			<div class="col-lg-12 col-md-12 col-sm-12 portfolio-item">
-				<div class="card h-100">
-					<div class="card-body contenu">
-						<div class="contenu">
-
-
-<title>Afficher  utilisateur</title>
+		
+<title> Afficher  utilisateur</title>
 <style>
 	ul{
 		list-style-type: none;
@@ -64,19 +40,34 @@
 </style>
 </head>
 <body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+		<div class="container">
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item active"><a class="nav-link"
+						href="<%=request.getContextPath()%>/AccueilUtilisateur">Accueil <span
+							class="sr-only">(current)</span>
+					</a></li>
+					
+				</ul>
+			</div>
+		</div>
+	</nav>
+	
 	<h1>${utilisateur.pseudo} </h1>
 	
 	
 	<ul> 
 	
-		<li>Pseudo : ${utilisateur.pseudo}</li> 
-		<li>Nom : ${utilisateur.nom}</li>
-		<li>Prénom : ${utilisateur.prenom}</li>
-		<li>Email : ${utilisateur.email}</li>
-		<li>Téléphone : ${utilisateur.telephone}</li>
-		<li>Rue : ${utilisateur.rue}</li>
-		<li>Code postal : ${utilisateur.codePostal}</li>
-		<li>Ville : ${utilisateur.ville}</li> 
+		<li>Pseudo : ${userConnected.pseudo}</li> 
+		<li>Nom : ${userConnected.nom}</li>
+		<li>Prénom : ${userConnected.prenom}</li>
+		<li>Email : ${userConnected.email}</li>
+		<li>Téléphone : ${userConnected.telephone}</li>
+		<li>Rue : ${userConnected.rue}</li>
+		<li>Code postal : ${userConnected.codePostal}</li>
+		<li>Ville : ${userConnected.ville}</li> 
 		
 	</ul>
 	
