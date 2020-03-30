@@ -137,8 +137,13 @@ public class EncheresManager {
 		return verification;
 	}
 
+public Article updateArticle(Article art, Retrait retrait)throws BusinessException{
+	Article article;
+	article = enchereDao.updateArticle(art, retrait);
+	return article;
+}
 
-
+	
 }
 
 
