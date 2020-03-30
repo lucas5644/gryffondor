@@ -15,7 +15,8 @@
 <!-- Custom styles for this template -->
 <link href="<%=request.getContextPath()%>/css/4-col-portfolio.css"
 	rel="stylesheet">
-<link rel="icon" href="<%=request.getContextPath()%>/images/gryffondor.jpg">
+<link rel="icon"
+	href="<%=request.getContextPath()%>/images/gryffondor.jpg">
 
 <link href="<%=request.getContextPath()%>/css/style.css"
 	rel="stylesheet">
@@ -47,8 +48,8 @@
 							<form action="AffichageArticleDeconnecte" method="post"
 								class="justify-content-center mb-2">
 								<div class="form-group">
-									<label for="nomArticle">Nom de l'article</label>
-									<input name="nomArticle" class="form-control"/>
+									<label for="nomArticle">Nom de l'article</label> <input
+										name="nomArticle" class="form-control" />
 								</div>
 								<div class="form-group">
 									<label for="nomCategorie"></label> <select name="nomCategorie"
@@ -72,14 +73,19 @@
 				<div class="card h-100">
 					<div class="card-body contenu">
 						<div class="contenu">
-							<c:forEach var="article" items="${listeArticle}">
-								<div class="col-lg-5 d-inline-block contenu portfolio-item">
-									<a>Nom de l'article : ${article.nomArticle}</a><br> <a>Prix
-										de départ : ${article.miseAPrix}</a><br> <a>Fin de
-										l'enchère : ${article.dateFinEncheres}</a><br> <a>Pseudo
-										: ${article.vendeur.pseudo}</a>
-								</div>
-							</c:forEach>
+							<form action="encherirArticle" method="post">
+								<c:forEach var="article" items="${listeArticle}">
+									<div class="col-lg-5 d-inline-block contenu portfolio-item">
+										<input type="submit" value="Nom de l'article : ${article.nomArticle}">
+										<br> <a>Prix de
+											départ : ${article.miseAPrix}</a><br> <a>Fin de
+											l'enchère : ${article.dateFinEncheres}</a><br> <a>Pseudo
+											: ${article.vendeur.pseudo}</a><br>
+										<label for="numeroArticle"></label>
+										<input name="numeroArticle" type="hidden" value="${article.noArticle}">
+									</div>
+								</c:forEach>
+							</form>
 						</div>
 					</div>
 				</div>

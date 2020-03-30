@@ -42,109 +42,113 @@ public class EncheresManager {
 	public List<Article> selectArticleDeconnecte(String nomCategorie, String nomArticle) throws BusinessException {
 		return enchereDAO.selectArticleDeconnecte(nomCategorie, nomArticle);
 	}
-	
-	public Utilisateur ajouterUser(Utilisateur user)throws BusinessException{
+
+	public Utilisateur ajouterUser(Utilisateur user) throws BusinessException {
 		BusinessException be = new BusinessException();
-		//valider les champs
+		// valider les champs
 		checkUser(user, be);
-		if(!be.hasErreurs()) {
+		if (!be.hasErreurs()) {
 			user.setAdministrateur(0);
-			if(enchereDAO.checkPseudoMail(user.getPseudo(), user.getEmail())){
+			if (enchereDAO.checkPseudoMail(user.getPseudo(), user.getEmail())) {
 				user = enchereDAO.insert(user);
 				return user;
 			}
 			return user;
-			
-		}else {
+
+		} else {
 			throw be;
 		}
 	}
-	
+
 	public void checkUser(Utilisateur user, BusinessException be) {
-		if(user.getCodePostal().trim().length() != 5) {
+		if (user.getCodePostal().trim().length() != 5) {
 			be.ajouterErreur(10000);
 			System.out.println("erreur cp");
 		}
-//		if(user.getPseudo().matches("[A-Za-z0-9]+")) {
-//			be.ajouterErreur(10002);
-//			System.out.println("erreur pseudo");
-//		}
-		if(user.getPseudo().trim().length() > 31 && user.getPseudo().trim().length()< 3) {
+		// if(user.getPseudo().matches("[A-Za-z0-9]+")) {
+		// be.ajouterErreur(10002);
+		// System.out.println("erreur pseudo");
+		// }
+		if (user.getPseudo().trim().length() > 31 && user.getPseudo().trim().length() < 3) {
 			be.ajouterErreur(10000);
 			System.out.println("erreur pseudo long");
 		}
-		if(user.getPrenom().trim().length()> 31 && user.getPrenom().trim().length()< 2) {
+		if (user.getPrenom().trim().length() > 31 && user.getPrenom().trim().length() < 2) {
 			be.ajouterErreur(10000);
 			System.out.println("erreur prenom");
 		}
-		if(user.getNom().trim().length()> 31 && user.getNom().trim().length()<2) {
-				be.ajouterErreur(10000);
-				System.out.println("erreur nom");
+		if (user.getNom().trim().length() > 31 && user.getNom().trim().length() < 2) {
+			be.ajouterErreur(10000);
+			System.out.println("erreur nom");
 		}
-		if(user.getEmail().trim().length() > 51 && user.getEmail().trim().length() < 5 && user.getEmail().contains("@")) {
+		if (user.getEmail().trim().length() > 51 && user.getEmail().trim().length() < 5
+				&& user.getEmail().contains("@")) {
 			be.ajouterErreur(10000);
 			System.out.println("erreur mail");
 		}
-		if(user.getVille().trim().length() >31 && user.getVille().trim().length() < 3) {
+		if (user.getVille().trim().length() > 31 && user.getVille().trim().length() < 3) {
 			be.ajouterErreur(10000);
 			System.out.println("erreur ville");
 		}
-		if(user.getMotDePasse().trim().length() > 31 && user.getMotDePasse().trim().length() <= 5) {
+		if (user.getMotDePasse().trim().length() > 31 && user.getMotDePasse().trim().length() <= 5) {
 			be.ajouterErreur(10000);
 			System.out.println("erreur mdp");
 		}
-		if(user.getCredit() > 1000000) {
+		if (user.getCredit() > 1000000) {
 			be.ajouterErreur(10000);
 		}
 	}
-	
-	public Utilisateur checkConnexion(String tryPseudo, String tryMdp) throws BusinessException{
-		
+
+	public Utilisateur checkConnexion(String tryPseudo, String tryMdp) throws BusinessException {
+
 		Utilisateur tryUser = new Utilisateur();
-			tryUser = enchereDAO.checkConnexion(tryPseudo, tryMdp);
+		tryUser = enchereDAO.checkConnexion(tryPseudo, tryMdp);
 		return tryUser;
-		
+
 	}
 
-	public Utilisateur rechercheUtilisateur(String pseudo)throws BusinessException{
-		Utilisateur user ; 
-		user=enchereDAO.selectUtilisateur(pseudo);
-		
+	public Utilisateur rechercheUtilisateur(String pseudo) throws BusinessException {
+		Utilisateur user;
+		user = enchereDAO.selectUtilisateur(pseudo);
+
 		return user;
-	
+
 	}
-	public boolean removeUtilisateur (int noUtilisateur) throws BusinessException{
-		boolean verification; 
+
+	public boolean removeUtilisateur(int noUtilisateur) throws BusinessException {
+		boolean verification;
 		verification = enchereDAO.delete(noUtilisateur);
-	return verification;
+		return verification;
 	}
 
-	public Utilisateur updateUtilisateur (Utilisateur utilisateur)throws BusinessException{
-	Utilisateur user ;
-	user = enchereDAO.updateUtilisateur(utilisateur);
-	return user;
-	
-}
+	public Utilisateur updateUtilisateur(Utilisateur utilisateur) throws BusinessException {
+		Utilisateur user;
+		user = enchereDAO.updateUtilisateur(utilisateur);
+		return user;
 
-	public List<Article> selectAllArticles() throws BusinessException{
+	}
+
+	public List<Article> selectAllArticles() throws BusinessException {
 		List<Article> listArt;
 		listArt = enchereDAO.selectAllArticles();
 		return listArt;
 	}
-	public boolean removeArticle (int noArticle) throws BusinessException{
+
+	public boolean removeArticle(int noArticle) throws BusinessException {
 		boolean verification;
 		verification = enchereDAO.delete(noArticle);
 		return verification;
 	}
 
-public Article updateArticle(Article art, Retrait retrait)throws BusinessException{
-	Article article;
-	article = enchereDAO.updateArticle(art, retrait);
-	return article;
+	public Article selectArticleById(int numeroArticle) throws BusinessException {
+		Article articleCourant = new Article();
+		articleCourant = enchereDAO.selectArticleById(numeroArticle);
+		return articleCourant;
+	}
+
+	public Article updateArticle(Article art, Retrait retrait) throws BusinessException {
+		Article article;
+		article = enchereDAO.updateArticle(art, retrait);
+		return article;
+	}
 }
-
-	
-}
-
-
-
