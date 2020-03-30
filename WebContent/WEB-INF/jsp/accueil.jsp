@@ -73,19 +73,22 @@
 				<div class="card h-100">
 					<div class="card-body contenu">
 						<div class="contenu">
-							<form action="encherirArticle" method="post">
+							<div class="d-flex flex-row flex-wrap">
 								<c:forEach var="article" items="${listeArticle}">
-									<div class="col-lg-5 d-inline-block contenu portfolio-item">
-										<input type="submit" value="Nom de l'article : ${article.nomArticle}">
-										<br> <a>Prix de
-											départ : ${article.miseAPrix}</a><br> <a>Fin de
-											l'enchère : ${article.dateFinEncheres}</a><br> <a>Pseudo
-											: ${article.vendeur.pseudo}</a><br>
-										<label for="numeroArticle"></label>
-										<input name="numeroArticle" type="hidden" value="${article.noArticle}">
+									<div class="col-lg-6">
+										<form action="encherirArticle" method=post>
+											<input type="submit"
+												value="Nom de l'article : ${article.nomArticle}"> <br>
+											<a>Prix de départ : ${article.miseAPrix}</a><br> <a>Fin
+												de l'enchère : ${article.dateFinEncheres}</a><br> <a>Pseudo
+												: ${article.vendeur.pseudo}</a> <label for="numeroArticle"></label>
+											<input name="numeroArticle" type="hidden"
+												value="${article.noArticle}">
+										</form>
+										<br>
 									</div>
 								</c:forEach>
-							</form>
+							</div>
 						</div>
 					</div>
 				</div>
