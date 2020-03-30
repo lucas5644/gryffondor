@@ -119,12 +119,21 @@ public class EncheresManager {
 	return verification;
 	}
 
-public Utilisateur updateUtilisateur (Utilisateur utilisateur)throws BusinessException{
+	public Utilisateur updateUtilisateur (Utilisateur utilisateur)throws BusinessException{
 	Utilisateur user ;
 	user = enchereDAO.updateUtilisateur(utilisateur);
 	return user;
 	
 }
+
+	public List<Article> selectAllArticles() throws BusinessException{
+		List<Article> listArt;
+		listArt = enchereDAO.selectAllArticles();
+		return listArt;
+	}
+
+
+
 }
 
 
