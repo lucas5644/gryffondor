@@ -156,7 +156,8 @@ public class ServletModifierVente extends HttpServlet {
 				newArticle.setEtatVente(etatVente);
 				newArticle.setVendeur(user);
 				newArticle.setLieuRetrait(newLieuDeRetrait);
-				encheresManager.ajouterArticle(newArticle, newLieuDeRetrait);
+				
+				encheresManager.updateArticle(newArticle, newLieuDeRetrait);
 				System.out.println(newArticle);
 				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/accueilConnecte.jsp");
 				rd.forward(request, response);
@@ -166,7 +167,7 @@ public class ServletModifierVente extends HttpServlet {
 				// Modifier vers la jsp  
 				e.printStackTrace();
 				request.setAttribute("listeCodesErreur", e.getListeCodesErreur());
-				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/ajouterArticle.jsp");
+				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/.jsp");
 				rd.forward(request, response);
 			}
 		}
