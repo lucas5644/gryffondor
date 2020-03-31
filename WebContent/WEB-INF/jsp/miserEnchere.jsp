@@ -59,6 +59,7 @@
 								<div>
 									<input type="submit" value="Enchérir" class="btn btn-primary" />
 								</div>
+								<input name="numeroArticle" type="hidden" value="<%=request.getAttribute("numeroArticle")%>">
 							</form>
 						</div>
 					</div>

@@ -76,7 +76,7 @@
 							<div class="d-flex flex-row flex-wrap">
 								<c:forEach var="article" items="${listeArticle}">
 									<div class="col-lg-6">
-										<form action="encherirArticle" method=post>
+										<form action="encherirArticle" method=get>
 											<input type="submit"
 												value="Nom de l'article : ${article.nomArticle}"> <br>
 											<a>Prix de départ : ${article.miseAPrix}</a><br> <a>Fin
