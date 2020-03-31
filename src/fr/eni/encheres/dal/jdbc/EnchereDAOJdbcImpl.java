@@ -426,8 +426,11 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 			BusinessException be = new BusinessException();
 			ResultSet rs = psmt.executeQuery();
 			Article articleCourant = new Article();
+			Utilisateur user = new Utilisateur();
 			while (rs.next()) {
+				user = mappingUser(rs);
 				articleCourant = mappingArticle(rs);
+				articleCourant.setVendeur(user);
 				listeArticle.add(articleCourant);
 			}
 			return listeArticle;
