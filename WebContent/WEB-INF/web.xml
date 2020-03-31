@@ -67,4 +67,12 @@
     <servlet-name>JSP_MISERENCHERE</servlet-name>
     <url-pattern>/miserEnchere</url-pattern>
   </servlet-mapping>
+  <servlet>
+  	<servlet-name>JSP_UPDATEVENTE</servlet-name>
+  	<jsp-file>/WEB-INF/jsp/UpdateVente.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>JSP_UPDATEVENTE</servlet-name>
+  	<url-pattern>/updatevente</url-pattern>
+  </servlet-mapping>
 </web-app>
