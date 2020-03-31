@@ -66,7 +66,7 @@ public class ServletRechercheArticleConnecte extends HttpServlet {
 			
 			if(!AchatOuvert.equals("non")) {
 				for (Article article : listeArticles) {
-					if(article.getEtatVente().equals("Créée")) {
+					if(article.getEtatVente().equals("En cours")) {
 						MaListe.add(article);
 					}
 				}

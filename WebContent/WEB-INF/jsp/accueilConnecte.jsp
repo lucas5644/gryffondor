@@ -114,12 +114,15 @@
 					<div class="card-body contenu">
 						<div class="contenu">
 							<c:forEach var="article" items="${ListeResultat}">
-								<div class="col-lg-5 d-inline-block contenu portfolio-item">
-									<a>Nom de l'article : ${article.nomArticle}</a><br> <a>Prix
-										de départ : ${article.miseAPrix}</a><br> <a>Fin de
-										l'enchère : ${article.dateFinEncheres}</a><br> <a>Pseudo
-										: ${article.vendeur.pseudo}</a>
-								</div>
+								<form action="" method="post">
+									<div class="col-lg-5 d-inline-block contenu portfolio-item">
+									<input type="hidden" name="article" value="${article}">
+										<a>Nom de l'article : ${article.nomArticle}</a><br> <a>Prix
+											de départ : ${article.miseAPrix}</a><br> <a>Fin de
+											l'enchère : ${article.dateFinEncheres}</a><br> <a>Pseudo
+											: ${article.vendeur.pseudo}</a>
+									</div>
+								</form>
 							</c:forEach>
 						</div>
 					</div>
