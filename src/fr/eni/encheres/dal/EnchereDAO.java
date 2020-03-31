@@ -50,4 +50,6 @@ public interface EnchereDAO {
 	public Enchere updateEnchere(String pseudoUser, int numeroArticle, int montantEnchere) throws BusinessException;
 	//Select enchere
 	public Enchere selectEnchere(int numeroArticle) throws BusinessException;
+	
+	public List<Utilisateur>selectUtilisateurPourAdmin()throws BusinessException;
 }

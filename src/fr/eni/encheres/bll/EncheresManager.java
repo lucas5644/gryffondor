@@ -177,4 +177,11 @@ public class EncheresManager {
 		article = enchereDAO.updateArticle(art, retrait);
 		return article;
 	}
+	
+	public List<Utilisateur>selectUtilisateurPourAdmin()throws BusinessException{
+		 List<Utilisateur> listeUtilisateur;
+		listeUtilisateur = enchereDAO.selectUtilisateurPourAdmin();
+		 return listeUtilisateur;
+		
+	}
 }

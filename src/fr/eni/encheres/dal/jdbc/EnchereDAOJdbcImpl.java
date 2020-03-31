@@ -46,7 +46,8 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 	private static final String INSERT_ENCHERE = "INSERT INTO ENCHERES(no_utilisateur, no_article, date_enchere,montant_enchere) VALUES(?,?,?,?);";
 	private static final String UPDATE_ENCHERE = "UPDATE ENCHERES set no_utilisateur=?, date_enchere = ?, montant_enchere = ? where no_article = ?;";
 	public static final String SELECT_ENCHERE = "SELECT no_utilisateur,no_article,date_enchere, montant_enchere FROM ENCHERES WHERE no_article = ?;";
-
+	private static final String SELECT_UTILISATEUR_ADMIN = "SELECT no_utilisateur,pseudo,nom,prenom,email,telephone,rue,code_postal,ville,mot_de_passe,credit,administrateur FROM UTILISATEURS";
+	
 	public Enchere selectEnchere(int numeroArticle) throws BusinessException {
 		Enchere enchereCourante = new Enchere();
 		Utilisateur utilisateurCourant = new Utilisateur();
@@ -705,5 +706,33 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 			 throw be;
 		 }
 	}
+
+	public List<Utilisateur> selectUtilisateurPourAdmin()throws BusinessException{
+		Utilisateur user =new Utilisateur();
+		List<Utilisateur>listeUtilisateur = new ArrayList<Utilisateur>();
+		Connection cnx = null;
+		 BusinessException be = new BusinessException();
+
+		try {
+			cnx = ConnectionProvider.getConnection();
+			cnx.setAutoCommit(false);
+
+			PreparedStatement psmt = cnx.prepareStatement(SELECT_UTILISATEUR_ADMIN);{
+			ResultSet rs = psmt.executeQuery();
+			while(rs.next()) {
+				user=mappingUser(rs);
+				listeUtilisateur.add(user);
+			}
+		}
+		
+		return listeUtilisateur;
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		
+			throw be;
+		}
+	}
+	
 }
 
