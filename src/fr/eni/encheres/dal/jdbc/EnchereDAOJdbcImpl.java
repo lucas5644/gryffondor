@@ -155,24 +155,23 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 		Date JourDebutEnchere = Date.valueOf(LocalDate.now()); 
 		String JourFinal = String.valueOf(JourFin);
 		String JourDeb = String.valueOf(JourDebutEnchere);
-		
 		try {
 			cnx = ConnectionProvider.getConnection();
 			cnx.setAutoCommit(false);
 			PreparedStatement psmt1 = cnx.prepareStatement(UPDATE_ETAT_EN_COURS);
 			psmt1.setString(1, JourDeb);
-			if (psmt1.executeUpdate() == 1) {
-				cnx.commit();
-				psmt1.close();
-			}
+			psmt1.executeUpdate();
+			psmt1.close();
 
+			
+			
+			
 			PreparedStatement psmt = cnx.prepareStatement(UPDATE_ETAT_FIN);
 			psmt.setString(1, JourFinal);
-
-			if (psmt.executeUpdate() == 1) {
-				cnx.commit();
-				psmt.close();
-			}
+			psmt.executeUpdate();
+			psmt.close();
+			
+			cnx.commit();
 
 			try {
 				cnx.close();
