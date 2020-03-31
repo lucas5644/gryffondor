@@ -49,18 +49,20 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 		BusinessException be = new BusinessException();
 		Date JourFin = Date.valueOf(LocalDate.now().plusDays(1));
 		Date JourDebutEnchere = Date.valueOf(LocalDate.now()); 
+		String JourFinal = String.valueOf(JourFin);
+		String JourDeb = String.valueOf(JourDebutEnchere);
 		try {
 			cnx = ConnectionProvider.getConnection();
 			cnx.setAutoCommit(false);
 			PreparedStatement psmt1 = cnx.prepareStatement(UPDATE_ETAT_EN_COURS);
-			psmt1.setDate(1, JourDebutEnchere);
+			psmt1.setString(1, JourDeb);
 			if (psmt1.executeUpdate() == 1) {
 				cnx.commit();
 				psmt1.close();
 			}
 
 			PreparedStatement psmt = cnx.prepareStatement(UPDATE_ETAT_FIN);
-			psmt.setDate(1, JourFin);
+			psmt.setString(1, JourFinal);
 
 			if (psmt.executeUpdate() == 1) {
 				cnx.commit();
