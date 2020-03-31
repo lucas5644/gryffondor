@@ -25,20 +25,15 @@ import fr.eni.encheres.exception.BusinessException;
 public class ServletDeleteArticle extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ServletDeleteArticle() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+  
+    
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		doPost(request, response);
 	}
 
 	/**
@@ -90,32 +85,7 @@ public class ServletDeleteArticle extends HttpServlet {
 			rd.forward(request, response);			
 			e.printStackTrace();
 		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+			
 	}
 
 }

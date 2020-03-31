@@ -134,8 +134,6 @@
 							</form>
 							<form action="DeleteArticle">
 							<input type = "hidden" name = noArticle>
-							
-							
 							<input type="submit" value="Annuler la vente" class="btn btn-primary" />
 									<%if(request.getAttribute("echec" )!= null){ %>
 									<a><%=request.getAttribute("echec") %></a>

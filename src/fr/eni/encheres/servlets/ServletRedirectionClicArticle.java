@@ -25,28 +25,24 @@ public class ServletRedirectionClicArticle extends HttpServlet {
 		String monArticle = request.getParameter("article");
 		int monArticleNo = Integer.parseInt(monArticle);
 		
+		
+		String url;
 		if(userConnected.getNoUtilisateur() == monArticleNo) {
-			RequestDispatcher rd = request.getRequestDispatcher("UpdateVente");
-			rd.forward(request, response);
+			url = "WEB-INF/jsp/updateVente.jsp";
+			
+			
 		}else {
-			RequestDispatcher rd = request.getRequestDispatcher("A REMPLIR PAR LUCAS");
-			rd.forward(request, response);
+			url = "WEB-INF/jsp/accueil.jsp";
+			
+			
 		}
 		 
+		RequestDispatcher rd = request.getRequestDispatcher(url);
 		
 		
 		
-		
-	
-		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/accueil.jsp");
 		rd.forward(request, response);
 		
-		
-		
-		
-		
-		
-	
 		
 		
 	
