@@ -79,7 +79,7 @@
 							<%
 								}
 							%>
-							<form action="" method="post">
+							<form action="ModifierVente" method="post">
 								<div class="saisie">
 									<label for="article">Article : </label> <input
 										class="form-control" name="article">
@@ -126,7 +126,7 @@
 								<div>
 									<input type="submit" value="Enregistrer"
 										class="btn btn-primary" /> <a
-										href="<%=request.getContextPath()%>"><input type="button"
+										href="<%=request.getContextPath()%>/AccueilUtilisateur"><input type="button"
 										value="Annuler" class="btn btn-primary" /></a>
 									<input type="hidden" name="noUtilisateur" value="<%=iduserConnected%>"/>
 									

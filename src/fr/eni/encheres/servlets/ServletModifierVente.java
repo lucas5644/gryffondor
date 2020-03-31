@@ -168,7 +168,7 @@ public class ServletModifierVente extends HttpServlet {
 				// Modifier vers la jsp  
 				e.printStackTrace();
 				request.setAttribute("listeCodesErreur", e.getListeCodesErreur());
-				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/.jsp");
+				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/UpdateVente.jsp");
 				rd.forward(request, response);
 			}
 		}
