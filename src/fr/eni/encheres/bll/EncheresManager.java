@@ -128,9 +128,9 @@ public class EncheresManager {
 
 	}
 
-	public List<Article> selectAllArticles() throws BusinessException {
+	public List<Article> selectAllArticles(String nomCategorie, String nomArticle) throws BusinessException {
 		List<Article> listArt;
-		listArt = enchereDAO.selectAllArticles();
+		listArt = enchereDAO.selectAllArticles(nomCategorie, nomArticle);
 		return listArt;
 	}
 

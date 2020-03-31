@@ -31,7 +31,7 @@ public interface EnchereDAO {
 
 	public Utilisateur updateUtilisateur(Utilisateur utilisateur) throws BusinessException;
 
-	public List<Article> selectAllArticles() throws BusinessException;
+	public List<Article> selectAllArticles(String nomCategorie, String nomArticle) throws BusinessException;
 
 	// Supprimer un article
 	public boolean delete_article(int noArticle) throws BusinessException;
