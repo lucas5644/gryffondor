@@ -75,9 +75,11 @@ public class ServletRechercheArticleConnecte extends HttpServlet {
 				for (Article article : listeArticles) {
 					if(article.getEtatVente().equals("En cours")) {
 						List<Utilisateur> checkList = article.getListeAcheteurs();
-						for (Utilisateur user : checkList) {
-							if(user.getNoUtilisateur() == userConnected.getNoUtilisateur()) {
-								MaListe.add(article);
+						if(checkList != null) {
+							for (Utilisateur user : checkList) {
+								if(user.getNoUtilisateur() == userConnected.getNoUtilisateur()) {
+									MaListe.add(article);
+								}
 							}
 						}
 					}
@@ -87,9 +89,11 @@ public class ServletRechercheArticleConnecte extends HttpServlet {
 				for (Article article : listeArticles) {
 					if(article.getEtatVente().equals("Enchères terminées")) {
 						List<Utilisateur> checkList = article.getListeAcheteurs();
-						for (Utilisateur user : checkList) {
-							if(user.getNoUtilisateur() == userConnected.getNoUtilisateur()) {
-								MaListe.add(article);
+						if(checkList != null) {
+							for (Utilisateur user : checkList) {
+								if(user.getNoUtilisateur() == userConnected.getNoUtilisateur()) {
+									MaListe.add(article);
+								}
 							}
 						}
 					}

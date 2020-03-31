@@ -84,8 +84,7 @@
 											name="achatEnCours" value="achatEnCours"> <label
 											for="achatEnCours">Mes enchères en Cours</label><br> 
 										<input type="checkbox" id="achatRemport" name="achatRemport"
-											value="achatRemport"> <label for="achatRemport">Enchère
-											Ouvertes</label><br>
+											value="achatRemport"> <label for="achatRemport">Mes Enchères Remportées</label><br>
 
 									</div>
 
