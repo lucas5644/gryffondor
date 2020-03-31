@@ -29,7 +29,7 @@ public class SerletUpdateUtilisateur extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		EncheresManager enchereManager = new EncheresManager();
 		Utilisateur updateUtilisateur = new Utilisateur();
-		Utilisateur user = new Utilisateur(); 
+		Utilisateur user; 
 		BusinessException be = new BusinessException();
 		HttpSession session = request.getSession(); 
 		
@@ -66,6 +66,9 @@ public class SerletUpdateUtilisateur extends HttpServlet {
 		 
 		enchereManager.checkUser(updateUtilisateur, be);
 		user=enchereManager.updateUtilisateur(updateUtilisateur);
+		
+		session.setAttribute("userConnected", updateUtilisateur);
+		
 		System.out.println(user);
 		} catch (Exception e) {
 			e.printStackTrace();
