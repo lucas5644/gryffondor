@@ -19,6 +19,15 @@ public class EncheresManager {
 		enchereDAO = DAOFactory.getEnchereDAO();
 	}
 	
+	public void updateEtatVentes() {
+		try {
+			enchereDAO.updateEtatVente();
+		} catch (BusinessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	public Article ajouterArticle(Article article, Retrait lieuRetrait) throws BusinessException {
 		BusinessException be = new BusinessException();
 		//valider la date

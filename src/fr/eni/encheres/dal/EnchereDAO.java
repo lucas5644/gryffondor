@@ -40,4 +40,6 @@ public interface EnchereDAO {
 	public Article selectArticleById(int numeroArticle) throws BusinessException;
 
 	public Article updateArticle(Article art, Retrait retrait) throws BusinessException;
+	
+	public void updateEtatVente() throws BusinessException;
 }

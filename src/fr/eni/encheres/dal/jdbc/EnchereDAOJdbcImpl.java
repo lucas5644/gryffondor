@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,6 +41,44 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 	private static final String DELETE_RETRAIT = "DELETE FROM RETRAITS WHERE no_article = ?";
 	private static final String UPDATE_ARTICLE = "UPDATE ARTICLES set nom_article = ?,description  = ?, no_categorie  = ?,prix_initial  = ?, date_debut_encheres  = ?, date_fin_encheres  = ? where no_article = ?;";
 	private static final String UPDATE_RETRAIT = "UPDATE RETRAITS set rue = ?, code_postal = ?, ville = ? where no_article = ? ;";
+	private static final String UPDATE_ETAT_FIN = "update ARTICLES set etat_vente = 'Enchère terminées' where date_fin_encheres = ?";
+	private static final String UPDATE_ETAT_EN_COURS = "update ARTICLES set etat_vente = 'En cours' where date_debut_encheres = ?";
+	
+	public void updateEtatVente() throws BusinessException{
+		Connection cnx = null;
+		BusinessException be = new BusinessException();
+		Date JourFin = Date.valueOf(LocalDate.now().plusDays(1));
+		Date JourDebutEnchere = Date.valueOf(LocalDate.now()); 
+		
+		try {
+			cnx = ConnectionProvider.getConnection();
+			cnx.setAutoCommit(false);
+			PreparedStatement psmt = cnx.prepareStatement(UPDATE_ETAT_FIN);
+			psmt.setDate(1, JourFin);
+
+			if (psmt.executeUpdate() == 1) {
+				cnx.commit();
+				psmt.close();
+			}
+			PreparedStatement psmt1 = cnx.prepareStatement(UPDATE_ETAT_EN_COURS);
+			psmt1.setDate(1, JourDebutEnchere);
+			if (psmt1.executeUpdate() == 1) {
+				cnx.commit();
+				psmt1.close();
+			}
+			try {
+				cnx.close();
+			}catch(SQLException e) {
+	            e.printStackTrace();
+	            throw be;
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+
+			throw be;
+		}
+	}
 	
 	public Article selectArticleById(int numeroArticle) throws BusinessException {
 		Article articleCourant = new Article();
