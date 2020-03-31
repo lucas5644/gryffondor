@@ -35,7 +35,6 @@ public class ServletRechercheArticleConnecte extends HttpServlet {
 			request.setAttribute("listeCodesErreur", listeCodesErreur);
 		}else {
 			try {
-				
 				if (nomArticle != null || nomCategorie != null) {
 					listeArticles = EM.selectArticleDeconnecte(nomCategorie, nomArticle);
 				}
@@ -44,6 +43,7 @@ public class ServletRechercheArticleConnecte extends HttpServlet {
 				request.setAttribute("listeCodesErreur", e.getListeCodesErreur());
 			} 
 		}
+		System.out.println(listeArticles);
 		
 		List<Article> MaListe = new ArrayList<Article>();
 		switch (request.getParameter("mode")) {
@@ -113,7 +113,7 @@ public class ServletRechercheArticleConnecte extends HttpServlet {
 			if(request.getParameter("venteTerminees")!= null) {
 				venteTerminees = request.getParameter("venteTerminees");
 			}
-			System.out.println(VEnCours +" "+VNonDebutees + ""+ VNonDebutees);
+			System.out.println(VEnCours +" "+VNonDebutees + " "+ venteTerminees);
 			if(!VNonDebutees.equals("non")) {
 				for (Article article : listeArticles) {
 					if(article.getEtatVente().equals("Créée") && article.getVendeur().getNoUtilisateur() == userConnected.getNoUtilisateur() ) {
