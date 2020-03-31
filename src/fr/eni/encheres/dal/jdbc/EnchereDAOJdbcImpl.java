@@ -388,6 +388,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 		newUtilisateur.setRue(rs.getString("rue"));
 		newUtilisateur.setCodePostal(rs.getString("code_postal"));
 		newUtilisateur.setVille(rs.getString("ville"));
+		newUtilisateur.setNoUtilisateur(rs.getInt("no_utilisateur"));
 
 		return newUtilisateur;
 
