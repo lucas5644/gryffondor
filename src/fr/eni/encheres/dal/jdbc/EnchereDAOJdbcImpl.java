@@ -34,7 +34,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 	private static final String CHECK_CONNEXION = "select no_utilisateur ,pseudo , nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, administrateur, credit from UTILISATEURS where pseudo = ? and mot_de_passe = ?;";
 	private static final String CHECK_PSEUDO = "SELECT pseudo FROM UTILISATEURS WHERE pseudo = ?";
 	private static final String CHECK_MAIL = "SELECT email FROM UTILISATEURS WHERE email = ?";
-	private static final String SELECT_UTILISATEUR = "SELECT pseudo,nom,prenom,email,telephone,rue,code_postal,ville,no_utilisateur FROM UTILISATEURS WHERE pseudo = ?";
+	private static final String SELECT_UTILISATEUR = "SELECT no_utilisateur, pseudo,nom,prenom,email,telephone,rue,code_postal,ville, credit FROM UTILISATEURS WHERE pseudo = ?";
 	private static final String DELETE = "DELETE FROM UTILISATEURS WHERE no_utilisateur = ?;";
 	private static final String UPDATE_UTILISATEUR = "update UTILISATEURS set pseudo = ?, nom = ?, prenom =  ?, email = ?, telephone = ?, rue = ?, code_postal = ?, ville = ?, mot_de_passe = ? where no_utilisateur = ?;";
 	private static final String DELETE_ARTICLE = "DELETE FROM ARTICLES WHERE no_article = ?";
@@ -43,6 +43,110 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 	private static final String UPDATE_RETRAIT = "UPDATE RETRAITS set rue = ?, code_postal = ?, ville = ? where no_article = ? ;";
 	private static final String UPDATE_ETAT_FIN = "update ARTICLES set etat_vente = 'Enchères terminées' where date_fin_encheres < ? and etat_vente = 'En cours';";
 	private static final String UPDATE_ETAT_EN_COURS = "update ARTICLES set etat_vente = 'En cours' where date_debut_encheres = ? and etat_vente = 'Créée';";
+	private static final String INSERT_ENCHERE = "INSERT INTO ENCHERES(no_utilisateur, no_article, date_enchere,montant_enchere) VALUES(?,?,?,?);";
+	private static final String UPDATE_ENCHERE = "UPDATE ENCHERES set no_utilisateur=?, date_enchere = ?, montant_enchere = ? where no_article = ?;";
+	public static final String SELECT_ENCHERE = "SELECT no_utilisateur,no_article,date_enchere, montant_enchere FROM ENCHERES WHERE no_article = ?;";
+
+	public Enchere selectEnchere(int numeroArticle) throws BusinessException {
+		Enchere enchereCourante = new Enchere();
+		Utilisateur utilisateurCourant = new Utilisateur();
+		Article articleCourant = new Article();
+
+		try {
+			Connection con = null;
+			con = ConnectionProvider.getConnection();
+			con.setAutoCommit(false);
+			PreparedStatement psmt = con.prepareStatement(SELECT_ENCHERE);
+			// insertion des données
+			psmt.setInt(1, numeroArticle);
+			ResultSet rs = psmt.executeQuery();
+			// Recherche de l'enchère
+			while (rs.next()) {
+				if (rs.getInt("no_article") == numeroArticle) {
+					utilisateurCourant.setNoUtilisateur(rs.getInt("no_utilisateur"));
+					articleCourant.setNoArticle(rs.getInt("no_article"));
+					enchereCourante.setDateEnchere(rs.getDate("date_enchere").toLocalDate());
+					enchereCourante.setMontantEnchere(rs.getInt("montant_enchere"));
+					enchereCourante.setArticle(articleCourant);
+					enchereCourante.setUtilisateur(utilisateurCourant);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			BusinessException be = new BusinessException();
+			be.ajouterErreur(CodesResultatDAL.SELECT_ENCHERE);
+			throw be;
+		}
+		return enchereCourante;
+	}
+
+	public Enchere updateEnchere(String pseudoUser, int numeroArticle, int montantEnchere) throws BusinessException {
+		Enchere newEnchere = new Enchere();
+		LocalDate now = LocalDate.now();
+		Article articleCourant = null;
+		Utilisateur encherisseur = null;
+		encherisseur = selectUtilisateur(pseudoUser);
+		newEnchere.setUtilisateur(encherisseur);
+		articleCourant = selectArticleById(numeroArticle);
+		newEnchere.setArticle(articleCourant);
+		newEnchere.setDateEnchere(now);
+		newEnchere.setMontantEnchere(montantEnchere);
+		try {
+			Connection con = null;
+			con = ConnectionProvider.getConnection();
+			con.setAutoCommit(false);
+			PreparedStatement psmt = con.prepareStatement(UPDATE_ENCHERE);
+			// insertion des données
+			psmt.setInt(1, encherisseur.getNoUtilisateur());
+			psmt.setDate(2, Date.valueOf(newEnchere.getDateEnchere()));
+			psmt.setInt(3, newEnchere.getMontantEnchere());
+			psmt.setInt(4, articleCourant.getNoArticle());
+			if (psmt.executeUpdate() == 1) {
+				con.commit();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			BusinessException be = new BusinessException();
+			be.ajouterErreur(CodesResultatDAL.UPDATE_ENCHERE);
+			throw be;
+		}
+		return newEnchere;
+	}
+
+	public Enchere insertEnchere(String pseudoUser, int numeroArticle, int montantEnchere) throws BusinessException {
+		Enchere newEnchere = new Enchere();
+		LocalDate now = LocalDate.now();
+		Article articleCourant = null;
+		Utilisateur encherisseur = null;
+		encherisseur = selectUtilisateur(pseudoUser);
+		newEnchere.setUtilisateur(encherisseur);
+		articleCourant = selectArticleById(numeroArticle);
+		newEnchere.setArticle(articleCourant);
+		newEnchere.setDateEnchere(now);
+		newEnchere.setMontantEnchere(montantEnchere);
+
+		try {
+			Connection con = null;
+			con = ConnectionProvider.getConnection();
+			con.setAutoCommit(false);
+			PreparedStatement psmt = con.prepareStatement(INSERT_ENCHERE);
+			newEnchere.setMontantEnchere(montantEnchere);
+			// insertion des données
+			psmt.setInt(1, encherisseur.getNoUtilisateur());
+			psmt.setInt(2, articleCourant.getNoArticle());
+			psmt.setDate(3, Date.valueOf(newEnchere.getDateEnchere()));
+			psmt.setInt(4, newEnchere.getMontantEnchere());
+			if (psmt.executeUpdate() == 1) {
+				con.commit();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			BusinessException be = new BusinessException();
+			be.ajouterErreur(CodesResultatDAL.INSERT_ENCHERE);
+			throw be;
+		}
+		return newEnchere;
+	}
 	
 	public void updateEtatVente() throws BusinessException{
 		Connection cnx = null;
@@ -423,6 +527,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 
 	private Utilisateur mappingUtilisateur(ResultSet rs) throws SQLException {
 		Utilisateur newUtilisateur = new Utilisateur();
+		newUtilisateur.setNoUtilisateur(rs.getInt("no_utilisateur"));
 		newUtilisateur.setPseudo(rs.getString("pseudo"));
 		newUtilisateur.setNom(rs.getString("nom"));
 		newUtilisateur.setPrenom(rs.getString("prenom"));
@@ -432,7 +537,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 		newUtilisateur.setRue(rs.getString("rue"));
 		newUtilisateur.setCodePostal(rs.getString("code_postal"));
 		newUtilisateur.setVille(rs.getString("ville"));
-		newUtilisateur.setNoUtilisateur(rs.getInt("no_utilisateur"));
+		newUtilisateur.setCredit(rs.getInt("credit"));
 
 		return newUtilisateur;
 

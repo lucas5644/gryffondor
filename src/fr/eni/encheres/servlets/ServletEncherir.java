@@ -79,19 +79,16 @@ public class ServletEncherir extends HttpServlet {
 		//récupérer le montant de l'enchère
 		int montantEnchere = Integer.parseInt(request.getParameter("proposition"));
 		//modifier prix de l'enchère
-		EncheresManagerTest enchereManagerTest = new EncheresManagerTest();
 		try {
 			if (enchereCourante.getMontantEnchere() == 0) {
-				enchereManagerTest.insertEnchere("Corentin35", numeroArticle, montantEnchere);
+				enchereManager.insertEnchere("Corentin35", numeroArticle, montantEnchere);
 			}else {
-				enchereManagerTest.updateEnchere("Corentin35", numeroArticle, montantEnchere);
+				enchereManager.updateEnchere("Corentin35", numeroArticle, montantEnchere);
 			}
 			
 		} catch (BusinessException e) {
 			e.printStackTrace();
 		}
-//		newEnchere = enchereManager.updateEnchere(user.getNoUser, numeroArticle);
-		
 		
 		//si user déconnecté, afficher message d'erreur
 		

@@ -3,6 +3,7 @@ package fr.eni.encheres.dal;
 import java.util.List;
 
 import fr.eni.encheres.bo.Article;
+import fr.eni.encheres.bo.Enchere;
 import fr.eni.encheres.bo.Retrait;
 import fr.eni.encheres.bo.Utilisateur;
 import fr.eni.encheres.exception.BusinessException;
@@ -42,4 +43,11 @@ public interface EnchereDAO {
 	public Article updateArticle(Article art, Retrait retrait) throws BusinessException;
 	
 	public void updateEtatVente() throws BusinessException;
+	
+	//Première enchère
+	public Enchere insertEnchere(String pseudoUser, int numeroArticle, int montantEnchere) throws BusinessException;
+	//Mise à jour enchère
+	public Enchere updateEnchere(String pseudoUser, int numeroArticle, int montantEnchere) throws BusinessException;
+	//Select enchere
+	public Enchere selectEnchere(int numeroArticle) throws BusinessException;
 }
