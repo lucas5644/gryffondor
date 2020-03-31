@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.catalina.startup.UserConfig;
+
 import fr.eni.encheres.bll.EncheresManager;
 import fr.eni.encheres.bo.Utilisateur;
 import fr.eni.encheres.exception.BusinessException;
@@ -50,8 +52,16 @@ public class SerletUpdateUtilisateur extends HttpServlet {
 		 String code_postal = request.getParameter("codePostal");
 		 String ville = request.getParameter("ville");
 		 String motDePasse = request.getParameter("motDePasse");
-		 String nouveauMotDePasse=request.getParameter("motDePasse");
-		 String cNouveauMotDePasse=request.getParameter("motDePasse");
+		 if(motDePasse==null) {
+			 motDePasse=user.getMotDePasse();
+		 }
+		 String nouveauMotDePasse=request.getParameter("nouveauMotDePasse");
+		 String cNouveauMotDePasse=request.getParameter("cNouveauMotDePasse");
+		 if(nouveauMotDePasse.equals(cNouveauMotDePasse) && nouveauMotDePasse!=motDePasse) {
+			 motDePasse=nouveauMotDePasse;
+		 }
+		 
+		 
 		 
 		 updateUtilisateur.setNoUtilisateur(user.getNoUtilisateur());
 		 updateUtilisateur.setPseudo(pseudo);
@@ -63,6 +73,9 @@ public class SerletUpdateUtilisateur extends HttpServlet {
 		 updateUtilisateur.setCodePostal(code_postal);
 		 updateUtilisateur.setVille(ville);
 		 updateUtilisateur.setMotDePasse(motDePasse);
+		
+		 
+		 
 		 
 		enchereManager.checkUser(updateUtilisateur, be);
 		user=enchereManager.updateUtilisateur(updateUtilisateur);

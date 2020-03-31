@@ -158,6 +158,7 @@ public class ServletModifierVente extends HttpServlet {
 				newArticle.setLieuRetrait(newLieuDeRetrait);
 				
 				encheresManager.updateArticle(newArticle, newLieuDeRetrait);
+				
 				System.out.println(newArticle);
 				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/accueilConnecte.jsp");
 				rd.forward(request, response);
