@@ -41,15 +41,14 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 	private static final String DELETE_RETRAIT = "DELETE FROM RETRAITS WHERE no_article = ?";
 	private static final String UPDATE_ARTICLE = "UPDATE ARTICLES set nom_article = ?,description  = ?, no_categorie  = ?,prix_initial  = ?, date_debut_encheres  = ?, date_fin_encheres  = ? where no_article = ?;";
 	private static final String UPDATE_RETRAIT = "UPDATE RETRAITS set rue = ?, code_postal = ?, ville = ? where no_article = ? ;";
-	private static final String UPDATE_ETAT_FIN = "update ARTICLES set etat_vente = 'Enchères terminées' where ((date_fin_encheres < ?)and(etat_vente = 'En cours'))";
-	private static final String UPDATE_ETAT_EN_COURS = "update ARTICLES set etat_vente = 'En cours' where ((date_debut_encheres = ?) and (etat_vente = 'Créée'))";
+	private static final String UPDATE_ETAT_FIN = "update ARTICLES set etat_vente = 'Enchères terminées' where date_fin_encheres < ? and etat_vente = 'En cours';";
+	private static final String UPDATE_ETAT_EN_COURS = "update ARTICLES set etat_vente = 'En cours' where date_debut_encheres = ? and etat_vente = 'Créée';";
 	
 	public void updateEtatVente() throws BusinessException{
 		Connection cnx = null;
 		BusinessException be = new BusinessException();
 		Date JourFin = Date.valueOf(LocalDate.now().plusDays(1));
 		Date JourDebutEnchere = Date.valueOf(LocalDate.now()); 
-		
 		try {
 			cnx = ConnectionProvider.getConnection();
 			cnx.setAutoCommit(false);
