@@ -36,14 +36,13 @@ public class ServletRechercheArticleConnecte extends HttpServlet {
 		}else {
 			try {
 				if (nomArticle != null || nomCategorie != null) {
-					listeArticles = EM.selectArticleDeconnecte(nomCategorie, nomArticle);
+					listeArticles = EM.selectAllArticles(nomCategorie, nomArticle);
 				}
 			} catch (BusinessException e) {
 				e.printStackTrace();
 				request.setAttribute("listeCodesErreur", e.getListeCodesErreur());
 			} 
 		}
-		System.out.println(listeArticles);
 		
 		List<Article> MaListe = new ArrayList<Article>();
 		switch (request.getParameter("mode")) {
