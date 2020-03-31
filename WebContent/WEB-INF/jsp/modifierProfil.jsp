@@ -124,6 +124,10 @@
 									  <label for="confirmation">Confirmation : </label>
                                       <input type="password" name="cNouveauMotDePasse" id="confirmation" />
 								</div>
+								<div>
+									  <label >Crédit : ${userConnected.credit}</label>
+                                     
+								</div>
 									<input type="submit" value="Enregistrer" class="btn btn-primary" />
 									
 								</div>
