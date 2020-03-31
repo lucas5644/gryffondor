@@ -32,7 +32,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 	private static final String CHECK_CONNEXION = "select no_utilisateur ,pseudo , nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, administrateur, credit from UTILISATEURS where pseudo = ? and mot_de_passe = ?;";
 	private static final String CHECK_PSEUDO = "SELECT pseudo FROM UTILISATEURS WHERE pseudo = ?";
 	private static final String CHECK_MAIL = "SELECT email FROM UTILISATEURS WHERE email = ?";
-	private static final String SELECT_UTILISATEUR = "SELECT pseudo,nom,prenom,email,telephone,rue,code_postal,ville FROM UTILISATEURS WHERE pseudo = ?";
+	private static final String SELECT_UTILISATEUR = "SELECT pseudo,nom,prenom,email,telephone,rue,code_postal,ville,no_utilisateur FROM UTILISATEURS WHERE pseudo = ?";
 	private static final String DELETE = "DELETE FROM UTILISATEURS WHERE no_utilisateur = ?;";
 	private static final String UPDATE_UTILISATEUR = "update UTILISATEURS set pseudo = ?, nom = ?, prenom =  ?, email = ?, telephone = ?, rue = ?, code_postal = ?, ville = ?, mot_de_passe = ? where no_utilisateur = ?;";
 	private static final String DELETE_ARTICLE = "DELETE FROM ARTICLES WHERE no_article = ?";
