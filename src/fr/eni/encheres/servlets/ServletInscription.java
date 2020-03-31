@@ -57,6 +57,7 @@ public class ServletInscription extends HttpServlet {
 			if(user.getNoUtilisateur()!= -1)
 			{
 				try {
+					encheresManager.updateEtatVentes();
 					Utilisateur tryUser = new Utilisateur();
 					tryUser = encheresManager.checkConnexion(user.getPseudo(), user.getMotDePasse());
 					HttpSession session = request.getSession();

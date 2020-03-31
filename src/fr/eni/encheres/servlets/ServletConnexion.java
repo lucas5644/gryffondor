@@ -28,13 +28,14 @@ public class ServletConnexion extends HttpServlet {
 		Utilisateur tryUser = new Utilisateur();
 		
 		try {
+			encheresManager.updateEtatVentes();
 			tryUser = encheresManager.checkConnexion(tryPseudo, tryMdp);
 		} catch (BusinessException e) {
 			e.printStackTrace();
 		}
 		if(tryUser.getNom().equals("non")) {
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/connexion.jsp");
-			request.setAttribute("connexionRefused", "La connexion est Refusée");
+			request.setAttribute("connexionRefused", "La connexion est Refusï¿½e");
 			rd.forward(request, response);
 		}else {
 			HttpSession sessionUtilisateur = request.getSession();
