@@ -52,12 +52,13 @@ public class SerletUpdateUtilisateur extends HttpServlet {
 		 String code_postal = request.getParameter("codePostal");
 		 String ville = request.getParameter("ville");
 		 String motDePasse = request.getParameter("motDePasse");
-		 if(motDePasse==null) {
+		 if(request.getParameter("motDePasse").equals("")) {
 			 motDePasse=user.getMotDePasse();
 		 }
+		
 		 String nouveauMotDePasse=request.getParameter("nouveauMotDePasse");
 		 String cNouveauMotDePasse=request.getParameter("cNouveauMotDePasse");
-		 if(nouveauMotDePasse.equals(cNouveauMotDePasse) && nouveauMotDePasse!=motDePasse) {
+		 if(nouveauMotDePasse.equals(cNouveauMotDePasse) && nouveauMotDePasse!=motDePasse && nouveauMotDePasse!= "") {
 			 motDePasse=nouveauMotDePasse;
 		 }
 		 
