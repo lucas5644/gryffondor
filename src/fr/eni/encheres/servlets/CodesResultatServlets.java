@@ -33,5 +33,9 @@ public abstract class CodesResultatServlets {
 	 * Format ville incorrect
 	 */
 	public static final int FORMAT_VILLE_ERREUR=30006;
+	/**
+	 * Utilisateur déconnecté
+	 */
+	public static final int UTILISATEUR_DECONNECTE=30007;
 	
 }
