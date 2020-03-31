@@ -51,6 +51,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 		Date JourDebutEnchere = Date.valueOf(LocalDate.now()); 
 		String JourFinal = String.valueOf(JourFin);
 		String JourDeb = String.valueOf(JourDebutEnchere);
+		
 		try {
 			cnx = ConnectionProvider.getConnection();
 			cnx.setAutoCommit(false);
