@@ -76,7 +76,7 @@
 							<%
 								}
 							%>
-							<form action="ajoutArticle" method="post">
+							<form action="ajoutArticle" method="post" encType="multipart/form-data">
 								<div class="saisie">
 									<label for="article">Article : </label> <input
 										class="form-control" name="article">
@@ -84,6 +84,11 @@
 								<div class="saisie">
 									<label for="description">Description : </label>
 									<input class="form-control" name="description">
+								</div>
+								<br>
+								<div>
+									<a>Insérez une Image</a>
+									<input type="file" name="file" value="UploadImage"/>
 								</div>
 								<br>
 								<div>

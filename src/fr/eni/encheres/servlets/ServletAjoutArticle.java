@@ -1,8 +1,9 @@
 package fr.eni.encheres.servlets;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -15,6 +16,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import org.apache.tomcat.util.http.fileupload.FileItem;
+import org.apache.tomcat.util.http.fileupload.FileItemFactory;
+import org.apache.tomcat.util.http.fileupload.RequestContext;
+import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
+import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 import fr.eni.encheres.bll.EncheresManager;
 import fr.eni.encheres.bo.Article;
@@ -38,6 +45,8 @@ public class ServletAjoutArticle extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+		PrintWriter out = response.getWriter();
 
 		String nomArticle = null;
 		String description = null;
@@ -54,6 +63,12 @@ public class ServletAjoutArticle extends HttpServlet {
 		System.out.println(session);
 		user = (Utilisateur) session.getAttribute("userConnected");
 		request.setCharacterEncoding("UTF-8");
+		
+		
+//		if(!ServletFileUpload.isMultipartContent(request)) {
+//			out.println("Pas d'image");
+//			return;
+//		}
 		List<Integer> listeCodesErreur = new ArrayList<>();
 		// lecture article
 		nomArticle = request.getParameter("article");
@@ -151,6 +166,26 @@ public class ServletAjoutArticle extends HttpServlet {
 				newArticle.setVendeur(user);
 				newArticle.setLieuRetrait(newLieuDeRetrait);
 				encheresManager.ajouterArticle(newArticle, newLieuDeRetrait);
+				FileItemFactory itemFactory = new DiskFileItemFactory();
+				ServletFileUpload upload = new ServletFileUpload(itemFactory);
+//				try {
+//					List<FileItem> items = upload.parseRequest((RequestContext) request);
+//					for(FileItem item : items) {
+//						
+//						String contentType = item.getContentType();
+//						if(!contentType.equals("image/png")) {
+//							out.println("Seul les images png sont reçues");
+//							continue;
+//						}
+//						File uploadDir = new File("C:\\uploadTP");
+//						File file = File.createTempFile("img", ".png", uploadDir);
+//						item.write(file);
+//						
+//						out.println("Fichier saved");
+//					}
+//				}catch (Exception e) {
+//					
+//				}
 				System.out.println(newArticle);
 				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/accueilConnecte.jsp");
 				rd.forward(request, response);
