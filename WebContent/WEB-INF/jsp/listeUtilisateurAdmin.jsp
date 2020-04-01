@@ -53,10 +53,10 @@
 			<div class="card-body contenu">
 				<div class="contenu">
 					<c:forEach var="utilisateur" items="${listeUtilisateur}">
-						<form action="ListeUtilisateur" method="post">
+						<form action="DeleteUserAdmin" method="post">
 							<div class="col-lg-12 d-inline-block contenu portfolio-item">
 									
-								 <a>no utilisateur : ${utilisateur.noUtilisateur}</a><br>
+								 <a>Numéro utilisateur : ${utilisateur.noUtilisateur}</a><br>
 								 <a>Pseudo : ${utilisateur.pseudo}</a><br>
 								 <a>Nom : ${utilisateur.nom}</a><br> 
 								 <a>Prénom	: ${utilisateur.prenom}</a><br>
@@ -67,9 +67,10 @@
 								 <a>Ville	: ${utilisateur.ville}</a><br>
 								 <a>Mot de passe : ${utilisateur.motDePasse}</a><br>
 								 <a>Crédit	: ${utilisateur.credit}</a><br>
-								 <a>Administrateur	: ${utilisateur.administrateur}</a>
-							<input type="Button" value="DeleteUserAdmin" name="Supprimer utilisateur">
-							<input type="Button" value="" name="desactiver un comptes">
+								 <a>Administrateur	: ${utilisateur.administrateur}</a><br>
+								 <input type="hidden" name="noUtilisateur" value="<%=request.getAttribute("noUtilisateur")%>">
+							<input type="submit" value="Supprimer Utilisateur" name="Supprimer utilisateur">
+							<input type="Button" value="desactiver comptes" name="desactiver un comptes">
 							
 							</div>
 						</form>

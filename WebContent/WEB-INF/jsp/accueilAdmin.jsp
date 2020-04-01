@@ -34,7 +34,7 @@
 					href="AjouterArticle">Vendre un Article</a>
 			</div>
 			<div>
-				<form action="DeleteUserAdmin" method ="post">
+				<form action="ListeUtilisateur" method ="post">
 				<input type="submit" value="liste utilisateur">
 				</form>
 				
