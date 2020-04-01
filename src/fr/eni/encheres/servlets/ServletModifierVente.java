@@ -162,7 +162,7 @@ public class ServletModifierVente extends HttpServlet {
 				newArticle.setEtatVente(etatVente);
 				newArticle.setVendeur(user);
 				newArticle.setLieuRetrait(newLieuDeRetrait);
-			
+				newArticle.setNoArticle(noArticle1);
 				art=encheresManager.updateArticle(newArticle, newLieuDeRetrait);
 				
 				System.out.println(newArticle);
