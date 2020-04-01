@@ -129,10 +129,9 @@
 								</div>
 								<br>
 								<input type="hidden" name="noArticle" value="<%=request.getAttribute("noArticle")%>" />
-								<a> teste <%=request.getAttribute("noArticle")%></a>
 								<div>
 								
-								<input>
+									<input>
 									<input type="submit" value="Enregistrer"
 										class="btn btn-primary" /> 
 										
