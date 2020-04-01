@@ -45,16 +45,17 @@ public class ServletRedirectionClicArticle extends HttpServlet {
 		request.setAttribute("dateDebut", articleCourant.getDateDebutEncheres());
 		request.setAttribute("dateFin", articleCourant.getDateFinEncheres());
 		
-		
-		
-//		String url;
-//		if(userConnected.getNoUtilisateur() == monArticleNo) {
-//			url = "WEB-INF/jsp/updateVente.jsp";
-//		}else {
-//			url = "WEB-INF/jsp/accueil.jsp";
-//		}		 
-		RequestDispatcher rd = request.getRequestDispatcher(url);
-		rd.forward(request, response);
+		//si l'utilisateur connecté est différent du vendeur
+		// je renvoie sur une page d'affichage d'article sans possibilité de le modifier
+		if (userConnected.getNoUtilisateur() != articleCourant.getVendeur().getNoUtilisateur()) {
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/miserEnchere.jsp");
+			rd.forward(request, response);
+		}else {
+			//si l'utilisateur connecté = vendeur
+			//je renvoie sur la JSP "updateVente"
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/updateVente.jsp");
+			rd.forward(request, response);
+		}
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		

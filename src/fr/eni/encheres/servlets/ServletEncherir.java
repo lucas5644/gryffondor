@@ -75,9 +75,9 @@ public class ServletEncherir extends HttpServlet {
 		HttpSession session = request.getSession();
 		Utilisateur user = new Utilisateur();
 		user = (Utilisateur) session.getAttribute("userConnected");
-//		if (user == null) {
-//			listeCodesErreur.add(CodesResultatServlets.UTILISATEUR_DECONNECTE);
-//		} 
+		if (user == null) {
+			listeCodesErreur.add(CodesResultatServlets.UTILISATEUR_DECONNECTE);
+		} 
 		
 		// Réalisation du traitement
 		if (listeCodesErreur.size() > 0) {
@@ -88,16 +88,16 @@ public class ServletEncherir extends HttpServlet {
 		} else {
 			// récupérer le montant de l'enchère
 			int montantEnchere = Integer.parseInt(request.getParameter("proposition"));
-//			if (user.getPseudo() == articleCourant.getVendeur().getPseudo()) {
-//				listeCodesErreur.add(CodesResultatServlets.ERREUR_UTILISATEUR);
-//			}
+			if (user.getPseudo() == articleCourant.getVendeur().getPseudo()) {
+				listeCodesErreur.add(CodesResultatServlets.ERREUR_UTILISATEUR);
+			}
 			try {
 				if (enchereCourante.getMontantEnchere() == 0) {
 					//Pas encore d'enchère, j'insère la première offre
 					enchereManager.insertEnchere(user.getPseudo(), numeroArticle, montantEnchere);
 				} else {
 					//Une enchère existe déjà, je mets à jour les données
-					enchereManager.updateEnchere("Lucas35", numeroArticle, montantEnchere);
+					enchereManager.updateEnchere(user.getPseudo(), numeroArticle, montantEnchere);
 				}
 
 			} catch (BusinessException e) {
