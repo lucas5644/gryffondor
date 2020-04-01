@@ -20,6 +20,18 @@ public class EncheresManager {
 		enchereDAO = DAOFactory.getEnchereDAO();
 	}
 	
+	public void checkEnchere(int meilleureOffre, int newEnchere, LocalDate finEnchere, int prixDepart, BusinessException be) {
+		LocalDate now = LocalDate.now();
+		if (meilleureOffre >= newEnchere || newEnchere == 0) {
+			be.ajouterErreur(CodesResultatBLL.ENCHERE_ERREUR);
+		}
+		if (newEnchere <= prixDepart) {
+			be.ajouterErreur(CodesResultatBLL.ENCHERE_ERREUR_2);
+		}
+		if (now.isAfter(finEnchere)) {
+			be.ajouterErreur(CodesResultatBLL.DATE_ERREUR_2);
+		}
+	}	
 	
 	public Enchere selectEnchere(int numeroArticle) throws BusinessException {
 		return enchereDAO.selectEnchere(numeroArticle);
