@@ -20,7 +20,7 @@
 </head>
 
 
-<h1>Inscription</h1>
+<h1 style="display-text:center">Inscription</h1>
 <body>
 
 	<!-- Navigation -->
@@ -40,23 +40,31 @@
 					<div class="card-body contenu">
 						<div class="contenu">
 							<form action="inscriptionUser" method="post">
+							<div class="col-lg-6 col-md-6 col-sm-6 portfolio-item">
 								<a>Prenom : </a> <input type="text" value="" name="prenom">
 
 								<a>Nom : </a> <input type="text" value="" name="nom"> <br>
+							</div>
+							<div class="col-lg-6 col-md-6 col-sm-6 portfolio-item">
 								<a>Pseudo : </a> <input type="text" value="" name="pseudo">
 								<%if(request.getAttribute("erreurPseudo")!=null) {%>
 									<a style="color:red">Le pseudo est déja utilisé.</a>
 								<%}%>
+							
 
 								<a>Email : </a> <input type="text" value="" name="email">
-								<br> <a>Téléphone : </a> <input type="text" value=""
+								<br>
+							</div>
+							<div class="col-lg-6 col-md-6 col-sm-6 portfolio-item">
+								 <a>Téléphone : </a> <input type="text" value=""
 									name="telephone"> <a>Rue : </a> <input type="text"
-									value="" name="rue"> <br> <a>Ville : </a> <input
-									type="text" value="" name="ville"> <a>Code Postal :
-								</a> <input type="text" value="" name="cp"> <br> <a>Mot
+									value="" name="rue"> <br><br>
+								 <a>Ville : </a><input
+									type="text" value="" name="ville">
+									 <a>Code Postal :</a> <input type="text" value="" name="cp"> <br> <br><a>Mot
 									de Passe</a> <input type="password" value="" name="mdp"> <input
 									type="submit">
-
+							</div>
 							</form>
 						</div>
 					</div>
