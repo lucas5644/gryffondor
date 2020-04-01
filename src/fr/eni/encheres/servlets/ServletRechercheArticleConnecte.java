@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import fr.eni.encheres.bll.EncheresManager;
 import fr.eni.encheres.bo.Article;
+import fr.eni.encheres.bo.Enchere;
 import fr.eni.encheres.bo.Utilisateur;
 import fr.eni.encheres.exception.BusinessException;
 
@@ -74,14 +75,13 @@ public class ServletRechercheArticleConnecte extends HttpServlet {
 			if(!EnCours.equals("non")) {
 				for (Article article : listeArticles) {
 					if(article.getEtatVente().equals("En cours") && article.getVendeur().getNoUtilisateur()!= userConnected.getNoUtilisateur()) {
-						List<Utilisateur> checkList = article.getListeAcheteurs();
-						if(checkList != null) {
-							for (Utilisateur user : checkList) {
-								if(user.getNoUtilisateur() == userConnected.getNoUtilisateur()) {
-									MaListe.add(article);
-								}
-							}
+						try {
+							List<Enchere> checkList = EM.selectEncheresUtilisateur(userConnected.getNoUtilisateur());
+						} catch (BusinessException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
 						}
+
 					}
 				}
 			}
