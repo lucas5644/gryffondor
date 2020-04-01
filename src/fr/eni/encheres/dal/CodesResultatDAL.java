@@ -15,5 +15,6 @@ public abstract class CodesResultatDAL {
 	public static final int UPDATE_ENCHERE = 10004;
 	public static final int INSERT_ENCHERE = 10005;
 	public static final int SELECT_ENCHERE = 10006;
+	public static final int CHECK_ENCHERE = 10007;
 
 }
