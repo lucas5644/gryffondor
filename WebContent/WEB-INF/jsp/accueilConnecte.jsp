@@ -90,12 +90,13 @@
 
 									<div class="col-lg-6 col-md-6 col-sm-6 portfolio-item">
 										<input type="radio" name="mode" id="modeVente" value="modeVente"> <label
-											for="modeVente">Mes Ventes</label> 
+											for="modeVente">Mes Ventes</label> <br>
+											<input type="checkbox" id="venteNonDebutees" name="venteNonDebutees"
+											value="venteNonDebutees"> <label for="venteNonDebutees">Ventes non débutées</label><br> 
 										<input type="checkbox"
 											id="venteEnCours" name="venteEnCours" value="venteEnCours">
 											<label for="venteEnCours">Mes Ventes en cours</label><br> 
-										<input type="checkbox" id="venteNonDebutees" name="venteNonDebutees"
-											value="venteNonDebutees"> <label for="venteNonDebutees">Ventes non débutées</label><br> 
+										
 										<input type="checkbox"
 											id="venteTerminees" name="venteTerminees" value="venteTerminees">
 											<label for="venteTerminees">Ventes terminées</label><br>
