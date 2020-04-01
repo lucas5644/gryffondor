@@ -20,7 +20,11 @@ public class EncheresManager {
 		enchereDAO = DAOFactory.getEnchereDAO();
 	}
 	
-	public void checkEnchere(int meilleureOffre, int newEnchere, LocalDate finEnchere, int prixDepart, BusinessException be) {
+	public boolean checkEnchere(int numeroArticle, int numeroUtilisateur) throws BusinessException {
+		return enchereDAO.checkEnchere(numeroArticle, numeroUtilisateur);
+	}
+	
+	public void checkValiditeEnchere(int meilleureOffre, int newEnchere, LocalDate finEnchere, int prixDepart, BusinessException be) {
 		LocalDate now = LocalDate.now();
 		if (meilleureOffre >= newEnchere || newEnchere == 0) {
 			be.ajouterErreur(CodesResultatBLL.ENCHERE_ERREUR);

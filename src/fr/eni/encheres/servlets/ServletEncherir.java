@@ -69,7 +69,7 @@ public class ServletEncherir extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		List<Integer> listeCodesErreur = new ArrayList<>();
-		// récupérer l'article 
+		// Je récupère l'article s'il n'existe pas
 		if (articleCourant == null) {
 			String noArticle = request.getParameter("noArticle");
 			int numeroArticle = Integer.parseInt(noArticle);
@@ -98,6 +98,7 @@ public class ServletEncherir extends HttpServlet {
 		} else {
 			// récupérer le montant de l'enchère
 			int montantEnchere = Integer.parseInt(request.getParameter("proposition"));
+			//erreur si l'utilisateur pose une enchère sur son propre article
 			if (user.getPseudo() == articleCourant.getVendeur().getPseudo()) {
 				listeCodesErreur.add(CodesResultatServlets.ERREUR_UTILISATEUR);
 			}
@@ -108,14 +109,14 @@ public class ServletEncherir extends HttpServlet {
 				rd.forward(request, response);
 			}
 			try {
-				EncheresManagerTest encheresManagerTest = new EncheresManagerTest();
 				boolean enchereEffectuee = false;
 				//je check si l'utilisateur a déjà enchéri sur cette article
-				if (encheresManagerTest.checkEnchere(articleCourant.getNoArticle(),user.getNoUtilisateur()) == true) {
+				if (enchereManager.checkEnchere(articleCourant.getNoArticle(),user.getNoUtilisateur()) == true) {
 					//l'utilisateur a déjà enchéri, on update l'enchère
 					enchereManager.updateEnchere(user.getPseudo(), numeroArticle, montantEnchere);
 					enchereEffectuee = true;
 				}
+				//l'utilisateur n'a pas posé d'enchère, je vérifie s'il y a une enchère en cours d'un autre utilisateur
 				if (!enchereEffectuee) {
 					if (enchereCourante.getMontantEnchere() == 0) {
 						//Pas encore d'enchère, j'insère la première offre

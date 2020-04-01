@@ -41,20 +41,25 @@ public interface EnchereDAO {
 	public Article selectArticleById(int numeroArticle) throws BusinessException;
 
 	public Article updateArticle(Article art, Retrait retrait) throws BusinessException;
-	
+
 	public void updateEtatVente() throws BusinessException;
-	
-	//Première enchère
+
+	// Première enchère
 	public Enchere insertEnchere(String pseudoUser, int numeroArticle, int montantEnchere) throws BusinessException;
-	//Mise à jour enchère
+
+	// Mise à jour enchère
 	public Enchere updateEnchere(String pseudoUser, int numeroArticle, int montantEnchere) throws BusinessException;
-	//Select enchere
+
+	// Select enchere
 	public Enchere selectEnchere(int numeroArticle) throws BusinessException;
-	
-	public List<Utilisateur>selectUtilisateurPourAdmin()throws BusinessException;
-	
+
+	// check enchere
+	public boolean checkEnchere(int numeroArticle, int numeroUtilisateur) throws BusinessException;
+
+	public List<Utilisateur> selectUtilisateurPourAdmin() throws BusinessException;
+
 	public List<Enchere> selectEncheresUtilisateur(int noUtilisateur) throws BusinessException;
-	
+
 	public Utilisateur selectUtilisateurById(int id) throws BusinessException;
-	
+
 }

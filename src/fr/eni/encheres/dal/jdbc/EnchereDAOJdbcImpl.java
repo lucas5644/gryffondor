@@ -49,6 +49,30 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 	private static final String SELECT_UTILISATEUR_ADMIN = "SELECT no_utilisateur,pseudo,nom,prenom,email,telephone,rue,code_postal,ville,mot_de_passe,credit,administrateur FROM UTILISATEURS";
 	private static final String SELECT_UTILISATEUR_BY_ID = "SELECT pseudo,nom,prenom,email,telephone,rue,code_postal,ville,no_utilisateur FROM UTILISATEURS WHERE no_utilisateur = ?";
 	private static final String SELECT_ENCHERES_UTILISATEUR = "SELECT u.no_utilisateur, e.no_article, e.date_enchere, e.montant_enchere FROM UTILISATEURS u LEFT JOIN ENCHERES e on e.no_utilisateur = u.no_utilisateur WHERE e.no_utilisateur= ?";
+	private static final String CHECK_ENCHERE = "SELECT e.no_utilisateur, pseudo, no_article FROM UTILISATEURS u LEFT JOIN ENCHERES e on e.no_utilisateur = u.no_utilisateur WHERE u.no_utilisateur=? AND e.no_article = ?";
+
+	public boolean checkEnchere(int numeroArticle, int numeroUtilisateur) throws BusinessException {
+		boolean resultat = false;
+		try {
+			Connection con = null;
+			con = ConnectionProvider.getConnection();
+			PreparedStatement psmt = con.prepareStatement(CHECK_ENCHERE);
+			//insertion des données
+			psmt.setInt(1, numeroUtilisateur);
+			psmt.setInt(2, numeroArticle);
+			ResultSet rs = psmt.executeQuery();
+			//recherche de l'enchérisseur
+			while (rs.next()) {
+					resultat = true;
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			BusinessException be = new BusinessException();
+			be.ajouterErreur(CodesResultatDAL.CHECK_ENCHERE);
+			throw be;		}
+		return resultat;
+	}
 	
 	public List<Enchere> selectEncheresUtilisateur(int noUtilisateur) throws BusinessException{
 
