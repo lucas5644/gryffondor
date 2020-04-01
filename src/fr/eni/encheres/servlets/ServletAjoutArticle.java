@@ -1,6 +1,9 @@
 package fr.eni.encheres.servlets;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDate;
@@ -11,17 +14,13 @@ import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import org.apache.tomcat.util.http.fileupload.FileItem;
-import org.apache.tomcat.util.http.fileupload.FileItemFactory;
-import org.apache.tomcat.util.http.fileupload.RequestContext;
-import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
-import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+import javax.servlet.http.Part;
 
 import fr.eni.encheres.bll.EncheresManager;
 import fr.eni.encheres.bo.Article;
@@ -33,9 +32,13 @@ import fr.eni.encheres.exception.BusinessException;
 /**
  * Servlet implementation class ServletAjoutRepas
  */
+
 @WebServlet("/ajoutArticle")
+@MultipartConfig
 public class ServletAjoutArticle extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	public static final int TAILLE_TAMPON = 10240;
+	public static final String CHEMIN_FICHIERS = "C:\\uploadTP/";
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -63,13 +66,12 @@ public class ServletAjoutArticle extends HttpServlet {
 		System.out.println(session);
 		user = (Utilisateur) session.getAttribute("userConnected");
 		request.setCharacterEncoding("UTF-8");
-		
-		
-//		if(!ServletFileUpload.isMultipartContent(request)) {
-//			out.println("Pas d'image");
-//			return;
-//		}
 		List<Integer> listeCodesErreur = new ArrayList<>();
+		
+		
+		Part part = request.getPart("fichier");
+		String nomFichier = part.getSubmittedFileName();
+		
 		// lecture article
 		nomArticle = request.getParameter("article");
 		if (nomArticle == null || nomArticle.trim().isEmpty()) {
@@ -112,6 +114,11 @@ public class ServletAjoutArticle extends HttpServlet {
 		ville = request.getParameter("ville");
 		if (ville == null || ville.trim().isEmpty()) {
 			listeCodesErreur.add(CodesResultatServlets.FORMAT_VILLE_ERREUR);
+		}
+		if(nomFichier != null && !nomFichier.isEmpty()) {
+			String nomChamp = part.getName();
+			nomFichier = nomFichier.substring(nomFichier.lastIndexOf('/')+1).substring(nomFichier.lastIndexOf('\\')+1);
+			ecrireFichier(part, nomFichier, CHEMIN_FICHIERS);
 		}
 
 		// Réalisation du traitement
@@ -166,26 +173,6 @@ public class ServletAjoutArticle extends HttpServlet {
 				newArticle.setVendeur(user);
 				newArticle.setLieuRetrait(newLieuDeRetrait);
 				encheresManager.ajouterArticle(newArticle, newLieuDeRetrait);
-				FileItemFactory itemFactory = new DiskFileItemFactory();
-				ServletFileUpload upload = new ServletFileUpload(itemFactory);
-//				try {
-//					List<FileItem> items = upload.parseRequest((RequestContext) request);
-//					for(FileItem item : items) {
-//						
-//						String contentType = item.getContentType();
-//						if(!contentType.equals("image/png")) {
-//							out.println("Seul les images png sont reçues");
-//							continue;
-//						}
-//						File uploadDir = new File("C:\\uploadTP");
-//						File file = File.createTempFile("img", ".png", uploadDir);
-//						item.write(file);
-//						
-//						out.println("Fichier saved");
-//					}
-//				}catch (Exception e) {
-//					
-//				}
 				System.out.println(newArticle);
 				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/accueilConnecte.jsp");
 				rd.forward(request, response);
@@ -198,5 +185,35 @@ public class ServletAjoutArticle extends HttpServlet {
 				rd.forward(request, response);
 			}
 		}
+	}
+	
+	private void ecrireFichier(Part part, String nomFichier, String chemin) throws IOException {
+		BufferedInputStream entree = null;
+		BufferedOutputStream sortie = null;
+		
+		try {
+			entree = new BufferedInputStream(part.getInputStream(), TAILLE_TAMPON);
+			sortie = new BufferedOutputStream(new FileOutputStream(new File(chemin + nomFichier)), TAILLE_TAMPON);
+			
+			byte[] tampon = new byte[TAILLE_TAMPON];
+			int longueur = 0;
+			while(longueur == entree.read(tampon)){
+				sortie.write(tampon, 0, longueur);
+			}
+			
+		}finally {
+			try {
+				sortie.close();
+			}catch (IOException e){
+			}
+			try {
+				entree.close();
+			}catch (IOException e) {
+				
+			}
+		}
+		
+		
+		
 	}
 }
