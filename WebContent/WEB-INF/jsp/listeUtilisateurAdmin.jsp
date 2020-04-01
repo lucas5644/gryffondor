@@ -44,14 +44,14 @@
 								 <a>no utilisateur : ${utilisateur.noUtilisateur}</a><br>
 								 <a>Pseudo : ${utilisateur.pseudo}</a><br>
 								 <a>Nom : ${utilisateur.nom}</a><br> 
-								 <a>Prénom	: ${utilisateur.prenom}</a>
-								 <a>Email	: ${utilisateur.email}</a>
-								 <a>Telephone	: ${utilisateur.telephone}</a>
-								 <a>Rue	: ${utilisateur.rue}</a>
-								 <a>Code Postal	: ${utilisateur.codePostal}</a>
-								 <a>Ville	: ${utilisateur.ville}</a>
-								 <a>Mot de passe : ${utilisateur.motDePasse}</a>
-								 <a>Crédit	: ${utilisateur.credit}</a>
+								 <a>Prénom	: ${utilisateur.prenom}</a><br>
+								 <a>Email	: ${utilisateur.email}</a><br>
+								 <a>Telephone	: ${utilisateur.telephone}</a><br>
+								 <a>Rue	: ${utilisateur.rue}</a><br>
+								 <a>Code Postal	: ${utilisateur.codePostal}</a><br>
+								 <a>Ville	: ${utilisateur.ville}</a><br>
+								 <a>Mot de passe : ${utilisateur.motDePasse}</a><br>
+								 <a>Crédit	: ${utilisateur.credit}</a><br>
 								 <a>Administrareur	: ${utilisateur.administrateur}</a>
 							<input type="Button" value="" name="Supprimer utilisateur">
 							<input type="Button" value="" name="desactiver un comptes">
