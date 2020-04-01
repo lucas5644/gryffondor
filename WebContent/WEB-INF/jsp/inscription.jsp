@@ -44,6 +44,9 @@
 
 								<a>Nom : </a> <input type="text" value="" name="nom"> <br>
 								<a>Pseudo : </a> <input type="text" value="" name="pseudo">
+								<%if(request.getAttribute("erreurPseudo")!=null) {%>
+									<a style="color:red">Le pseudo est déja utilisé.</a>
+								<%}%>
 
 								<a>Email : </a> <input type="text" value="" name="email">
 								<br> <a>Téléphone : </a> <input type="text" value=""

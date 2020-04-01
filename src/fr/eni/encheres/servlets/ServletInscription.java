@@ -53,21 +53,27 @@ public class ServletInscription extends HttpServlet {
 			user.setVille(ville);
 			user.setMotDePasse(mdp);
 			user.setTelephone(tel);
-			encheresManager.ajouterUser(user);
-			if(user.getNoUtilisateur()!= -1)
-			{
-				try {
-					encheresManager.updateEtatVentes();
-					Utilisateur tryUser = new Utilisateur();
-					tryUser = encheresManager.checkConnexion(user.getPseudo(), user.getMotDePasse());
-					HttpSession session = request.getSession();
-					session.setAttribute("userConnected", tryUser);
-					RequestDispatcher rd = request.getRequestDispatcher("/AccueilUtilisateur");
-					rd.forward(request, response);
-					
-				} catch (BusinessException e) {
-					e.printStackTrace();
+			if(encheresManager.rechercheUtilisateur(pseudo)==null) {
+				encheresManager.ajouterUser(user);
+				if(user.getNoUtilisateur()!= -1)
+				{
+					try {
+						encheresManager.updateEtatVentes();
+						Utilisateur tryUser = new Utilisateur();
+						tryUser = encheresManager.checkConnexion(user.getPseudo(), user.getMotDePasse());
+						HttpSession session = request.getSession();
+						session.setAttribute("userConnected", tryUser);
+						RequestDispatcher rd = request.getRequestDispatcher("/AccueilUtilisateur");
+						rd.forward(request, response);
+						
+					} catch (BusinessException e) {
+						e.printStackTrace();
+					}
 				}
+			}else {
+				request.setAttribute("erreurPseudo", "Le Pseudo est déjà utilisé");
+				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/inscription.jsp");
+				rd.forward(request, response);
 			}
 
 		} catch (Exception e) {
