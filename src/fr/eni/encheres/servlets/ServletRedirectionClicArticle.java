@@ -23,7 +23,7 @@ public class ServletRedirectionClicArticle extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private int numeroArticle;
 	private Article articleCourant = null;
-	private EncheresManager enchereManager = new EncheresManager();
+	private EncheresManager enchereManager = new EncheresManager(); 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		numeroArticle = Integer.parseInt(request.getParameter("numeroArticle"));
