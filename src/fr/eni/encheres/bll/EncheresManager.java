@@ -197,4 +197,13 @@ public class EncheresManager {
 		 return listeUtilisateur;
 		
 	}
+
+	public List<Enchere> selectEncheresUtilisateur(int noUtilisateur)throws BusinessException{
+		
+		List<Enchere> listEncher;
+		listEncher = enchereDAO.selectEncheresUtilisateur(noUtilisateur);
+		return listEncher;
+		
+	}
+
 }

@@ -52,4 +52,9 @@ public interface EnchereDAO {
 	public Enchere selectEnchere(int numeroArticle) throws BusinessException;
 	
 	public List<Utilisateur>selectUtilisateurPourAdmin()throws BusinessException;
+	
+	public List<Enchere> selectEncheresUtilisateur(int noUtilisateur) throws BusinessException;
+	
+	public Utilisateur selectUtilisateurById(int id) throws BusinessException;
+	
 }

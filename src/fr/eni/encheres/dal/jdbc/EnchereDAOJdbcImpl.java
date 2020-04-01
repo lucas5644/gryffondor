@@ -47,6 +47,76 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 	private static final String UPDATE_ENCHERE = "UPDATE ENCHERES set no_utilisateur=?, date_enchere = ?, montant_enchere = ? where no_article = ?;";
 	public static final String SELECT_ENCHERE = "SELECT no_utilisateur,no_article,date_enchere, montant_enchere FROM ENCHERES WHERE no_article = ?;";
 	private static final String SELECT_UTILISATEUR_ADMIN = "SELECT no_utilisateur,pseudo,nom,prenom,email,telephone,rue,code_postal,ville,mot_de_passe,credit,administrateur FROM UTILISATEURS";
+	private static final String SELECT_UTILISATEUR_BY_ID = "SELECT pseudo,nom,prenom,email,telephone,rue,code_postal,ville,no_utilisateur FROM UTILISATEURS WHERE no_utilisateur = ?";
+	private static final String SELECT_ENCHERES_UTILISATEUR = "SELECT u.no_utilisateur, e.no_article, e.date_enchere, e.montant_enchere FROM UTILISATEURS u LEFT JOIN ENCHERES e on e.no_utilisateur = u.no_utilisateur WHERE e.no_utilisateur= ?";
+	
+	public List<Enchere> selectEncheresUtilisateur(int noUtilisateur) throws BusinessException{
+
+		Connection con = null;
+		List<Enchere> maListe = new ArrayList<Enchere>();
+
+		try {
+			con = ConnectionProvider.getConnection();
+			PreparedStatement psmt = con.prepareStatement(SELECT_ENCHERES_UTILISATEUR);
+			// Insertion des données
+			psmt.setInt(1, noUtilisateur);
+			ResultSet rs = psmt.executeQuery();
+			while (rs.next()) {
+				maListe.add(mappingEnchere(rs, noUtilisateur));
+				}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			BusinessException be = new BusinessException();
+			throw be;
+		}
+		return maListe;
+	}
+
+	private Enchere mappingEnchere(ResultSet rs, int idUser) throws BusinessException{
+		Enchere monEnchere = new Enchere();
+		try {
+			Utilisateur encherisseur = selectUtilisateurById(idUser);
+			Article monArticle = selectArticleById((rs.getInt("e.no_article")));
+			monEnchere.setArticle(monArticle);
+			monEnchere.setUtilisateur(encherisseur);
+			monEnchere.setDateEnchere(rs.getDate("e.date_enchere").toLocalDate());
+			monEnchere.setMontantEnchere(rs.getInt("e.montant_enchere"));
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return monEnchere;
+	}
+	
+	
+	public Utilisateur selectUtilisateurById(int id) throws BusinessException {
+		Connection cnx = null;
+		BusinessException be = new BusinessException();
+		try {
+			cnx = ConnectionProvider.getConnection();
+			cnx.setAutoCommit(false);
+
+			PreparedStatement psmt = cnx.prepareStatement(SELECT_UTILISATEUR_BY_ID);
+			psmt.setInt(1, id);
+
+			ResultSet rs = psmt.executeQuery();
+			Utilisateur utilisateurselect = null;
+
+			if (rs.next()) {
+
+				utilisateurselect = mappingUtilisateur(rs);
+			}
+			return utilisateurselect;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+
+			throw be;
+		}
+
+	}
 	
 	public Enchere selectEnchere(int numeroArticle) throws BusinessException {
 		Enchere enchereCourante = new Enchere();
