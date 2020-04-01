@@ -48,8 +48,8 @@
 								<a><%=request.getAttribute("meilleureOffre")%></a><br>
 								<label for="prixDepart">Mise à prix : </label>
 								<a><%=request.getAttribute("prixDepart")%></a><br>
-								<label for="finEnchere">Fin de l'enchère : </label>
-								<a><%=request.getAttribute("finEnchere")%></a><br>
+								<label for="dateFin">Fin de l'enchère : </label>
+								<a><%=request.getAttribute("dateFin")%></a><br>
 								<label for="lieuRetrait">Retrait : </label>
 								<a><%=request.getAttribute("lieuRetrait")%></a><br>
 								<label for="vendeur">Vendeur : </label>

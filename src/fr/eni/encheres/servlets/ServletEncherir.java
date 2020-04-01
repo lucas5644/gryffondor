@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import fr.eni.encheres.bll.EncheresManager;
+import fr.eni.encheres.bll.EncheresManagerTest;
 import fr.eni.encheres.bo.Article;
 import fr.eni.encheres.bo.Enchere;
 import fr.eni.encheres.bo.Utilisateur;
@@ -57,7 +58,7 @@ public class ServletEncherir extends HttpServlet {
 			request.setAttribute("meilleureOffre", enchereCourante.getMontantEnchere());
 		}
 		request.setAttribute("prixDepart", articleCourant.getMiseAPrix());
-		request.setAttribute("finEnchere", articleCourant.getDateFinEncheres());
+		request.setAttribute("dateFin", articleCourant.getDateFinEncheres());
 		request.setAttribute("lieuRetrait", articleCourant.getLieuRetrait());
 		request.setAttribute("vendeur", articleCourant.getVendeur().getPseudo());
 
@@ -73,8 +74,7 @@ public class ServletEncherir extends HttpServlet {
 		System.out.println(enchereCourante);
 		// récupérer l'utilisateur s'il est connecté
 		HttpSession session = request.getSession();
-		Utilisateur user = new Utilisateur();
-		user = (Utilisateur) session.getAttribute("userConnected");
+		Utilisateur user = (Utilisateur) session.getAttribute("userConnected");
 		if (user == null) {
 			listeCodesErreur.add(CodesResultatServlets.UTILISATEUR_DECONNECTE);
 		} 
@@ -91,7 +91,28 @@ public class ServletEncherir extends HttpServlet {
 			if (user.getPseudo() == articleCourant.getVendeur().getPseudo()) {
 				listeCodesErreur.add(CodesResultatServlets.ERREUR_UTILISATEUR);
 			}
+			if (listeCodesErreur.size() > 0) {
+				// si erreurs, affichage sur la page des enchères
+				request.setAttribute("listeCodesErreur", listeCodesErreur);
+				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/miserEnchere.jsp");
+				rd.forward(request, response);
+			}
 			try {
+				EncheresManagerTest encheresManagerTest = new EncheresManagerTest();
+				//je check s'il y a déjà une enchère
+				if (encheresManagerTest.checkEnchere(articleCourant.getNoArticle(),2)) {
+					//l'utilisateur a déjà enchéri, on update l'enchère
+					enchereManager.updateEnchere(user.getPseudo(), numeroArticle, montantEnchere);
+				}
+				else if (enchereCourante.getMontantEnchere() == 0) {
+					//Pas encore d'enchère, j'insère la première offre
+					enchereManager.insertEnchere(user.getPseudo(), numeroArticle, montantEnchere);
+				}else {
+					//Une enchère existe déjà, je mets à jour les données
+					enchereManager.updateEnchere(user.getPseudo(), numeroArticle, montantEnchere);
+				}
+				
+				
 				if (enchereCourante.getMontantEnchere() == 0) {
 					//Pas encore d'enchère, j'insère la première offre
 					enchereManager.insertEnchere(user.getPseudo(), numeroArticle, montantEnchere);
