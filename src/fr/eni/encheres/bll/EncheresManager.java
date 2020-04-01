@@ -1,7 +1,7 @@
 package fr.eni.encheres.bll;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import fr.eni.encheres.bo.Article;
@@ -198,11 +198,15 @@ public class EncheresManager {
 		
 	}
 
-	public List<Enchere> selectEncheresUtilisateur(int noUtilisateur)throws BusinessException{
+	public List<Article> selectEncheresUtilisateur(int noUtilisateur)throws BusinessException{
 		
 		List<Enchere> listEncher;
+		List<Article> maListe = new ArrayList<Article>();
 		listEncher = enchereDAO.selectEncheresUtilisateur(noUtilisateur);
-		return listEncher;
+		for (Enchere enchere : listEncher) {
+			maListe.add(enchere.getArticle());
+		}
+		return maListe;
 		
 	}
 

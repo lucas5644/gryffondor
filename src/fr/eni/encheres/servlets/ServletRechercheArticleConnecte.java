@@ -76,7 +76,10 @@ public class ServletRechercheArticleConnecte extends HttpServlet {
 				for (Article article : listeArticles) {
 					if(article.getEtatVente().equals("En cours") && article.getVendeur().getNoUtilisateur()!= userConnected.getNoUtilisateur()) {
 						try {
-							List<Enchere> checkList = EM.selectEncheresUtilisateur(userConnected.getNoUtilisateur());
+							List<Article> checkList = EM.selectEncheresUtilisateur(userConnected.getNoUtilisateur());
+							for (Article article2 : checkList) {
+								MaListe.add(article2);
+							}
 						} catch (BusinessException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
