@@ -68,11 +68,19 @@
     <url-pattern>/miserEnchere</url-pattern>
   </servlet-mapping>
   <servlet>
-  	<servlet-name>JSP_UPDATEVENTE</servlet-name>
-  	<jsp-file>/WEB-INF/jsp/updateVente.jsp</jsp-file>
+    <servlet-name>JSP_UPDATEVENTE</servlet-name>
+    <jsp-file>/WEB-INF/jsp/updateVente.jsp</jsp-file>
   </servlet>
   <servlet-mapping>
-  	<servlet-name>JSP_UPDATEVENTE</servlet-name>
-  	<url-pattern>/updatevente</url-pattern>
+    <servlet-name>JSP_UPDATEVENTE</servlet-name>
+    <url-pattern>/updatevente</url-pattern>
+  </servlet-mapping>
+    <servlet>
+    <servlet-name>JSP_ACCUEILADMIN</servlet-name>
+    <jsp-file>/WEB-INF/jsp/accueilAdmin.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>JSP_ACCUEILADMIN</servlet-name>
+    <url-pattern>/accueilAdmin</url-pattern>
   </servlet-mapping>
 </web-app>
