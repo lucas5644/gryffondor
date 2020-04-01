@@ -77,7 +77,7 @@ public class ServletEncherir extends HttpServlet {
 		user = (Utilisateur) session.getAttribute("userConnected");
 		if (user == null) {
 			listeCodesErreur.add(CodesResultatServlets.UTILISATEUR_DECONNECTE);
-		}
+		} 
 		
 		// Réalisation du traitement
 		if (listeCodesErreur.size() > 0) {
