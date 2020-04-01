@@ -66,14 +66,14 @@ public class ServletRechercheArticleConnecte extends HttpServlet {
 			
 			if(!AchatOuvert.equals("non")) {
 				for (Article article : listeArticles) {
-					if(article.getEtatVente().equals("En cours")) {
+					if(article.getEtatVente().equals("En cours")  && article.getVendeur().getNoUtilisateur()!= userConnected.getNoUtilisateur()) {
 						MaListe.add(article);
 					}
 				}
 			}
 			if(!EnCours.equals("non")) {
 				for (Article article : listeArticles) {
-					if(article.getEtatVente().equals("En cours")) {
+					if(article.getEtatVente().equals("En cours") && article.getVendeur().getNoUtilisateur()!= userConnected.getNoUtilisateur()) {
 						List<Utilisateur> checkList = article.getListeAcheteurs();
 						if(checkList != null) {
 							for (Utilisateur user : checkList) {
@@ -87,7 +87,7 @@ public class ServletRechercheArticleConnecte extends HttpServlet {
 			}
 			if(!AchatRemport.equals("non")) {
 				for (Article article : listeArticles) {
-					if(article.getEtatVente().equals("Enchères terminées")) {
+					if(article.getEtatVente().equals("Enchères terminées")  && article.getVendeur().getNoUtilisateur()!= userConnected.getNoUtilisateur()) {
 						List<Utilisateur> checkList = article.getListeAcheteurs();
 						if(checkList != null) {
 							for (Utilisateur user : checkList) {
