@@ -75,25 +75,29 @@ public class ServletEncherir extends HttpServlet {
 		HttpSession session = request.getSession();
 		Utilisateur user = new Utilisateur();
 		user = (Utilisateur) session.getAttribute("userConnected");
-		// si user déconnecté, afficher message d'erreur
 		if (user == null) {
 			listeCodesErreur.add(CodesResultatServlets.UTILISATEUR_DECONNECTE);
 		}
+		
 		// Réalisation du traitement
 		if (listeCodesErreur.size() > 0) {
-			// Je renvoie les codes d'erreurs
+			// L'utilisateur n'est pas connecté, retour à la page d'accueil
 			request.setAttribute("listeCodesErreur", listeCodesErreur);
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/accueil.jsp");
 			rd.forward(request, response);
 		} else {
 			// récupérer le montant de l'enchère
 			int montantEnchere = Integer.parseInt(request.getParameter("proposition"));
-			// modifier prix de l'enchère
+			if (user.getPseudo() == articleCourant.getVendeur().getPseudo()) {
+				listeCodesErreur.add(CodesResultatServlets.ERREUR_UTILISATEUR);
+			}
 			try {
 				if (enchereCourante.getMontantEnchere() == 0) {
-					enchereManager.insertEnchere("Corentin35", numeroArticle, montantEnchere);
+					//Pas encore d'enchère, j'insère la première offre
+					enchereManager.insertEnchere(user.getPseudo(), numeroArticle, montantEnchere);
 				} else {
-					enchereManager.updateEnchere("Corentin35", numeroArticle, montantEnchere);
+					//Une enchère existe déjà, je mets à jour les données
+					enchereManager.updateEnchere(user.getPseudo(), numeroArticle, montantEnchere);
 				}
 
 			} catch (BusinessException e) {

@@ -6,6 +6,7 @@ package fr.eni.encheres.bll;
 public abstract class CodesResultatBLL {
 	
 	public static final int DATE_ERREUR = 20000;
-//	public static final int ALIMENT_OBLIGATOIRE = 20001;
-//	public static final int ALIMENT_TAILLE_DEPASSEE = 20002;
+	public static final int ENCHERE_ERREUR=20001;
+	public static final int ENCHERE_ERREUR_2 = 20002;
+	public static final int DATE_ERREUR_2=20003;
 }

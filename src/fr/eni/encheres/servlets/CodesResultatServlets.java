@@ -37,5 +37,9 @@ public abstract class CodesResultatServlets {
 	 * Utilisateur déconnecté
 	 */
 	public static final int UTILISATEUR_DECONNECTE=30007;
+	/**
+	 * Vendeur et enchéreur similaire
+	 */
+	public static final int ERREUR_UTILISATEUR = 30008;
 	
 }
