@@ -138,9 +138,9 @@
 										
 
 								</div>
-							</form>
+							</form><br>
 							<div>
-								<form action="DeleteArticle">
+								<form action="DeleteArticle" method="post">
 									<input type="hidden" value="<%=request.getParameter("noArticle")%>" name="noArticle"> <a
 										href="<%=request.getContextPath()%>/AccueilUtilisateur"><input
 										type="button" value="Annuler" class="btn btn-primary" /></a> <input

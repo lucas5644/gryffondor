@@ -40,6 +40,7 @@ public class ServletDeleteArticle extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		List<Integer> listeCodesErreur = new ArrayList<Integer>();
 		LocalDate debutEnchere = null;
 		LocalDate dateDuJour = null;
