@@ -83,4 +83,12 @@
     <servlet-name>JSP_ACCUEILADMIN</servlet-name>
     <url-pattern>/accueilAdmin</url-pattern>
   </servlet-mapping>
+      <servlet>
+    <servlet-name>JSP_LISTEUTILISATEURADMIN</servlet-name>
+    <jsp-file>/WEB-INF/jsp/listeUtilisateurAdmin.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>JSP_LISTEUTILISATEURADMIN</servlet-name>
+    <url-pattern>/listeUtilisateurAdmin</url-pattern>
+  </servlet-mapping>
 </web-app>
