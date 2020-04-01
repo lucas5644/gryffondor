@@ -12,7 +12,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
 		<div class="container">
 			<a class="navbar-brand"
-				href="<%=request.getContextPath()%>/AccueilUtilisateur">Mon
+				href="<%=request.getContextPath()%>/accueilAdmin">Mon
 				application d'enchères</a>
 
 			<div>
@@ -52,7 +52,7 @@
 								 <a>Ville	: ${utilisateur.ville}</a><br>
 								 <a>Mot de passe : ${utilisateur.motDePasse}</a><br>
 								 <a>Crédit	: ${utilisateur.credit}</a><br>
-								 <a>Administrareur	: ${utilisateur.administrateur}</a>
+								 <a>Administrateur	: ${utilisateur.administrateur}</a>
 							<input type="Button" value="DeleteUserAdmin" name="Supprimer utilisateur">
 							<input type="Button" value="" name="desactiver un comptes">
 							

@@ -10,7 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+
 
 import fr.eni.encheres.bll.EncheresManager;
 import fr.eni.encheres.exception.BusinessException;
@@ -49,7 +49,7 @@ public class ServletDeleteUserAdmin extends HttpServlet {
 			
 			if(verification == true) {
 			
-				RequestDispatcher rd = request.getRequestDispatcher("/listeUtilisateurAdmin");
+				RequestDispatcher rd = request.getRequestDispatcher("//listeUtilisateurAdmin");
 				
 				rd.forward(request, response);		
 			}
