@@ -1,6 +1,7 @@
 <%@page import="fr.eni.encheres.messages.LecteurMessage"%>
 <%@page import="java.util.List"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ page import="fr.eni.encheres.bo.Utilisateur"%>
 <!DOCTYPE html>
 <html>
@@ -15,16 +16,18 @@
 <!-- Custom styles for this template -->
 <link href="<%=request.getContextPath()%>/css/4-col-portfolio.css"
 	rel="stylesheet">
-<link rel="icon" href="<%=request.getContextPath()%>/images/gryffondor.jpg">
+<link rel="icon"
+	href="<%=request.getContextPath()%>/images/gryffondor.jpg">
 
 <link href="<%=request.getContextPath()%>/css/style.css"
 	rel="stylesheet">
 <title>Nouvelle vente</title>
 </head>
 <body>
-<% Utilisateur userConnected = (Utilisateur)session.getAttribute("userConnected");
-								String iduserConnected = String.valueOf(userConnected.getNoUtilisateur());
-							%>
+	<%
+		Utilisateur userConnected = (Utilisateur) session.getAttribute("userConnected");
+		String iduserConnected = String.valueOf(userConnected.getNoUtilisateur());
+	%>
 	<!-- Navigation -->
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
 		<div class="container">
@@ -81,34 +84,37 @@
 							%>
 							<form action="ModifierVente" method="post">
 								<div class="saisie">
-									<label for="article">Article : </label> <input
-										class="form-control" name="article">
+									<label for="nomArticle">Article : </label> <input
+										class="form-control" value="<%=request.getAttribute("nomArticle")%>" name="nomArticle">
 								</div>
 								<div class="saisie">
-									<label for="description">Description : </label>
-									<input class="form-control" name="description">
+									<label for="description">Description : </label> <input
+										class="form-control" value= "<%=request.getAttribute("description")%>" name="description">
 								</div>
 								<br>
 								<div>
-									<label for="categorie">Catégorie : </label> <select
+									<label for="categorie">Catégorie de votre article : </label>
+									<a><%=request.getAttribute("categorie")%></a><br>
+									 Vous voulez changer la categorie article?
+									 <select
 										name="categorie" size="1">
 										<option value="1">Informatique</option>
 										<option value="2">Ameublement</option>
 										<option value="3">Vêtement</option>
 										<option value="4">Sport et loisir</option>
 									</select>
-								</div>
+								</div><br>
 								<div>
-									<label for="prixDepart">Mise à prix : </label> <input type="number"
-										name="prixDepart" min="0" step="10">
+									<label for="prixDepart">Mise à prix : </label> <input
+										type="number" value="<%=request.getAttribute("prixDepart")%>" name="prixDepart" min="0" step="10">
 								</div>
 								<div>
 									<label for="dateDebut">Début de l'enchère</label> <input
-										class="form-control" type="date" name="dateDebut">
+										class="form-control" type="date" value="<%=request.getAttribute("dateDebut")%>"name="dateDebut">
 								</div>
 								<div>
 									<label for="dateFin">Fin de l'enchère</label> <input
-										class="form-control" type="date" name="dateFin">
+										class="form-control" type="date" value="<%=request.getAttribute("dateFin")%>"name="dateFin">
 								</div>
 								<div>
 									<br>
@@ -125,20 +131,26 @@
 
 								<div>
 									<input type="submit" value="Enregistrer"
-										class="btn btn-primary" /> <a
-										href="<%=request.getContextPath()%>/AccueilUtilisateur"><input type="button"
-										value="Annuler" class="btn btn-primary" /></a>
-									<input type="hidden" name="noUtilisateur" value="<%=iduserConnected%>"/>
-									
+										class="btn btn-primary" /> <input type="hidden"
+										name="noUtilisateur" value="<%=iduserConnected%>" />
+
 								</div>
 							</form>
-							<form action="DeleteArticle">
-							<input type = "hidden" name = noArticle>
-							<input type="submit" value="Annuler la vente" class="btn btn-primary" />
-									<%if(request.getAttribute("echec" )!= null){ %>
-									<a><%=request.getAttribute("echec") %></a>
-									<%} %>
-							</form>
+							<div>
+								<form action="DeleteArticle">
+									<input type="hidden" value="<%=request.getParameter("noArticle")%>" name="noArticle"> <a
+										href="<%=request.getContextPath()%>/AccueilUtilisateur"><input
+										type="button" value="Annuler" class="btn btn-primary" /></a> <input
+										type="submit" value="Annuler la vente" class="btn btn-primary" />
+									<%
+										if (request.getAttribute("echec") != null) {
+									%>
+									<a><%=request.getAttribute("echec")%></a>
+									<%
+										}
+									%>
+								</form>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -147,7 +159,7 @@
 		<!-- /.row -->
 	</div>
 	<!-- /.container -->
-	
+
 	<%@ include file="footer.html"%>
 
 	<!-- Bootstrap core JavaScript -->

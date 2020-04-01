@@ -41,10 +41,6 @@ public class ServletDeleteArticle extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<Integer> listeCodesErreur = new ArrayList<Integer>();
-		request.setAttribute("listeCodesErreur",listeCodesErreur);
-		
-		
-		
 		LocalDate debutEnchere = null;
 		LocalDate dateDuJour = null;
 		
@@ -52,39 +48,33 @@ public class ServletDeleteArticle extends HttpServlet {
 			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 			debutEnchere = LocalDate.parse(request.getParameter("dateDebut"), dtf);
 			dateDuJour = LocalDate.now();
+			if (dateDuJour.equals(debutEnchere)||dateDuJour.isAfter(debutEnchere)) {
+				listeCodesErreur.add(CodesResultatServlets.FORMAT_DATE_ERREUR);
+			}
+			// Réalisation du traitement
+			if (listeCodesErreur.size() > 0) {
+				// Je renvoie les codes d'erreurs
+				request.setAttribute("listeCodesErreur", listeCodesErreur);
+				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/updateVente.jsp");
+				rd.forward(request, response);
+			} else {
+				//si pas d'erreur je suprime l'article
+				EncheresManager encheresManager = new EncheresManager();
+				int noArticle = Integer.parseInt(request.getParameter("noArticle"));
+				try {
+					encheresManager.removeArticle(noArticle);
+				} catch (BusinessException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 		}
 		catch (DateTimeParseException e) {
 			e.printStackTrace();
 			return;
 		 
 		}
-		String noArticle = request.getParameter("noArticle");
-		EncheresManager enchereManager = new EncheresManager();
-		int noArticlee = Integer.parseInt(noArticle);
-		boolean verification;
-		try {
-			
-			verification = enchereManager.removeArticle(noArticlee);
-			
-			if(verification == true) {
-				HttpSession session = request.getSession();
-				session.invalidate();
-				RequestDispatcher rd = request.getRequestDispatcher("/accueil");
-				
-				rd.forward(request, response);		
-			}
-			else {
-				request.setAttribute("echec", "Erreur, le compte n'a pas été suprimé");
-				RequestDispatcher rd = request.getRequestDispatcher("/profilCompte");
-				rd.forward(request, response);
-			}
-			
-		} catch (BusinessException e) {
-			request.setAttribute("echec", "Erreur, le compte n'a pas été suprimé");
-			RequestDispatcher rd = request.getRequestDispatcher("/accueil");
-			rd.forward(request, response);			
-			e.printStackTrace();
-		}
+		
 			
 	}
 

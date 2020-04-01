@@ -114,13 +114,16 @@
 					<div class="card-body contenu">
 						<div class="contenu">
 							<c:forEach var="article" items="${ListeResultat}">
-								<form action="RedirectionClicArticle" method="post">
+								<form action="RedirectionClicArticle" method="get">
 									<div class="col-lg-5 d-inline-block contenu portfolio-item">
 									<input type="hidden" name="article" value="${article.vendeur.noUtilisateur}">
 										 <a>Nom de l'article :</a><input type="submit" value="${article.nomArticle}"><br> <a>Prix
 											de départ : ${article.miseAPrix}</a><br> <a>Fin de
 											l'enchère : ${article.dateFinEncheres}</a><br> <a>Pseudo
 											: ${article.vendeur.pseudo}</a>
+											<label for="numeroArticle"></label>
+											<input name="numeroArticle" type="hidden"
+												value="${article.noArticle}">
 									</div>
 								</form>
 							</c:forEach>
