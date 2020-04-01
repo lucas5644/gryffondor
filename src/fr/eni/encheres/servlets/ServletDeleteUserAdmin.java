@@ -49,19 +49,19 @@ public class ServletDeleteUserAdmin extends HttpServlet {
 			
 			if(verification == true) {
 			
-				RequestDispatcher rd = request.getRequestDispatcher("/accueil");
+				RequestDispatcher rd = request.getRequestDispatcher("/listeUtilisateurAdmin");
 				
 				rd.forward(request, response);		
 			}
 			else {
 				request.setAttribute("echec", "Erreur, le compte n'a pas été suprimé");
-				RequestDispatcher rd = request.getRequestDispatcher("/");
+				RequestDispatcher rd = request.getRequestDispatcher("/listeUtilisateurAdmin");
 				rd.forward(request, response);
 			}
 			
 		} catch (BusinessException e) {
 			request.setAttribute("echec", "Erreur, le compte n'a pas été suprimé");
-			RequestDispatcher rd = request.getRequestDispatcher("/accueil");
+			RequestDispatcher rd = request.getRequestDispatcher("/listeUtilisateurAdmin");
 			rd.forward(request, response);			
 			e.printStackTrace();
 		}

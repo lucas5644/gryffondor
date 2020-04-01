@@ -38,7 +38,7 @@
 			<div class="card-body contenu">
 				<div class="contenu">
 					<c:forEach var="utilisateur" items="${ListeUtilisateur}">
-						<form action="#" method="post">
+						<form action="DeleteUserAdmin" method="post">
 							<div class="col-lg-12 d-inline-block contenu portfolio-item">
 									
 								 <a>no utilisateur : ${utilisateur.noUtilisateur}</a><br>
@@ -53,7 +53,7 @@
 								 <a>Mot de passe : ${utilisateur.motDePasse}</a><br>
 								 <a>Crédit	: ${utilisateur.credit}</a><br>
 								 <a>Administrareur	: ${utilisateur.administrateur}</a>
-							<input type="Button" value="" name="Supprimer utilisateur">
+							<input type="Button" value="DeleteUserAdmin" name="Supprimer utilisateur">
 							<input type="Button" value="" name="desactiver un comptes">
 							
 							</div>
