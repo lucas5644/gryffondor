@@ -95,12 +95,4 @@
 		<url-pattern>/listeUtilisateurAdmin</url-pattern>
 	</servlet-mapping>
 
-	<servlet>
-		<servlet-name>JSP_ENCHERIR_ARTICLE</servlet-name>
-		<jsp-file>/WEB-INF/jsp/miserEnchere.jsp</jsp-file>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>JSP_ENCHERIR_ARTICLE</servlet-name>
-		<url-pattern>/miserEnchere</url-pattern>
-	</servlet-mapping>
 </web-app>
