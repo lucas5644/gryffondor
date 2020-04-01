@@ -132,7 +132,7 @@
 								<div>
 									<input type="submit" value="Enregistrer"
 										class="btn btn-primary" /> <input type="hidden"
-										name="noUtilisateur" value="<%=iduserConnected%>" />
+										name="noArticle" value="<%=request.getAttribute("noArticle")%>" />
 
 								</div>
 							</form>

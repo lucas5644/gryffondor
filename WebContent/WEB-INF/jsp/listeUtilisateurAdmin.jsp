@@ -47,13 +47,13 @@
 			</div>
 		</div>
 	</nav>
-
+	<h1>Liste des utilisateurs</h1>
 	<div class="col-lg-12 col-md-12 col-sm-12 portfolio-item">
 		<div class="card h-100">
 			<div class="card-body contenu">
 				<div class="contenu">
-					<c:forEach var="utilisateur" items="${ListeUtilisateur}">
-						<form action="DeleteUserAdmin" method="post">
+					<c:forEach var="utilisateur" items="${listeUtilisateur}">
+						<form action="DeleteUserAdmin" method="get">
 							<div class="col-lg-12 d-inline-block contenu portfolio-item">
 									
 								 <a>no utilisateur : ${utilisateur.noUtilisateur}</a><br>
@@ -79,6 +79,12 @@
 		</div>
 
 	</div>
+	<!-- /.container -->
+	<%@ include file="footer.html"%>
+	<!-- Bootstrap core JavaScript -->
+	<script src="vendor/jquery/jquery.min.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
 
 </body>
 </html>

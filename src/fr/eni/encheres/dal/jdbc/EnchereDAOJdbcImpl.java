@@ -785,7 +785,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 
 		try {
 			cnx = ConnectionProvider.getConnection();
-			cnx.setAutoCommit(false);
+			
 
 			PreparedStatement psmt = cnx.prepareStatement(SELECT_UTILISATEUR_ADMIN);{
 			ResultSet rs = psmt.executeQuery();
@@ -794,9 +794,9 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 				listeUtilisateur.add(user);
 			}
 		}
-		
+		cnx.close();
+		psmt.close();
 		return listeUtilisateur;
-		
 		} catch (SQLException e) {
 			e.printStackTrace();
 		
