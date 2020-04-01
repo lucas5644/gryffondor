@@ -56,6 +56,7 @@
 								<a><%=request.getAttribute("vendeur")%></a><br>
 								<label for="proposition">Ma proposition : </label>
 								<input type="number" min="0" step="10" name="proposition"><br>
+								<input type="hidden" name="noArticle" value="<%=request.getAttribute("noArticle")%>" />
 								<div>
 									<input type="submit" value="Enchérir" class="btn btn-primary" />
 								</div>

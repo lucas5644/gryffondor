@@ -69,7 +69,17 @@ public class ServletEncherir extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		List<Integer> listeCodesErreur = new ArrayList<>();
-		// récupérer l'article
+		// récupérer l'article 
+		if (articleCourant == null) {
+			String noArticle = request.getParameter("noArticle");
+			int numeroArticle = Integer.parseInt(noArticle);
+			try {
+				articleCourant = enchereManager.selectArticleById(numeroArticle);
+				enchereCourante = enchereManager.selectEnchere(numeroArticle);
+			} catch (BusinessException e) {
+				e.printStackTrace();
+			}
+		}
 		System.out.println(articleCourant);
 		System.out.println(enchereCourante);
 		// récupérer l'utilisateur s'il est connecté
@@ -99,26 +109,21 @@ public class ServletEncherir extends HttpServlet {
 			}
 			try {
 				EncheresManagerTest encheresManagerTest = new EncheresManagerTest();
-				//je check s'il y a déjà une enchère
-				if (encheresManagerTest.checkEnchere(articleCourant.getNoArticle(),2)) {
+				boolean enchereEffectuee = false;
+				//je check si l'utilisateur a déjà enchéri sur cette article
+				if (encheresManagerTest.checkEnchere(articleCourant.getNoArticle(),user.getNoUtilisateur()) == true) {
 					//l'utilisateur a déjà enchéri, on update l'enchère
 					enchereManager.updateEnchere(user.getPseudo(), numeroArticle, montantEnchere);
+					enchereEffectuee = true;
 				}
-				else if (enchereCourante.getMontantEnchere() == 0) {
-					//Pas encore d'enchère, j'insère la première offre
-					enchereManager.insertEnchere(user.getPseudo(), numeroArticle, montantEnchere);
-				}else {
-					//Une enchère existe déjà, je mets à jour les données
-					enchereManager.updateEnchere(user.getPseudo(), numeroArticle, montantEnchere);
-				}
-				
-				
-				if (enchereCourante.getMontantEnchere() == 0) {
-					//Pas encore d'enchère, j'insère la première offre
-					enchereManager.insertEnchere(user.getPseudo(), numeroArticle, montantEnchere);
-				} else {
-					//Une enchère existe déjà, je mets à jour les données
-					enchereManager.updateEnchere(user.getPseudo(), numeroArticle, montantEnchere);
+				if (!enchereEffectuee) {
+					if (enchereCourante.getMontantEnchere() == 0) {
+						//Pas encore d'enchère, j'insère la première offre
+						enchereManager.insertEnchere(user.getPseudo(), numeroArticle, montantEnchere);
+					}else {
+						//Une enchère existe déjà, je mets à jour les données
+						enchereManager.updateEnchere(user.getPseudo(), numeroArticle, montantEnchere);
+					}
 				}
 
 			} catch (BusinessException e) {
