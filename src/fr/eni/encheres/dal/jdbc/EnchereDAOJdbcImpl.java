@@ -262,6 +262,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 		Article articleCourant = new Article();
 		Retrait lieuRetrait = new Retrait();
 		Utilisateur user = new Utilisateur();
+		int nombreEnregistrement = 0;
 		Connection con = null;
 
 		try {
@@ -273,13 +274,14 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 			ResultSet rs = psmt.executeQuery();
 
 			while (rs.next()) {
-				if (rs.getInt("no_article") == numeroArticle) {
+				if (nombreEnregistrement == 0) {
 					mappingArticle(rs);
 					lieuRetrait = mappingRetrait(rs);
 					user = mappingUser(rs); 
 					articleCourant = mappingArticle(rs);
 					articleCourant.setVendeur(user);
 					articleCourant.setLieuRetrait(lieuRetrait);
+					nombreEnregistrement++;
 				}
 			}
 		} catch (SQLException e) {
