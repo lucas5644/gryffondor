@@ -45,7 +45,8 @@ public class ServletModifierVente extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Article art;
 		String noArticle = request.getParameter("noArticle");
-		System.out.println("Teste : "+noArticle);
+		int noArticle1 = Integer.parseInt(noArticle);
+		System.out.println("Teste : "+noArticle1);
 		String nomArticle = null;
 		String description = null;
 		String categorie;

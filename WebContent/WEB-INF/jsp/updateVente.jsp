@@ -128,11 +128,14 @@
 										name="ville" value="${userConnected.ville}">
 								</div>
 								<br>
-
+								<input type="hidden" name="noArticle" value="<%=request.getAttribute("noArticle")%>" />
+								<a> teste <%=request.getAttribute("noArticle")%></a>
 								<div>
+								
+								<input>
 									<input type="submit" value="Enregistrer"
-										class="btn btn-primary" /> <input type="hidden"
-										name="noArticle" value="<%=request.getAttribute("noArticle")%>" />
+										class="btn btn-primary" /> 
+										
 
 								</div>
 							</form>

@@ -53,7 +53,7 @@
 			<div class="card-body contenu">
 				<div class="contenu">
 					<c:forEach var="utilisateur" items="${listeUtilisateur}">
-						<form action="DeleteUserAdmin" method="get">
+						<form action="ListeUtilisateur" method="post">
 							<div class="col-lg-12 d-inline-block contenu portfolio-item">
 									
 								 <a>no utilisateur : ${utilisateur.noUtilisateur}</a><br>

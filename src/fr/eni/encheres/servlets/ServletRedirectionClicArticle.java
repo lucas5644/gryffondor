@@ -75,6 +75,7 @@ public class ServletRedirectionClicArticle extends HttpServlet {
 			request.setAttribute("prixDepart", articleCourant.getMiseAPrix());
 			request.setAttribute("dateDebut", articleCourant.getDateDebutEncheres());
 			request.setAttribute("dateFin", articleCourant.getDateFinEncheres());
+			request.setAttribute("noArticle", articleCourant.getNoArticle());
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/updateVente.jsp");
 			rd.forward(request, response);
 		}

@@ -31,45 +31,48 @@ public class ServletDeleteUserAdmin extends HttpServlet {
 		EncheresManager enchereManager = new EncheresManager();
 		List<Utilisateur>listeUtilisateur = null;
 		try {
+			System.out.println("coucou");
 			listeUtilisateur = enchereManager.selectUtilisateurPourAdmin();
 			request.setAttribute("listeUtilisateur", listeUtilisateur);
+			System.out.println("liste "+listeUtilisateur);
 		} catch (BusinessException e1) {
 			e1.printStackTrace();
 		}
 		
-		request.setAttribute("listeUtilisateur", listeUtilisateur);
-		
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/listeUtilisateurAdmin.jsp")	;
+		rd.forward(request, response);
+				
 		List<Integer> listeCodesErreur = new ArrayList<Integer>();
 		request.setAttribute("listeCodesErreur",listeCodesErreur);
 		
-//		String noUtilisateur = request.getParameter("noUtilisateur");
-//		
-//		int noUtilisaateur = Integer.parseInt(noUtilisateur);
-//		boolean verification;
-//		try {
-//			
-//			verification = enchereManager.removeUtilisateur(noUtilisaateur);
-//			
-//			if(verification == true) {
-//			
-//				RequestDispatcher rd = request.getRequestDispatcher("/listeUtilisateurAdmin");
-//				
-//				rd.forward(request, response);		
-//			}
-//			else {
-//				request.setAttribute("echec", "Erreur, le compte n'a pas été suprimé");
-//				RequestDispatcher rd = request.getRequestDispatcher("/listeUtilisateurAdmin");
-//				rd.forward(request, response);
-//			}
-//			
-//		} catch (BusinessException e) {
-//			request.setAttribute("echec", "Erreur, le compte n'a pas été suprimé");
-//			RequestDispatcher rd = request.getRequestDispatcher("/listeUtilisateurAdmin");
-//			rd.forward(request, response);			
-//			e.printStackTrace();
-//		}
-//		
-//	
+		String noUtilisateur = request.getParameter("noUtilisateur");
+		System.out.println("no Utilisateur " + noUtilisateur);
+		int noUtilisaateur = Integer.parseInt(noUtilisateur);
+		boolean verification;
+		try {
+			
+			verification = enchereManager.removeUtilisateur(noUtilisaateur);
+			
+			if(verification == true) {
+			
+				 rd = request.getRequestDispatcher("/listeUtilisateurAdmin");
+				
+				rd.forward(request, response);		
+			}
+			else {
+				request.setAttribute("echec", "Erreur, le compte n'a pas été suprimé");
+				 rd = request.getRequestDispatcher("/listeUtilisateurAdmin");
+				rd.forward(request, response);
+			}
+			
+		} catch (BusinessException e) {
+			request.setAttribute("echec", "Erreur, le compte n'a pas été suprimé");
+		 rd = request.getRequestDispatcher("/listeUtilisateurAdmin");
+			rd.forward(request, response);			
+			e.printStackTrace();
+		}
+		
+	
 	}
 
 	/**

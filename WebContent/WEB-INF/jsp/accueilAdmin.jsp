@@ -34,8 +34,10 @@
 					href="AjouterArticle">Vendre un Article</a>
 			</div>
 			<div>
-				<a class="btn btn-primary nav-link" role="button"
-					href="listeUtilisateurAdmin">Liste Utilisateur</a>
+				<form action="DeleteUserAdmin" method ="post">
+				<input type="submit" value="liste utilisateur">
+				</form>
+				
 			</div>
 			<div>
 				<a class="btn btn-primary nav-link" role="button" href="monprofil">Mon
