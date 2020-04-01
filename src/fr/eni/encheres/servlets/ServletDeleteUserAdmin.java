@@ -28,48 +28,54 @@ public class ServletDeleteUserAdmin extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		EncheresManager enchereManager = new EncheresManager();
+		List<Utilisateur>listeUtilisateur = null;
+		try {
+			listeUtilisateur = enchereManager.selectUtilisateurPourAdmin();
+			request.setAttribute("listeUtilisateur", listeUtilisateur);
+		} catch (BusinessException e1) {
+			e1.printStackTrace();
+		}
 		
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		request.setAttribute("listeUtilisateur", listeUtilisateur);
+		
+		List<Integer> listeCodesErreur = new ArrayList<Integer>();
+		request.setAttribute("listeCodesErreur",listeCodesErreur);
+		
+//		String noUtilisateur = request.getParameter("noUtilisateur");
+//		
+//		int noUtilisaateur = Integer.parseInt(noUtilisateur);
+//		boolean verification;
+//		try {
+//			
+//			verification = enchereManager.removeUtilisateur(noUtilisaateur);
+//			
+//			if(verification == true) {
+//			
+//				RequestDispatcher rd = request.getRequestDispatcher("/listeUtilisateurAdmin");
+//				
+//				rd.forward(request, response);		
+//			}
+//			else {
+//				request.setAttribute("echec", "Erreur, le compte n'a pas été suprimé");
+//				RequestDispatcher rd = request.getRequestDispatcher("/listeUtilisateurAdmin");
+//				rd.forward(request, response);
+//			}
+//			
+//		} catch (BusinessException e) {
+//			request.setAttribute("echec", "Erreur, le compte n'a pas été suprimé");
+//			RequestDispatcher rd = request.getRequestDispatcher("/listeUtilisateurAdmin");
+//			rd.forward(request, response);			
+//			e.printStackTrace();
+//		}
+//		
+//	
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<Utilisateur>listeUtilisateur = null;
-		request.setAttribute("listeUtilisateur", listeUtilisateur);
-		
-		List<Integer> listeCodesErreur = new ArrayList<Integer>();
-		request.setAttribute("listeCodesErreur",listeCodesErreur);
-		
-		String noUtilisateur = request.getParameter("noUtilisateur");
-		EncheresManager enchereManager = new EncheresManager();
-		
-		int noUtilisaateur = Integer.parseInt(noUtilisateur);
-		boolean verification;
-		try {
-			
-			verification = enchereManager.removeUtilisateur(noUtilisaateur);
-			
-			if(verification == true) {
-			
-				RequestDispatcher rd = request.getRequestDispatcher("/listeUtilisateurAdmin");
-				
-				rd.forward(request, response);		
-			}
-			else {
-				request.setAttribute("echec", "Erreur, le compte n'a pas été suprimé");
-				RequestDispatcher rd = request.getRequestDispatcher("/listeUtilisateurAdmin");
-				rd.forward(request, response);
-			}
-			
-		} catch (BusinessException e) {
-			request.setAttribute("echec", "Erreur, le compte n'a pas été suprimé");
-			RequestDispatcher rd = request.getRequestDispatcher("/listeUtilisateurAdmin");
-			rd.forward(request, response);			
-			e.printStackTrace();
-		}
-		
+		doGet(request, response);
 	}
-
-}
+	}

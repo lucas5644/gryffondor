@@ -35,16 +35,17 @@ public class ServletModifierVente extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+
 		
-		
-		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		Article art;
+		String noArticle = request.getParameter("noArticle");
+		System.out.println("Teste : "+noArticle);
 		String nomArticle = null;
 		String description = null;
 		String categorie;
@@ -57,12 +58,16 @@ public class ServletModifierVente extends HttpServlet {
 		String ville = null;
 		Utilisateur user = new Utilisateur();
 		HttpSession session = request.getSession();
-		System.out.println(session);
+		
+	
+		System.out.println("C'est :"+session);
 		user = (Utilisateur) session.getAttribute("userConnected");
+		System.out.println("Teste : "+user);
+		
 		request.setCharacterEncoding("UTF-8");
 		List<Integer> listeCodesErreur = new ArrayList<>();
 		// lecture article
-		nomArticle = request.getParameter("article");
+		nomArticle = request.getParameter("nomArticle");
 		if (nomArticle == null || nomArticle.trim().isEmpty()) {
 			listeCodesErreur.add(CodesResultatServlets.FORMAT_ARTICLE_ERREUR);
 		}
@@ -156,10 +161,13 @@ public class ServletModifierVente extends HttpServlet {
 				newArticle.setEtatVente(etatVente);
 				newArticle.setVendeur(user);
 				newArticle.setLieuRetrait(newLieuDeRetrait);
-				
-				encheresManager.updateArticle(newArticle, newLieuDeRetrait);
+			
+				art=encheresManager.updateArticle(newArticle, newLieuDeRetrait);
 				
 				System.out.println(newArticle);
+				
+				System.out.println();
+				System.out.println("Fin"+newArticle);
 				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/accueilConnecte.jsp");
 				rd.forward(request, response);
 
