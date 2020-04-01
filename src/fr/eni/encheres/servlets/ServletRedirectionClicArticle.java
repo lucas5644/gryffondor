@@ -47,12 +47,12 @@ public class ServletRedirectionClicArticle extends HttpServlet {
 		
 		
 		
-		String url;
-		if(userConnected.getNoUtilisateur() == monArticleNo) {
-			url = "WEB-INF/jsp/updateVente.jsp";
-		}else {
-			url = "WEB-INF/jsp/accueil.jsp";
-		}		 
+//		String url;
+//		if(userConnected.getNoUtilisateur() == monArticleNo) {
+//			url = "WEB-INF/jsp/updateVente.jsp";
+//		}else {
+//			url = "WEB-INF/jsp/accueil.jsp";
+//		}		 
 		RequestDispatcher rd = request.getRequestDispatcher(url);
 		rd.forward(request, response);
 	}
