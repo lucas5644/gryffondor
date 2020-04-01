@@ -35,7 +35,7 @@
 			</div>
 			<div>
 				<a class="btn btn-primary nav-link" role="button"
-					href="#">Liste Utilisateur</a>
+					href="listeUtilisateurAdmin">Liste Utilisateur</a>
 			</div>
 			<div>
 				<a class="btn btn-primary nav-link" role="button" href="monprofil">Mon

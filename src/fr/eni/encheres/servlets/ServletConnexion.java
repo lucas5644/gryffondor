@@ -37,6 +37,15 @@ public class ServletConnexion extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/connexion.jsp");
 			request.setAttribute("connexionRefused", "La connexion est Refus�e");
 			rd.forward(request, response);
+		}
+			if(tryUser.getAdministrateur()==1) {
+				
+				HttpSession sessionUtilisateur = request.getSession();
+				sessionUtilisateur.setAttribute("userConnected", tryUser);
+				RequestDispatcher rd = request.getRequestDispatcher("/accueilAdmin");
+				rd.forward(request, response);			
+			
+			
 		}else {
 			HttpSession sessionUtilisateur = request.getSession();
 			sessionUtilisateur.setAttribute("userConnected", tryUser);
@@ -45,7 +54,7 @@ public class ServletConnexion extends HttpServlet {
 		}
 	}
 
-
+	
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);

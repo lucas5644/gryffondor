@@ -6,6 +6,21 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Liste Utilisateur</title>
+<link
+	href="<%=request.getContextPath()%>/vendor/bootstrap/css/bootstrap.min.css"
+	rel="stylesheet">
+
+<!-- Custom styles for this template -->
+<link href="<%=request.getContextPath()%>/css/4-col-portfolio.css"
+	rel="stylesheet">
+<link rel="icon"
+	href="<%=request.getContextPath()%>/images/gryffondor.jpg">
+
+<link href="<%=request.getContextPath()%>/css/style.css"
+	rel="stylesheet">
+
+
+</head>
 </head>
 <body>
 

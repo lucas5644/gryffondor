@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 import fr.eni.encheres.bll.EncheresManager;
+import fr.eni.encheres.bo.Utilisateur;
 import fr.eni.encheres.exception.BusinessException;
 
 /**
@@ -35,6 +36,9 @@ public class ServletDeleteUserAdmin extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		List<Utilisateur>listeUtilisateur = null;
+		request.setAttribute("listeUtilisateur", listeUtilisateur);
+		
 		List<Integer> listeCodesErreur = new ArrayList<Integer>();
 		request.setAttribute("listeCodesErreur",listeCodesErreur);
 		
@@ -49,7 +53,7 @@ public class ServletDeleteUserAdmin extends HttpServlet {
 			
 			if(verification == true) {
 			
-				RequestDispatcher rd = request.getRequestDispatcher("//listeUtilisateurAdmin");
+				RequestDispatcher rd = request.getRequestDispatcher("/listeUtilisateurAdmin");
 				
 				rd.forward(request, response);		
 			}
