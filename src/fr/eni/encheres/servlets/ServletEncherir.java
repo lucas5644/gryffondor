@@ -131,7 +131,7 @@ public class ServletEncherir extends HttpServlet {
 						// j'insère la première offre
 						enchereManager.insertEnchere(user.getPseudo(), articleCourant.getNoArticle(), montantEnchere);
 						enchereManager.updatePrixVente(articleCourant.getNoArticle(), montantEnchere);
-						// update crédit
+						enchereManager.updateCreditEnchere(user.getPseudo(), montantEnchere);
 					} else {
 						throw be;
 					}
