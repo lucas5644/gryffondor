@@ -53,7 +53,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 	private static final String UPDATE_MDP = "UPDATE UTILISATEURS set mot_de_passe =? WHERE email= ?";
 	private static final String UPDATE_CREDIT_USER="UPDATE UTILISATEURS set credit = ? WHERE no_utilisateur = ?;";
 	
-	public void updateCredit(String pseudo, int montantEnchere) throws BusinessException {
+	public void updateCreditEnchere(String pseudo, int montantEnchere) throws BusinessException {
 		Utilisateur utilisateurCourant = new Utilisateur();
 		utilisateurCourant = selectUtilisateur(pseudo);
 		try {
