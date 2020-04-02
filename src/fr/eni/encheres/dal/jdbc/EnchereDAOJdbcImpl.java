@@ -22,7 +22,6 @@ import fr.eni.encheres.dal.EnchereDAO;
 import fr.eni.encheres.exception.BusinessException;
 import microsoft.sql.DateTimeOffset;
 
-
 public class EnchereDAOJdbcImpl implements EnchereDAO {
 	private static final String INSERT_ARTICLE = "INSERT INTO ARTICLES(nom_article,description,prix_initial,date_debut_encheres,date_fin_encheres,no_utilisateur,no_categorie,etat_vente) VALUES(?,?,?,?,?,?,?,?);";
 	private static final String INSERT_LIEU_RETRAIT = "INSERT INTO RETRAITS(no_article,rue,code_postal,ville) VALUES (?,?,?,?);";
@@ -45,11 +44,34 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 	private static final String UPDATE_ETAT_EN_COURS = "update ARTICLES set etat_vente = 'En cours' where date_debut_encheres = ? and etat_vente = 'Créée';";
 	private static final String INSERT_ENCHERE = "INSERT INTO ENCHERES(no_utilisateur, no_article, date_enchere,montant_enchere) VALUES(?,?,?,?);";
 	private static final String UPDATE_ENCHERE = "UPDATE ENCHERES set date_enchere = ?, montant_enchere = ? where no_article = ? AND no_utilisateur =?;";
-	public static final String SELECT_ENCHERE = "SELECT no_utilisateur,no_article,date_enchere, montant_enchere FROM ENCHERES WHERE no_article = ?;";
+	private static final String SELECT_ENCHERE = "SELECT no_utilisateur,no_article,date_enchere, montant_enchere FROM ENCHERES WHERE no_article = ?;";
 	private static final String SELECT_UTILISATEUR_ADMIN = "SELECT no_utilisateur,pseudo,nom,prenom,email,telephone,rue,code_postal,ville,mot_de_passe,credit,administrateur FROM UTILISATEURS";
 	private static final String SELECT_UTILISATEUR_BY_ID = "SELECT pseudo,nom,prenom,email,telephone,rue,code_postal,ville,no_utilisateur FROM UTILISATEURS WHERE no_utilisateur = ?";
 	private static final String SELECT_ENCHERES_UTILISATEUR = "SELECT u.no_utilisateur, e.no_article, e.date_enchere, e.montant_enchere FROM UTILISATEURS u LEFT JOIN ENCHERES e on e.no_utilisateur = u.no_utilisateur WHERE e.no_utilisateur= ?";
 	private static final String CHECK_ENCHERE = "SELECT e.no_utilisateur, pseudo, no_article FROM UTILISATEURS u LEFT JOIN ENCHERES e on e.no_utilisateur = u.no_utilisateur WHERE u.no_utilisateur=? AND e.no_article = ?";
+	private static final String UPDATE_PRIX_VENTE_ARTICLE = "UPDATE ARTICLES set prix_vente = ? WHERE no_article = ?;";
+
+	public Article updatePrixVente(int numeroArticle, int montantEnchere) throws BusinessException {
+		Article articleNewPrix = new Article();
+		articleNewPrix = selectArticleById(numeroArticle);
+
+		try {
+			Connection con = null;
+			con = ConnectionProvider.getConnection();
+			PreparedStatement psmt = con.prepareStatement(UPDATE_PRIX_VENTE_ARTICLE);
+			// insertion des données
+			psmt.setInt(1, montantEnchere);
+			psmt.setInt(2, numeroArticle);
+			if (psmt.executeUpdate() == 1) {
+				con.commit();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			BusinessException be = new BusinessException();
+			be.ajouterErreur(CodesResultatDAL.UPDATE_ENCHERE);
+			throw be;		}
+		return articleNewPrix;
+	}
 
 	public boolean checkEnchere(int numeroArticle, int numeroUtilisateur) throws BusinessException {
 		boolean resultat = false;
@@ -57,24 +79,25 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 			Connection con = null;
 			con = ConnectionProvider.getConnection();
 			PreparedStatement psmt = con.prepareStatement(CHECK_ENCHERE);
-			//insertion des données
+			// insertion des données
 			psmt.setInt(1, numeroUtilisateur);
 			psmt.setInt(2, numeroArticle);
 			ResultSet rs = psmt.executeQuery();
-			//recherche de l'enchérisseur
+			// recherche de l'enchérisseur
 			while (rs.next()) {
-					resultat = true;
-				
+				resultat = true;
+
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 			BusinessException be = new BusinessException();
 			be.ajouterErreur(CodesResultatDAL.CHECK_ENCHERE);
-			throw be;		}
+			throw be;
+		}
 		return resultat;
 	}
-	
-	public List<Enchere> selectEncheresUtilisateur(int noUtilisateur) throws BusinessException{
+
+	public List<Enchere> selectEncheresUtilisateur(int noUtilisateur) throws BusinessException {
 
 		Connection con = null;
 		List<Enchere> maListe = new ArrayList<Enchere>();
@@ -87,8 +110,8 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 			ResultSet rs = psmt.executeQuery();
 			while (rs.next()) {
 				maListe.add(mappingEnchere(rs, noUtilisateur));
-				}
-			
+			}
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 			BusinessException be = new BusinessException();
@@ -97,7 +120,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 		return maListe;
 	}
 
-	private Enchere mappingEnchere(ResultSet rs, int idUser) throws BusinessException{
+	private Enchere mappingEnchere(ResultSet rs, int idUser) throws BusinessException {
 		Enchere monEnchere = new Enchere();
 		try {
 			Utilisateur encherisseur = selectUtilisateurById(idUser);
@@ -113,8 +136,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 		}
 		return monEnchere;
 	}
-	
-	
+
 	public Utilisateur selectUtilisateurById(int id) throws BusinessException {
 		Connection cnx = null;
 		BusinessException be = new BusinessException();
@@ -141,7 +163,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 		}
 
 	}
-	
+
 	public Enchere selectEnchere(int numeroArticle) throws BusinessException {
 		Enchere enchereCourante = new Enchere();
 		Utilisateur utilisateurCourant = new Utilisateur();
@@ -242,12 +264,12 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 		}
 		return newEnchere;
 	}
-	
-	public void updateEtatVente() throws BusinessException{
+
+	public void updateEtatVente() throws BusinessException {
 		Connection cnx = null;
 		BusinessException be = new BusinessException();
 		Date JourFin = Date.valueOf(LocalDate.now().plusDays(1));
-		Date JourDebutEnchere = Date.valueOf(LocalDate.now()); 
+		Date JourDebutEnchere = Date.valueOf(LocalDate.now());
 		String JourFinal = String.valueOf(JourFin);
 		String JourDeb = String.valueOf(JourDebutEnchere);
 		try {
@@ -264,9 +286,9 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 			cnx.commit();
 			try {
 				cnx.close();
-			}catch(SQLException e) {
-	            e.printStackTrace();
-	            throw be;
+			} catch (SQLException e) {
+				e.printStackTrace();
+				throw be;
 			}
 
 		} catch (SQLException e) {
@@ -274,7 +296,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 			throw be;
 		}
 	}
-	
+
 	public Article selectArticleById(int numeroArticle) throws BusinessException {
 		Article articleCourant = new Article();
 		Retrait lieuRetrait = new Retrait();
@@ -294,7 +316,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 				if (nombreEnregistrement == 0) {
 					mappingArticle(rs);
 					lieuRetrait = mappingRetrait(rs);
-					user = mappingUser(rs); 
+					user = mappingUser(rs);
 					articleCourant = mappingArticle(rs);
 					articleCourant.setVendeur(user);
 					articleCourant.setLieuRetrait(lieuRetrait);
@@ -374,7 +396,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 		}
 		return -1;
 	}
-	
+
 	private Retrait mappingRetrait(ResultSet rs) throws SQLException {
 		Retrait newLieuRetrait = new Retrait();
 		newLieuRetrait.setRue(rs.getString("rue"));
@@ -382,7 +404,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 		newLieuRetrait.setVille(rs.getString("ville"));
 		return newLieuRetrait;
 	}
-	
+
 	private Article mappingArticle(ResultSet rs) throws SQLException {
 
 		Article newArticle = new Article();
@@ -729,7 +751,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 		try {
 			Connection con = ConnectionProvider.getConnection();
 			con.setAutoCommit(false);
-			//exécution de la première requête -- suppression du retrait
+			// exécution de la première requête -- suppression du retrait
 			PreparedStatement psmt = con.prepareStatement(DELETE_RETRAIT);
 			psmt.setInt(1, noArticle);
 			int nmbEnr = psmt.executeUpdate();
@@ -740,7 +762,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 			}
 			psmt.close();
 
-			//exécution de la deuxième requête -- suppression de l'article
+			// exécution de la deuxième requête -- suppression de l'article
 			psmt = con.prepareStatement(DELETE_ARTICLE);
 			psmt.setInt(1, noArticle);
 			int nbEnr = psmt.executeUpdate();
@@ -752,7 +774,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 			psmt.close();
 			con.commit();
 			con.close();
-			
+
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -760,74 +782,74 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 		}
 
 	}
-	public Article updateArticle(Article art, Retrait retrait)throws BusinessException{
+
+	public Article updateArticle(Article art, Retrait retrait) throws BusinessException {
 		int noArticle;
 		Connection cnx = null;
-		 BusinessException be = new BusinessException();
-		 try {
-				cnx = ConnectionProvider.getConnection();
-				cnx.setAutoCommit(false);
+		BusinessException be = new BusinessException();
+		try {
+			cnx = ConnectionProvider.getConnection();
+			cnx.setAutoCommit(false);
 
-				PreparedStatement psmt = cnx.prepareStatement(UPDATE_ARTICLE);
-				
-				psmt.setString(1, art.getNomArticle());
-				psmt.setString(2,art.getDescription());
-				psmt.setInt(3,art.getCategorieArticle().getNoCategorie());
-				psmt.setInt(4,art.getMiseAPrix());
-				psmt.setDate(5,Date.valueOf(art.getDateDebutEncheres()));
-				psmt.setDate(6,Date.valueOf(art.getDateFinEncheres()));
-				psmt.setString(7, art.getLieuRetrait().getRue());
-				psmt.setInt(7,art.getNoArticle());
-				
-			if(	psmt.executeUpdate()==1) {
+			PreparedStatement psmt = cnx.prepareStatement(UPDATE_ARTICLE);
+
+			psmt.setString(1, art.getNomArticle());
+			psmt.setString(2, art.getDescription());
+			psmt.setInt(3, art.getCategorieArticle().getNoCategorie());
+			psmt.setInt(4, art.getMiseAPrix());
+			psmt.setDate(5, Date.valueOf(art.getDateDebutEncheres()));
+			psmt.setDate(6, Date.valueOf(art.getDateFinEncheres()));
+			psmt.setString(7, art.getLieuRetrait().getRue());
+			psmt.setInt(7, art.getNoArticle());
+
+			if (psmt.executeUpdate() == 1) {
 				cnx.commit();
 			}
 			psmt.close();
-		
-			psmt=cnx.prepareStatement(UPDATE_RETRAIT);
-			noArticle=art.getNoArticle();
-			
-			psmt.setString(1,retrait.getRue());
-			psmt.setString(2,retrait.getCodePostal());
-			psmt.setString(3,retrait.getVille()); 
+
+			psmt = cnx.prepareStatement(UPDATE_RETRAIT);
+			noArticle = art.getNoArticle();
+
+			psmt.setString(1, retrait.getRue());
+			psmt.setString(2, retrait.getCodePostal());
+			psmt.setString(3, retrait.getVille());
 			psmt.setInt(4, noArticle);
 			psmt.executeUpdate();
 			cnx.commit();
-			
+
 			return art;
-		 } catch (SQLException e) {
-			 e.printStackTrace();
-
-			 throw be;
-		 }
-	}
-
-	public List<Utilisateur> selectUtilisateurPourAdmin()throws BusinessException{
-		Utilisateur user =new Utilisateur();
-		List<Utilisateur>listeUtilisateur = new ArrayList<Utilisateur>();
-		Connection cnx = null;
-		 BusinessException be = new BusinessException();
-
-		try {
-			cnx = ConnectionProvider.getConnection();
-			
-
-			PreparedStatement psmt = cnx.prepareStatement(SELECT_UTILISATEUR_ADMIN);{
-			ResultSet rs = psmt.executeQuery();
-			while(rs.next()) {
-				user=mappingUser(rs);
-				listeUtilisateur.add(user);
-			}
-		}
-		cnx.close();
-		psmt.close();
-		return listeUtilisateur;
 		} catch (SQLException e) {
 			e.printStackTrace();
-		
+
 			throw be;
 		}
 	}
-	
-}
 
+	public List<Utilisateur> selectUtilisateurPourAdmin() throws BusinessException {
+		Utilisateur user = new Utilisateur();
+		List<Utilisateur> listeUtilisateur = new ArrayList<Utilisateur>();
+		Connection cnx = null;
+		BusinessException be = new BusinessException();
+
+		try {
+			cnx = ConnectionProvider.getConnection();
+
+			PreparedStatement psmt = cnx.prepareStatement(SELECT_UTILISATEUR_ADMIN);
+			{
+				ResultSet rs = psmt.executeQuery();
+				while (rs.next()) {
+					user = mappingUser(rs);
+					listeUtilisateur.add(user);
+				}
+			}
+			cnx.close();
+			psmt.close();
+			return listeUtilisateur;
+		} catch (SQLException e) {
+			e.printStackTrace();
+
+			throw be;
+		}
+	}
+
+}

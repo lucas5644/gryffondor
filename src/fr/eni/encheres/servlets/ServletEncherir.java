@@ -144,6 +144,7 @@ public class ServletEncherir extends HttpServlet {
 						if (enchereCourante.getMontantEnchere() == 0) {
 							// Pas encore d'enchère, j'insère la première offre
 							enchereManager.insertEnchere(user.getPseudo(), articleCourant.getMiseAPrix(), montantEnchere);
+							
 
 						} else {
 							// Une enchère existe déjà, je mets à jour les données
@@ -152,6 +153,9 @@ public class ServletEncherir extends HttpServlet {
 					}else {
 						throw be;
 					}
+					// si user connecté, renvoyer vers page d'accueil connecté
+					RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/accueilConnecte.jsp");
+					rd.forward(request, response);
 				}
 			} catch (BusinessException e) {
 				e.printStackTrace();
@@ -159,9 +163,7 @@ public class ServletEncherir extends HttpServlet {
 				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/miserEnchere.jsp");
 				rd.forward(request, response);
 			}
-			// si user connecté, renvoyer vers page d'accueil connecté
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/accueilConnecte.jsp");
-			rd.forward(request, response);
+			
 		}
 	}
 }
