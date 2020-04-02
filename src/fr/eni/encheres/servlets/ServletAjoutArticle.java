@@ -119,8 +119,6 @@ public class ServletAjoutArticle extends HttpServlet {
 		}
 		if(nomFichier != null && !nomFichier.isEmpty()) {
 			valider = true;
-		}else {
-			listeCodesErreur.add(CodesResultatServlets.ERREUR_UPLOAD);
 		}
 
 		// Réalisation du traitement
