@@ -717,6 +717,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 
+			be.ajouterErreur(CodesResultatDAL.UPDATE_UTILISATEUR);
 			throw be;
 		}
 

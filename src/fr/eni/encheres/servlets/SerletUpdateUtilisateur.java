@@ -88,9 +88,8 @@ public class SerletUpdateUtilisateur extends HttpServlet {
 		 updateUtilisateur.setMotDePasse(motDePasse);
 		
 		 
-		 
-		 
 		enchereManager.checkUser(updateUtilisateur, be);
+		
 		user=enchereManager.updateUtilisateur(updateUtilisateur);
 		
 		session.setAttribute("userConnected", updateUtilisateur);
