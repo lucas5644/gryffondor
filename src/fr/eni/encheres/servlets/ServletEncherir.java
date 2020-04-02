@@ -94,8 +94,6 @@ public class ServletEncherir extends HttpServlet {
 		System.out.println(enchereCourante);
 		// récupérer l'utilisateur s'il est connecté
 		
-//		HttpSession session = request.getSession();
-		
 		Utilisateur user = (Utilisateur) session.getAttribute("userConnected");
 		if (user == null) {
 			listeCodesErreur.add(CodesResultatServlets.UTILISATEUR_DECONNECTE);

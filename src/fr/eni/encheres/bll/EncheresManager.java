@@ -29,7 +29,7 @@ public class EncheresManager {
 		if (meilleureOffre >= newEnchere || newEnchere == 0) {
 			be.ajouterErreur(CodesResultatBLL.ENCHERE_ERREUR);
 		}
-		if (newEnchere <= prixDepart) {
+		if (newEnchere < prixDepart) {
 			be.ajouterErreur(CodesResultatBLL.ENCHERE_ERREUR_2);
 		}
 		if (now.isAfter(finEnchere)) {
