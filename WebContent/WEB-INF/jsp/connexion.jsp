@@ -53,6 +53,9 @@
 						<div class="contenu"> 
 							<a href="inscription">Inscription</a>
 						</div>
+						<div class="contenu">
+							<a href="">Mot de passe oublié</a>
+						</div>
 					</div>
 				</div>
 			</div>

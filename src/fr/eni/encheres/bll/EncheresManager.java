@@ -227,4 +227,12 @@ public class EncheresManager {
 
 	}
 
+	public Utilisateur updateMDP(String email)throws BusinessException{
+		Utilisateur user;
+		user= enchereDAO.updateMDP(email);
+		
+		return user;
+		
+	}
+
 }
