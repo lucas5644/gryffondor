@@ -257,17 +257,11 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 			psmt1.setString(1, JourDeb);
 			psmt1.executeUpdate();
 			psmt1.close();
-
-			
-			
-			
 			PreparedStatement psmt = cnx.prepareStatement(UPDATE_ETAT_FIN);
 			psmt.setString(1, JourFinal);
 			psmt.executeUpdate();
 			psmt.close();
-			
 			cnx.commit();
-
 			try {
 				cnx.close();
 			}catch(SQLException e) {
@@ -277,7 +271,6 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-
 			throw be;
 		}
 	}
