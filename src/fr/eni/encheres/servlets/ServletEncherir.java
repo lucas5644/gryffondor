@@ -33,8 +33,10 @@ public class ServletEncherir extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		//Je récupère le numéro de l'article
 		numeroArticle = Integer.parseInt(request.getParameter("numeroArticle"));
 		System.out.println("Numéro de l'article" + numeroArticle);
+		//Je récupère l'article
 		try {
 			articleCourant = enchereManager.selectArticleById(numeroArticle);
 			System.out.println(articleCourant);
@@ -61,8 +63,8 @@ public class ServletEncherir extends HttpServlet {
 		request.setAttribute("dateFin", articleCourant.getDateFinEncheres());
 		request.setAttribute("lieuRetrait", articleCourant.getLieuRetrait());
 		request.setAttribute("vendeur", articleCourant.getVendeur().getPseudo());
-
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/miserEnchere.jsp");
+		
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/afficherArticle.jsp");
 		rd.forward(request, response);
 	}
 

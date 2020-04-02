@@ -22,10 +22,22 @@
 	<!-- Navigation -->
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
 		<div class="container">
-			<a class="navbar-brand" href="<%=request.getContextPath()%>">Accueil</a>
-			<div>
-				<a class="btn btn-primary" role="button" href="connexion">Inscription
-					/ Se connecter</a>
+			<a class="navbar-brand"
+				href="<%=request.getContextPath()%>/AccueilUtilisateur">Mon
+				application d'enchères</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarResponsive" aria-controls="navbarResponsive"
+				aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item active"><a class="nav-link"
+						href="<%=request.getContextPath()%>/AccueilUtilisateur">Accueil
+							<span class="sr-only">(current)</span>
+					</a></li>
+
+				</ul>
 			</div>
 		</div>
 	</nav>
@@ -38,29 +50,23 @@
 					<div class="card-body contenu">
 						<div class="contenu">
 							<form action="encherirArticle" method="post">
-								<label for="nomArticle">Nom de l'article : </label>
-								<a><%=request.getAttribute("nomArticle")%></a><br>
-								<label for="description">Description : </label>
-								<a><%=request.getAttribute("description")%></a><br>
-								<label for="categorie">Catégorie : </label>
-								<a><%=request.getAttribute("categorie")%></a><br>
-								<label for="meilleureOffre">Meilleure offre : </label>
-								<a><%=request.getAttribute("meilleureOffre")%></a><br>
-								<label for="prixDepart">Mise à prix : </label>
-								<a><%=request.getAttribute("prixDepart")%></a><br>
-								<label for="dateFin">Fin de l'enchère : </label>
-								<a><%=request.getAttribute("dateFin")%></a><br>
-								<label for="lieuRetrait">Retrait : </label>
-								<a><%=request.getAttribute("lieuRetrait")%></a><br>
-								<label for="vendeur">Vendeur : </label>
-								<a><%=request.getAttribute("vendeur")%></a><br>
-								<label for="proposition">Ma proposition : </label>
-								<input type="number" min="0" step="10" name="proposition"><br>
-								<input type="hidden" name="noArticle" value="<%=request.getAttribute("noArticle")%>" />
+								<label for="nomArticle">Nom de l'article : </label> <a><%=request.getAttribute("nomArticle")%></a><br>
+								<label for="description">Description : </label> <a><%=request.getAttribute("description")%></a><br>
+								<label for="categorie">Catégorie : </label> <a><%=request.getAttribute("categorie")%></a><br>
+								<label for="meilleureOffre">Meilleure offre : </label> <a><%=request.getAttribute("meilleureOffre")%></a><br>
+								<label for="prixDepart">Mise à prix : </label> <a><%=request.getAttribute("prixDepart")%></a><br>
+								<label for="dateFin">Fin de l'enchère : </label> <a><%=request.getAttribute("dateFin")%></a><br>
+								<label for="lieuRetrait">Retrait : </label> <a><%=request.getAttribute("lieuRetrait")%></a><br>
+								<label for="vendeur">Vendeur : </label> <a><%=request.getAttribute("vendeur")%></a><br>
+								<label for="proposition">Ma proposition : </label> <input
+									type="number" min="0" step="10" name="proposition"><br>
+								<input type="hidden" name="noArticle"
+									value="<%=request.getAttribute("noArticle")%>" />
 								<div>
 									<input type="submit" value="Enchérir" class="btn btn-primary" />
 								</div>
-								<input name="numeroArticle" type="hidden" value="<%=request.getAttribute("numeroArticle")%>">
+								<input name="numeroArticle" type="hidden"
+									value="<%=request.getAttribute("numeroArticle")%>">
 							</form>
 						</div>
 					</div>
