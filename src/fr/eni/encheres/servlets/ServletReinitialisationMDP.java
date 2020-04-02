@@ -47,7 +47,7 @@ public class ServletReinitialisationMDP extends HttpServlet {
 		 EncheresManager enchereManager = new EncheresManager();
 
 			try {
-				//user1 = enchereManager.updateMDP(user);
+				user1 = enchereManager.updateMDP(email);
 				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/accueil.jsp");
 
 				rd.forward(request, response);
