@@ -729,8 +729,19 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 		try {
 			Connection con = ConnectionProvider.getConnection();
 			con.setAutoCommit(false);
+			//exécution de la première requête -- suppression du retrait
+			PreparedStatement psmt = con.prepareStatement(DELETE_RETRAIT);
+			psmt.setInt(1, noArticle);
+			int nmbEnr = psmt.executeUpdate();
+			if (nmbEnr != 1) {
+				con.rollback();
+				be.ajouterErreur(CodesResultatDAL.DELETE_OBJET_ECHEC);
+				return false;
+			}
+			psmt.close();
 
-			PreparedStatement psmt = con.prepareStatement(DELETE_ARTICLE);
+			//exécution de la deuxième requête -- suppression de l'article
+			psmt = con.prepareStatement(DELETE_ARTICLE);
 			psmt.setInt(1, noArticle);
 			int nbEnr = psmt.executeUpdate();
 			if (nbEnr != 1) {
@@ -738,18 +749,10 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 				be.ajouterErreur(CodesResultatDAL.DELETE_OBJET_ECHEC);
 				return false;
 			}
-
-			PreparedStatement psm = con.prepareStatement(DELETE_RETRAIT);
-			psm.setInt(1, noArticle);
-			int nmbEnr = psmt.executeUpdate();
-			if (nmbEnr != 1) {
-				con.rollback();
-				be.ajouterErreur(CodesResultatDAL.DELETE_OBJET_ECHEC);
-				return false;
-			}
+			psmt.close();
 			con.commit();
 			con.close();
-			psmt.close();
+			
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
