@@ -70,7 +70,7 @@
 								 <a>Administrateur	: ${utilisateur.administrateur}</a><br>
 								 <input type="hidden" name="noUtilisateur" value="<%=request.getAttribute("noUtilisateur")%>">
 							<input type="submit" value="Supprimer Utilisateur" name="Supprimer utilisateur">
-							<input type="Button" value="desactiver comptes" name="desactiver un comptes">
+							<input type="Button" value="desactiver comptes" name="Désactiver un compte">
 							
 							</div>
 						</form>

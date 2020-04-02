@@ -34,8 +34,9 @@
 					href="AjouterArticle">Vendre un Article</a>
 			</div>
 			<div>
-				<form action="ListeUtilisateur" method ="post">
-				<input type="submit" value="liste utilisateur">
+				<form  action="ListeUtilisateur" method ="post"> <a class="btn btn-primary nav-link" role="button" type="submit" value="Liste utilisateur">Liste Utilisateur</a>
+				
+				<input type="submit" value="Liste utilisateur">
 				</form>
 				
 			</div>

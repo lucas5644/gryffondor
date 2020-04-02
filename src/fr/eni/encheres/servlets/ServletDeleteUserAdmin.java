@@ -30,40 +30,7 @@ public class ServletDeleteUserAdmin extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 	}
-//		EncheresManager enchereManager = new EncheresManager();
-//		List<Integer> listeCodesErreur = new ArrayList<Integer>();
-//		request.setAttribute("listeCodesErreur",listeCodesErreur);
-//		
-//		String noUtilisateur = request.getParameter("noUtilisateur");
-//		System.out.println("no Utilisateur " + noUtilisateur);
-//		int noUtilisaateur = Integer.parseInt(noUtilisateur);
-//		System.out.println("no Utilisateur " + noUtilisateur);
-//		boolean verification;
-//		try {
-//			
-//			verification = enchereManager.removeUtilisateur(noUtilisaateur);
-//			
-//			if(verification == true) {
-//			
-//				RequestDispatcher rd = request.getRequestDispatcher("/listeUtilisateurAdmin");
-//				
-//				rd.forward(request, response);		
-//			}
-//			else {
-//				request.setAttribute("echec", "Erreur, le compte n'a pas été suprimé");
-//				RequestDispatcher	 rd = request.getRequestDispatcher("/listeUtilisateurAdmin");
-//				rd.forward(request, response);
-//			}
-//			
-//		} catch (BusinessException e) {
-//			request.setAttribute("echec", "Erreur, le compte n'a pas été suprimé");
-//			RequestDispatcher rd = request.getRequestDispatcher("/listeUtilisateurAdmin");
-//			rd.forward(request, response);			
-//			e.printStackTrace();
-//		}
-//		
 //	
-//	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

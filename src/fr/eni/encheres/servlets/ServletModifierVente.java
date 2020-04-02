@@ -57,6 +57,7 @@ public class ServletModifierVente extends HttpServlet {
 		String rue = null;
 		String codePostal = null;
 		String ville = null;
+		LocalDate dateDuJour = null;
 		Utilisateur user = new Utilisateur();
 		HttpSession session = request.getSession();
 		
@@ -88,8 +89,13 @@ public class ServletModifierVente extends HttpServlet {
 
 		// lecture date
 		try {
+			
 			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 			debutEnchere = LocalDate.parse(request.getParameter("dateDebut"), dtf);
+			dateDuJour = LocalDate.now();
+			if (dateDuJour.equals(debutEnchere)||dateDuJour.isAfter(debutEnchere)) {
+				listeCodesErreur.add(CodesResultatServlets.FORMAT_DATE_ERREUR);
+			}
 			finEnchere = LocalDate.parse(request.getParameter("dateFin"), dtf);
 		} catch (DateTimeParseException e) {
 			e.printStackTrace();

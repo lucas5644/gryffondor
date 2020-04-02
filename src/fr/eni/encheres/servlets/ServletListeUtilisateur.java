@@ -20,7 +20,7 @@ import fr.eni.encheres.exception.BusinessException;
 @WebServlet("/ListeUtilisateur")
 public class ServletListeUtilisateur extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+       Utilisateur user;
     
 
 	/**
@@ -28,12 +28,14 @@ public class ServletListeUtilisateur extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		EncheresManager enchereManager = new EncheresManager();
+	//	request.setAttribute("noUtilisateur", user.getNoUtilisateur());
 		List<Utilisateur>listeUtilisateur = null;
 		try {
 			System.out.println("coucou");
 			listeUtilisateur = enchereManager.selectUtilisateurPourAdmin();
 			request.setAttribute("listeUtilisateur", listeUtilisateur);
 			System.out.println("liste "+listeUtilisateur);
+			System.out.println(user.getNoUtilisateur());
 		} catch (BusinessException e1) {
 			e1.printStackTrace();
 		}
