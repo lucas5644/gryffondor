@@ -12,19 +12,23 @@ import fr.eni.encheres.dal.DAOFactory;
 import fr.eni.encheres.dal.EnchereDAO;
 import fr.eni.encheres.exception.BusinessException;
 
-
 public class EncheresManager {
 	private EnchereDAO enchereDAO;
-	
+
 	public EncheresManager() {
 		enchereDAO = DAOFactory.getEnchereDAO();
 	}
-	
+
+	public void updatePrixVente(int numeroArticle, int montantEnchere) throws BusinessException {
+		enchereDAO.updatePrixVente(numeroArticle, montantEnchere);
+	}
+
 	public boolean checkEnchere(int numeroArticle, int numeroUtilisateur) throws BusinessException {
 		return enchereDAO.checkEnchere(numeroArticle, numeroUtilisateur);
 	}
-	
-	public void checkValiditeEnchere(int meilleureOffre, int newEnchere, LocalDate finEnchere, int prixDepart, BusinessException be) {
+
+	public void checkValiditeEnchere(int meilleureOffre, int newEnchere, LocalDate finEnchere, int prixDepart,
+			BusinessException be) {
 		LocalDate now = LocalDate.now();
 		if (meilleureOffre >= newEnchere || newEnchere == 0) {
 			be.ajouterErreur(CodesResultatBLL.ENCHERE_ERREUR);
@@ -35,24 +39,24 @@ public class EncheresManager {
 		if (now.isAfter(finEnchere)) {
 			be.ajouterErreur(CodesResultatBLL.DATE_ERREUR_2);
 		}
-	}	
-	
+	}
+
 	public Enchere selectEnchere(int numeroArticle) throws BusinessException {
 		return enchereDAO.selectEnchere(numeroArticle);
 	}
-	
+
 	public Enchere updateEnchere(String pseudoUser, int numeroArticle, int montantEnchere) throws BusinessException {
 		Enchere newEnchere = new Enchere();
 		newEnchere = enchereDAO.updateEnchere(pseudoUser, numeroArticle, montantEnchere);
 		return newEnchere;
 	}
-	
+
 	public Enchere insertEnchere(String pseudoUser, int numeroArticle, int montantEnchere) throws BusinessException {
 		Enchere newEnchere = new Enchere();
 		newEnchere = enchereDAO.insertEnchere(pseudoUser, numeroArticle, montantEnchere);
 		return newEnchere;
 	}
-	
+
 	public void updateEtatVentes() {
 		try {
 			enchereDAO.updateEtatVente();
@@ -61,28 +65,29 @@ public class EncheresManager {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public int ajouterArticle(Article article, Retrait lieuRetrait) throws BusinessException {
 		BusinessException be = new BusinessException();
 		int idArt = -1;
-		//valider la date
+		// valider la date
 		validerDate(article.getDateDebutEncheres(), article.getDateFinEncheres(), be);
 		if (!be.hasErreurs()) {
 			idArt = enchereDAO.insertArticle(article, lieuRetrait);
-		}else {
+		} else {
 			throw be;
 		}
 		return idArt;
 	}
-	
+
 	public void validerDate(LocalDate debutEnchere, LocalDate finEnchere, BusinessException be) {
 		// la date ne peut pas être nulle et antérieure à la date du jour
 		LocalDate now = LocalDate.now();
-		if (debutEnchere == null || debutEnchere.isBefore(now) || finEnchere.isBefore(now) || finEnchere.isBefore(debutEnchere)) {
+		if (debutEnchere == null || debutEnchere.isBefore(now) || finEnchere.isBefore(now)
+				|| finEnchere.isBefore(debutEnchere)) {
 			be.ajouterErreur(CodesResultatBLL.DATE_ERREUR);
 		}
 	}
-	
+
 	public List<Article> selectArticleDeconnecte(String nomCategorie, String nomArticle) throws BusinessException {
 		return enchereDAO.selectArticleDeconnecte(nomCategorie, nomArticle);
 	}
@@ -167,15 +172,14 @@ public class EncheresManager {
 
 	public Utilisateur updateUtilisateur(Utilisateur utilisateur) throws BusinessException {
 		Utilisateur user;
-		 BusinessException be = new BusinessException();
-		 checkUser(utilisateur, be);
-		 if(!be.hasErreurs()) {
-			 user = enchereDAO.updateUtilisateur(utilisateur);
-		 }
-		 else {
-			 throw be;
-		 }
-		
+		BusinessException be = new BusinessException();
+		checkUser(utilisateur, be);
+		if (!be.hasErreurs()) {
+			user = enchereDAO.updateUtilisateur(utilisateur);
+		} else {
+			throw be;
+		}
+
 		return user;
 
 	}
@@ -203,16 +207,16 @@ public class EncheresManager {
 		article = enchereDAO.updateArticle(art, retrait);
 		return article;
 	}
-	
-	public List<Utilisateur>selectUtilisateurPourAdmin()throws BusinessException{
-		 List<Utilisateur> listeUtilisateur;
+
+	public List<Utilisateur> selectUtilisateurPourAdmin() throws BusinessException {
+		List<Utilisateur> listeUtilisateur;
 		listeUtilisateur = enchereDAO.selectUtilisateurPourAdmin();
-		 return listeUtilisateur;
-		
+		return listeUtilisateur;
+
 	}
 
-	public List<Article> selectEncheresUtilisateur(int noUtilisateur)throws BusinessException{
-		
+	public List<Article> selectEncheresUtilisateur(int noUtilisateur) throws BusinessException {
+
 		List<Enchere> listEncher;
 		List<Article> maListe = new ArrayList<Article>();
 		listEncher = enchereDAO.selectEncheresUtilisateur(noUtilisateur);
@@ -220,7 +224,7 @@ public class EncheresManager {
 			maListe.add(enchere.getArticle());
 		}
 		return maListe;
-		
+
 	}
 
 }
