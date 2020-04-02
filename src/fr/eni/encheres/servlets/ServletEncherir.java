@@ -128,10 +128,11 @@ public class ServletEncherir extends HttpServlet {
 							articleCourant.getDateFinEncheres(), articleCourant.getMiseAPrix(), be);
 					if (!be.hasErreurs()) {
 						// l'utilisateur a déjà enchéri, on update l'enchère
-						enchereManager.updateEnchere(user.getPseudo(), numeroArticle, montantEnchere);
+						enchereManager.updateEnchere(user.getPseudo(), articleCourant.getNoArticle(), montantEnchere);
 						enchereEffectuee = true;
+					}else {
+						throw be;
 					}
-					throw be;
 				}
 				// l'utilisateur n'a pas posé d'enchère, je vérifie s'il y a une enchère en
 				// cours d'un autre utilisateur
@@ -142,14 +143,15 @@ public class ServletEncherir extends HttpServlet {
 					if (!be.hasErreurs()) {
 						if (enchereCourante.getMontantEnchere() == 0) {
 							// Pas encore d'enchère, j'insère la première offre
-							enchereManager.insertEnchere(user.getPseudo(), numeroArticle, montantEnchere);
+							enchereManager.insertEnchere(user.getPseudo(), articleCourant.getMiseAPrix(), montantEnchere);
 
 						} else {
 							// Une enchère existe déjà, je mets à jour les données
-							enchereManager.updateEnchere(user.getPseudo(), numeroArticle, montantEnchere);
+							enchereManager.updateEnchere(user.getPseudo(), articleCourant.getMiseAPrix(), montantEnchere);
 						}
+					}else {
+						throw be;
 					}
-					throw be;
 				}
 			} catch (BusinessException e) {
 				e.printStackTrace();
