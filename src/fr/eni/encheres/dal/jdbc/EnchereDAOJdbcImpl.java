@@ -50,7 +50,8 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 	private static final String SELECT_ENCHERES_UTILISATEUR = "SELECT u.no_utilisateur, e.no_article, e.date_enchere, e.montant_enchere FROM UTILISATEURS u LEFT JOIN ENCHERES e on e.no_utilisateur = u.no_utilisateur WHERE e.no_utilisateur= ?";
 	private static final String CHECK_ENCHERE = "SELECT e.no_utilisateur, pseudo, no_article FROM UTILISATEURS u LEFT JOIN ENCHERES e on e.no_utilisateur = u.no_utilisateur WHERE u.no_utilisateur=? AND e.no_article = ?";
 	private static final String UPDATE_PRIX_VENTE_ARTICLE = "UPDATE ARTICLES set prix_vente = ? WHERE no_article = ?;";
-
+	private static final String UPDATE_MDP = "UPDATE UTILISATEURS set mot_de_passe =? WHERE email= ?";
+	
 	public Article updatePrixVente(int numeroArticle, int montantEnchere) throws BusinessException {
 		Article articleNewPrix = new Article();
 		articleNewPrix = selectArticleById(numeroArticle);
@@ -851,5 +852,30 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 			throw be;
 		}
 	}
+public Utilisateur updateMDP(Utilisateur utilisateur)throws BusinessException{
+		
+		Connection cnx = null;
+		 BusinessException be = new BusinessException();
+		 try {
+				cnx = ConnectionProvider.getConnection();
+				cnx.setAutoCommit(false);
 
+				PreparedStatement psmt = cnx.prepareStatement(UPDATE_MDP);
+		
+				
+				psmt.setString(1,utilisateur.getMotDePasse());
+				psmt.setString(2, utilisateur.getEmail());
+				
+				return utilisateur;
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+
+				//be.ajouterErreur(CodesResultatDAL.UPDATE_MDP);
+				throw be;
+			}
+
+		}
+	
+	
 }
