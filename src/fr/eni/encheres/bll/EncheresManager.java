@@ -106,7 +106,7 @@ public class EncheresManager {
 
 	public void checkUser(Utilisateur user, BusinessException be) {
 		if (user.getCodePostal().trim().length() != 5) {
-			be.ajouterErreur(10000);
+			be.ajouterErreur(CodesResultatBLL.FORMAT_CODE_POSTAL_ERREUR);
 			System.out.println("erreur cp");
 		}
 		// if(user.getPseudo().matches("[A-Za-z0-9]+")) {
@@ -114,28 +114,28 @@ public class EncheresManager {
 		// System.out.println("erreur pseudo");
 		// }
 		if (user.getPseudo().trim().length() > 31 && user.getPseudo().trim().length() < 3) {
-			be.ajouterErreur(10000);
+			be.ajouterErreur(CodesResultatBLL.FORMAT_PSEUDO_ERREUR);
 			System.out.println("erreur pseudo long");
 		}
 		if (user.getPrenom().trim().length() > 31 && user.getPrenom().trim().length() < 2) {
-			be.ajouterErreur(10000);
+			be.ajouterErreur(CodesResultatBLL.FORMAT_PRENOM_ERREUR);
 			System.out.println("erreur prenom");
 		}
 		if (user.getNom().trim().length() > 31 && user.getNom().trim().length() < 2) {
-			be.ajouterErreur(10000);
+			be.ajouterErreur(CodesResultatBLL.FORMAT_NOM_ERREUR);
 			System.out.println("erreur nom");
 		}
 		if (user.getEmail().trim().length() > 51 && user.getEmail().trim().length() < 5
 				&& user.getEmail().contains("@")) {
-			be.ajouterErreur(10000);
+			be.ajouterErreur(CodesResultatBLL.FORMAT_EMAIL_ERREUR);
 			System.out.println("erreur mail");
 		}
 		if (user.getVille().trim().length() > 31 && user.getVille().trim().length() < 3) {
-			be.ajouterErreur(10000);
+			be.ajouterErreur(CodesResultatBLL.FORMAT_VILLE_ERREUR);
 			System.out.println("erreur ville");
 		}
 		if (user.getMotDePasse().trim().length() > 31 && user.getMotDePasse().trim().length() <= 5) {
-			be.ajouterErreur(10000);
+			be.ajouterErreur(CodesResultatBLL.FORMAT_MOT_DE_PASSE_ERREUR);
 			System.out.println("erreur mdp");
 		}
 		if (user.getCredit() > 1000000) {

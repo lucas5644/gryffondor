@@ -1,6 +1,8 @@
 package fr.eni.encheres.servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -29,6 +31,10 @@ public class SerletUpdateUtilisateur extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		List<Integer> listeCodesErreur = new ArrayList<>();
+		
+		
 		EncheresManager enchereManager = new EncheresManager();
 		Utilisateur updateUtilisateur = new Utilisateur();
 		Utilisateur user; 
@@ -62,8 +68,14 @@ public class SerletUpdateUtilisateur extends HttpServlet {
 			 motDePasse=nouveauMotDePasse;
 		 }
 		 
-		 
-		 
+			// Réalisation du traitement
+			if (listeCodesErreur.size() > 0) {
+				// Je renvoie les codes d'erreurs
+				request.setAttribute("listeCodesErreur", listeCodesErreur);
+				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/modifierProfil.jsp");
+				rd.forward(request, response);
+			} else {
+			}
 		 updateUtilisateur.setNoUtilisateur(user.getNoUtilisateur());
 		 updateUtilisateur.setPseudo(pseudo);
 		 updateUtilisateur.setNom(nom);
