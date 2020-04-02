@@ -44,7 +44,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 	private static final String UPDATE_ETAT_FIN = "update ARTICLES set etat_vente = 'Enchères terminées' where date_fin_encheres < ? and etat_vente = 'En cours';";
 	private static final String UPDATE_ETAT_EN_COURS = "update ARTICLES set etat_vente = 'En cours' where date_debut_encheres = ? and etat_vente = 'Créée';";
 	private static final String INSERT_ENCHERE = "INSERT INTO ENCHERES(no_utilisateur, no_article, date_enchere,montant_enchere) VALUES(?,?,?,?);";
-	private static final String UPDATE_ENCHERE = "UPDATE ENCHERES set no_utilisateur=?, date_enchere = ?, montant_enchere = ? where no_article = ?;";
+	private static final String UPDATE_ENCHERE = "UPDATE ENCHERES set date_enchere = ?, montant_enchere = ? where no_article = ? AND no_utilisateur =?;";
 	public static final String SELECT_ENCHERE = "SELECT no_utilisateur,no_article,date_enchere, montant_enchere FROM ENCHERES WHERE no_article = ?;";
 	private static final String SELECT_UTILISATEUR_ADMIN = "SELECT no_utilisateur,pseudo,nom,prenom,email,telephone,rue,code_postal,ville,mot_de_passe,credit,administrateur FROM UTILISATEURS";
 	private static final String SELECT_UTILISATEUR_BY_ID = "SELECT pseudo,nom,prenom,email,telephone,rue,code_postal,ville,no_utilisateur FROM UTILISATEURS WHERE no_utilisateur = ?";
@@ -192,10 +192,10 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 			con.setAutoCommit(false);
 			PreparedStatement psmt = con.prepareStatement(UPDATE_ENCHERE);
 			// insertion des données
-			psmt.setInt(1, encherisseur.getNoUtilisateur());
-			psmt.setDate(2, Date.valueOf(newEnchere.getDateEnchere()));
-			psmt.setInt(3, newEnchere.getMontantEnchere());
-			psmt.setInt(4, articleCourant.getNoArticle());
+			psmt.setDate(1, Date.valueOf(newEnchere.getDateEnchere()));
+			psmt.setInt(2, newEnchere.getMontantEnchere());
+			psmt.setInt(3, articleCourant.getNoArticle());
+			psmt.setInt(4, encherisseur.getNoUtilisateur());
 			if (psmt.executeUpdate() == 1) {
 				con.commit();
 			}
