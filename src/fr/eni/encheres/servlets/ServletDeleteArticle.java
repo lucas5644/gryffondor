@@ -61,11 +61,7 @@ public class ServletDeleteArticle extends HttpServlet {
 			if (dateDuJour.equals(debutEnchere)||dateDuJour.isAfter(debutEnchere)) {
 				listeCodesErreur.add(CodesResultatServlets.FORMAT_DATE_ERREUR);
 			}
-			else {
-				
-				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/accueilConnecte.jsp");
-				
-			}
+			
 			// Réalisation du traitement
 			if (listeCodesErreur.size() > 0) {
 				// Je renvoie les codes d'erreurs

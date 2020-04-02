@@ -180,7 +180,7 @@ public class EncheresManager {
 
 	public boolean removeArticle(int noArticle) throws BusinessException {
 		boolean verification;
-		verification = enchereDAO.delete(noArticle);
+		verification = enchereDAO.delete_article(noArticle);
 		return verification;
 	}
 
