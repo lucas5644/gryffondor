@@ -93,7 +93,7 @@ public class ServletModifierVente extends HttpServlet {
 			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 			debutEnchere = LocalDate.parse(request.getParameter("dateDebut"), dtf);
 			dateDuJour = LocalDate.now();
-			if (dateDuJour.equals(debutEnchere)||dateDuJour.isAfter(debutEnchere)) {
+			if (debutEnchere.isBefore(dateDuJour)||dateDuJour.isAfter(debutEnchere)) {
 				listeCodesErreur.add(CodesResultatServlets.FORMAT_DATE_ERREUR);
 			}
 			finEnchere = LocalDate.parse(request.getParameter("dateFin"), dtf);
