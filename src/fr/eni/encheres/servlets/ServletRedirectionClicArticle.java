@@ -27,21 +27,21 @@ public class ServletRedirectionClicArticle extends HttpServlet {
 	private EncheresManager enchereManager = new EncheresManager();
 	private Enchere enchereCourante = null;
 	private String enchereVide;
-	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		numeroArticle = Integer.parseInt(request.getParameter("numeroArticle"));
 		System.out.println("Numéro de l'article" + numeroArticle);
 		HttpSession session = request.getSession();
 		Utilisateur userConnected = (Utilisateur) session.getAttribute("userConnected");
-		String monArticle = request.getParameter("article");
-		int monArticleNo = Integer.parseInt(monArticle);
 		try {
 			articleCourant = enchereManager.selectArticleById(numeroArticle);
 			System.out.println(articleCourant);
 		} catch (BusinessException e) {
 			e.printStackTrace();
 		}
-		//si l'utilisateur connecté est différent du vendeur
+		session.setAttribute("articleCourant", articleCourant);
+		// si l'utilisateur connecté est différent du vendeur
 		// je renvoie sur une page d'affichage d'article sans possibilité de le modifier
 		if (userConnected.getNoUtilisateur() != articleCourant.getVendeur().getNoUtilisateur()) {
 			request.setAttribute("nomArticle", articleCourant.getNomArticle());
@@ -67,9 +67,9 @@ public class ServletRedirectionClicArticle extends HttpServlet {
 			request.setAttribute("noArticle", articleCourant.getNoArticle());
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/miserEnchere.jsp");
 			rd.forward(request, response);
-		}else {
-			//si l'utilisateur connecté = vendeur
-			//je renvoie sur la JSP "updateVente"
+		} else {
+			// si l'utilisateur connecté = vendeur
+			// je renvoie sur la JSP "updateVente"
 			request.setAttribute("nomArticle", articleCourant.getNomArticle());
 			request.setAttribute("description", articleCourant.getDescription());
 			request.setAttribute("categorie", articleCourant.getCategorieArticle().getLibelle());
@@ -81,7 +81,9 @@ public class ServletRedirectionClicArticle extends HttpServlet {
 			rd.forward(request, response);
 		}
 	}
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doGet(request, response);
 	}
 
