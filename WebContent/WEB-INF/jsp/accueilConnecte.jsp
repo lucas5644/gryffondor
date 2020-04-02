@@ -46,12 +46,17 @@
 	<div class="container">
 
 		<!-- Page Heading -->
-		<h1 class="my-4"><img
-				alt="icône connecté"
+		<h1 class="my-4">
+			<img alt="icône connecté"
 				src="<%=request.getContextPath()%>/images/connected.png"
-				width="40px">
-			Bienvenue ${userConnected.prenom} ${userConnected.nom} (crédit restant : ${userConnected.credit})
+				width="40px"> Bienvenue ${userConnected.prenom}
+			${userConnected.nom} (crédit restant : ${userConnected.credit})
 		</h1>
+		<form action="" method="post">
+			<h6>
+				<input type="submit" value="Mettre à jour mon crédit">
+			</h6>
+		</form>
 		<div class="row">
 			<div class="col-lg-12 col-md-12 col-sm-12 portfolio-item">
 				<div class="card h-100">
@@ -76,30 +81,31 @@
 								</div>
 								<div class="col-lg-12 col-md-12 col-sm-12 portfolio-item">
 									<div class="col-lg-6 col-md-6 col-sm-6 portfolio-item">
-										<input type="radio" name="mode" id="modeAchat" value="modeAchat" checked> <label
-											for="modeAchat">Achats</label><br> 
-										<input type="checkbox" id="achatOuvert" name="achatOuvert" value="achatOuvert"> <label for="achatOuvert">Enchère
-											Ouvertes</label><br> 
-										<input type="checkbox" id="achatEnCours"
+										<input type="radio" name="mode" id="modeAchat"
+											value="modeAchat" checked> <label for="modeAchat">Achats</label><br>
+										<input type="checkbox" id="achatOuvert" name="achatOuvert"
+											value="achatOuvert"> <label for="achatOuvert">Enchère
+											Ouvertes</label><br> <input type="checkbox" id="achatEnCours"
 											name="achatEnCours" value="achatEnCours"> <label
-											for="achatEnCours">Mes enchères en Cours</label><br> 
-										<input type="checkbox" id="achatRemport" name="achatRemport"
-											value="achatRemport"> <label for="achatRemport">Mes Enchères Remportées</label><br>
+											for="achatEnCours">Mes enchères en Cours</label><br> <input
+											type="checkbox" id="achatRemport" name="achatRemport"
+											value="achatRemport"> <label for="achatRemport">Mes
+											Enchères Remportées</label><br>
 
 									</div>
 
 									<div class="col-lg-6 col-md-6 col-sm-6 portfolio-item">
-										<input type="radio" name="mode" id="modeVente" value="modeVente"> <label
-											for="modeVente">Mes Ventes</label> <br>
-											<input type="checkbox" id="venteNonDebutees" name="venteNonDebutees"
-											value="venteNonDebutees"> <label for="venteNonDebutees">Ventes non débutées</label><br> 
-										<input type="checkbox"
-											id="venteEnCours" name="venteEnCours" value="venteEnCours">
-											<label for="venteEnCours">Mes Ventes en cours</label><br> 
-										
-										<input type="checkbox"
-											id="venteTerminees" name="venteTerminees" value="venteTerminees">
-											<label for="venteTerminees">Ventes terminées</label><br>
+										<input type="radio" name="mode" id="modeVente"
+											value="modeVente"> <label for="modeVente">Mes
+											Ventes</label> <br> <input type="checkbox" id="venteNonDebutees"
+											name="venteNonDebutees" value="venteNonDebutees"> <label
+											for="venteNonDebutees">Ventes non débutées</label><br> <input
+											type="checkbox" id="venteEnCours" name="venteEnCours"
+											value="venteEnCours"> <label for="venteEnCours">Mes
+											Ventes en cours</label><br> <input type="checkbox"
+											id="venteTerminees" name="venteTerminees"
+											value="venteTerminees"> <label for="venteTerminees">Ventes
+											terminées</label><br>
 									</div>
 								</div>
 								<div>
@@ -117,18 +123,20 @@
 							<c:forEach var="article" items="${ListeResultat}">
 								<div class="col-lg-5 d-inline-block contenu portfolio-item">
 									<form action="RedirectionClicArticle" method="get">
-<%-- 										<img src="C:\\uploadTP/articlenumero${article.noArticle}" --%>
-<!--           										  width="100px" alt="Photo de l'Article"> -->
-										<input type="hidden" name="article" value="${article.vendeur.noUtilisateur}">
-										 <a>Nom de l'article :</a><input type="submit" value="${article.nomArticle}"><br> <a>Prix
+										<%-- 										<img src="C:\\uploadTP/articlenumero${article.noArticle}" --%>
+										<!--           										  width="100px" alt="Photo de l'Article"> -->
+										<input type="hidden" name="article"
+											value="${article.vendeur.noUtilisateur}"> <a>Nom
+											de l'article :</a><input type="submit"
+											value="${article.nomArticle}"><br> <a>Prix
 											de départ : ${article.miseAPrix}</a><br> <a>Fin de
-											l'enchère : ${article.dateFinEncheres}</a><br> 
-											<label for="numeroArticle"></label>
-											<input name="numeroArticle" type="hidden"
-												value="${article.noArticle}">
+											l'enchère : ${article.dateFinEncheres}</a><br> <label
+											for="numeroArticle"></label> <input name="numeroArticle"
+											type="hidden" value="${article.noArticle}">
 									</form>
 									<form action="RechercheUtilisateur" method="post">
-										<input type="submit" value="${article.vendeur.pseudo}" name="pseudo">
+										<input type="submit" value="${article.vendeur.pseudo}"
+											name="pseudo">
 									</form>
 								</div>
 							</c:forEach>
