@@ -33,16 +33,20 @@ public class ServletEncherir extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		//Je récupère le numéro de l'article
+		// Je récupère le numéro de l'article
 		numeroArticle = Integer.parseInt(request.getParameter("numeroArticle"));
 		System.out.println("Numéro de l'article" + numeroArticle);
-		//Je récupère l'article
+		// Je récupère l'article
 		try {
 			articleCourant = enchereManager.selectArticleById(numeroArticle);
 			System.out.println(articleCourant);
 		} catch (BusinessException e) {
 			e.printStackTrace();
 		}
+		
+		HttpSession session = request.getSession();
+		session.setAttribute("articleCourant", articleCourant);
+		
 		request.setAttribute("nomArticle", articleCourant.getNomArticle());
 		request.setAttribute("description", articleCourant.getDescription());
 		request.setAttribute("categorie", articleCourant.getCategorieArticle().getLibelle());
@@ -63,7 +67,7 @@ public class ServletEncherir extends HttpServlet {
 		request.setAttribute("dateFin", articleCourant.getDateFinEncheres());
 		request.setAttribute("lieuRetrait", articleCourant.getLieuRetrait());
 		request.setAttribute("vendeur", articleCourant.getVendeur().getPseudo());
-		
+
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/afficherArticle.jsp");
 		rd.forward(request, response);
 	}
@@ -82,55 +86,78 @@ public class ServletEncherir extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
+		
+		HttpSession session = request.getSession();
+		session.setAttribute("articleCourant", articleCourant);
+		
 		System.out.println(articleCourant);
 		System.out.println(enchereCourante);
 		// récupérer l'utilisateur s'il est connecté
-		HttpSession session = request.getSession();
+		
+//		HttpSession session = request.getSession();
+		
 		Utilisateur user = (Utilisateur) session.getAttribute("userConnected");
 		if (user == null) {
 			listeCodesErreur.add(CodesResultatServlets.UTILISATEUR_DECONNECTE);
-		} 
-		
+		}
+		// récupérer le montant de l'enchère
+		String enchere = request.getParameter("proposition");
+		int montantEnchere = 0;
+		if (enchere == null || enchere.trim().isEmpty()) {
+			listeCodesErreur.add(CodesResultatServlets.ERREUR_PROPOSITION);
+		} else {
+			montantEnchere = Integer.parseInt(enchere);
+		}
+
+		// erreur si l'utilisateur pose une enchère sur son propre article
+		if (user.getPseudo() == articleCourant.getVendeur().getPseudo()) {
+			listeCodesErreur.add(CodesResultatServlets.ERREUR_UTILISATEUR);
+		}
+
 		// Réalisation du traitement
 		if (listeCodesErreur.size() > 0) {
 			// L'utilisateur n'est pas connecté, retour à la page d'accueil
 			request.setAttribute("listeCodesErreur", listeCodesErreur);
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/accueil.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/miserEnchere.jsp");
 			rd.forward(request, response);
 		} else {
-			// récupérer le montant de l'enchère
-			int montantEnchere = Integer.parseInt(request.getParameter("proposition"));
-			//erreur si l'utilisateur pose une enchère sur son propre article
-			if (user.getPseudo() == articleCourant.getVendeur().getPseudo()) {
-				listeCodesErreur.add(CodesResultatServlets.ERREUR_UTILISATEUR);
-			}
-			if (listeCodesErreur.size() > 0) {
-				// si erreurs, affichage sur la page des enchères
-				request.setAttribute("listeCodesErreur", listeCodesErreur);
-				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/miserEnchere.jsp");
-				rd.forward(request, response);
-			}
 			try {
 				boolean enchereEffectuee = false;
-				//je check si l'utilisateur a déjà enchéri sur cette article
-				if (enchereManager.checkEnchere(articleCourant.getNoArticle(),user.getNoUtilisateur()) == true) {
-					//l'utilisateur a déjà enchéri, on update l'enchère
-					enchereManager.updateEnchere(user.getPseudo(), numeroArticle, montantEnchere);
-					enchereEffectuee = true;
-				}
-				//l'utilisateur n'a pas posé d'enchère, je vérifie s'il y a une enchère en cours d'un autre utilisateur
-				if (!enchereEffectuee) {
-					if (enchereCourante.getMontantEnchere() == 0) {
-						//Pas encore d'enchère, j'insère la première offre
-						enchereManager.insertEnchere(user.getPseudo(), numeroArticle, montantEnchere);
-					}else {
-						//Une enchère existe déjà, je mets à jour les données
+				// je check si l'utilisateur a déjà enchéri sur cette article
+				if (enchereManager.checkEnchere(articleCourant.getNoArticle(), user.getNoUtilisateur()) == true) {
+					BusinessException be = new BusinessException();
+					enchereManager.checkValiditeEnchere(enchereCourante.getMontantEnchere(), montantEnchere,
+							articleCourant.getDateFinEncheres(), articleCourant.getMiseAPrix(), be);
+					if (!be.hasErreurs()) {
+						// l'utilisateur a déjà enchéri, on update l'enchère
 						enchereManager.updateEnchere(user.getPseudo(), numeroArticle, montantEnchere);
+						enchereEffectuee = true;
 					}
+					throw be;
 				}
+				// l'utilisateur n'a pas posé d'enchère, je vérifie s'il y a une enchère en
+				// cours d'un autre utilisateur
+				if (!enchereEffectuee) {
+					BusinessException be = new BusinessException();
+					enchereManager.checkValiditeEnchere(enchereCourante.getMontantEnchere(), montantEnchere,
+							articleCourant.getDateFinEncheres(), articleCourant.getMiseAPrix(), be);
+					if (!be.hasErreurs()) {
+						if (enchereCourante.getMontantEnchere() == 0) {
+							// Pas encore d'enchère, j'insère la première offre
+							enchereManager.insertEnchere(user.getPseudo(), numeroArticle, montantEnchere);
 
+						} else {
+							// Une enchère existe déjà, je mets à jour les données
+							enchereManager.updateEnchere(user.getPseudo(), numeroArticle, montantEnchere);
+						}
+					}
+					throw be;
+				}
 			} catch (BusinessException e) {
 				e.printStackTrace();
+				request.setAttribute("listeCodesErreur", e.getListeCodesErreur());
+				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/miserEnchere.jsp");
+				rd.forward(request, response);
 			}
 			// si user connecté, renvoyer vers page d'accueil connecté
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/accueilConnecte.jsp");

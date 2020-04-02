@@ -1,3 +1,5 @@
+<%@page import="fr.eni.encheres.messages.LecteurMessage"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -49,15 +51,35 @@
 				<div class="card h-100">
 					<div class="card-body contenu">
 						<div class="contenu">
+							<%
+								if (request.getAttribute("listeCodesErreur") != null) {
+									List<Integer> listeCodesErreur = (List<Integer>) request.getAttribute("listeCodesErreur");
+							%>
+							<div class="alert alert-danger" role="alert">
+								<strong>Erreur!</strong>
+								<ul>
+									<%
+										for (Integer code : listeCodesErreur) {
+									%>
+
+									<li><%=LecteurMessage.getMessageErreur(code)%></li>
+									<%
+										}
+									%>
+								</ul>
+							</div>
+							<%
+								}
+							%>
 							<form action="encherirArticle" method="post">
-								<label for="nomArticle">Nom de l'article : </label> <a><%=request.getAttribute("nomArticle")%></a><br>
-								<label for="description">Description : </label> <a><%=request.getAttribute("description")%></a><br>
-								<label for="categorie">Catégorie : </label> <a><%=request.getAttribute("categorie")%></a><br>
+								<label for="nomArticle">Nom de l'article : </label> <a>${articleCourant.nomArticle}</a><br>
+								<label for="description">Description : </label> <a>${articleCourant.description}</a><br>
+								<label for="categorie">Catégorie : </label> <a>${articleCourant.categorieArticle.libelle}</a><br>
 								<label for="meilleureOffre">Meilleure offre : </label> <a><%=request.getAttribute("meilleureOffre")%></a><br>
-								<label for="prixDepart">Mise à prix : </label> <a><%=request.getAttribute("prixDepart")%></a><br>
-								<label for="dateFin">Fin de l'enchère : </label> <a><%=request.getAttribute("dateFin")%></a><br>
-								<label for="lieuRetrait">Retrait : </label> <a><%=request.getAttribute("lieuRetrait")%></a><br>
-								<label for="vendeur">Vendeur : </label> <a><%=request.getAttribute("vendeur")%></a><br>
+								<label for="prixDepart">Mise à prix : </label> <a>${articleCourant.miseAPrix}</a><br>
+								<label for="dateFin">Fin de l'enchère : </label> <a>${articleCourant.dateFinEncheres}</a><br>
+								<label for="lieuRetrait">Retrait : </label> <a>${articleCourant.lieuRetrait}</a><br>
+								<label for="vendeur">Vendeur : </label> <a>${articleCourant.vendeur.pseudo}</a><br>
 								<label for="proposition">Ma proposition : </label> <input
 									type="number" min="0" step="10" name="proposition"><br>
 								<input type="hidden" name="noArticle"
