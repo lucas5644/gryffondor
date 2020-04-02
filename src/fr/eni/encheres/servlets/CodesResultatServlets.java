@@ -43,5 +43,9 @@ public abstract class CodesResultatServlets {
 	public static final int ERREUR_UTILISATEUR = 30008;
 	
 	public static final int ERREUR_UPLOAD = 30009;
+	/**
+	 * Proposition vide
+	 */
+	public static final int ERREUR_PROPOSITION = 30010;
 	
 }
