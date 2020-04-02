@@ -173,9 +173,12 @@ public class ServletAjoutArticle extends HttpServlet {
 				newArticle.setEtatVente(etatVente);
 				newArticle.setVendeur(user);
 				newArticle.setLieuRetrait(newLieuDeRetrait);
-				encheresManager.ajouterArticle(newArticle, newLieuDeRetrait);
-				nomFichier = nomFichier.substring(nomFichier.lastIndexOf('/')+1).substring(nomFichier.lastIndexOf('\\')+1);
-				ecrireFichier(part, nomFichier);
+				int idArticle = encheresManager.ajouterArticle(newArticle, newLieuDeRetrait);
+				if(valider==true) {
+					//nomFichier = nomFichier.substring(nomFichier.lastIndexOf('/')+1).substring(nomFichier.lastIndexOf('\\')+1);
+					nomFichier = "articlenumero";
+					ecrireFichier(part, nomFichier, idArticle);
+				}
 				System.out.println(newArticle);
 				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/accueilConnecte.jsp");
 				rd.forward(request, response);
@@ -190,13 +193,13 @@ public class ServletAjoutArticle extends HttpServlet {
 		}
 	}
 	
-	private void ecrireFichier(Part part, String nomFichier) throws IOException {
+	private void ecrireFichier(Part part, String nomFichier,int idArticle) throws IOException {
 		BufferedInputStream entree = null;
 		BufferedOutputStream sortie = null;
 		
 		try {
 			entree = new BufferedInputStream(part.getInputStream(), TAILLE_TAMPON);
-			sortie = new BufferedOutputStream(new FileOutputStream(new File(CHEMIN_FICHIERS + nomFichier)), TAILLE_TAMPON);
+			sortie = new BufferedOutputStream(new FileOutputStream(new File(CHEMIN_FICHIERS + nomFichier + idArticle)), TAILLE_TAMPON);
 			
 			byte[] tampon = new byte[TAILLE_TAMPON];
 			int longueur = 0;
