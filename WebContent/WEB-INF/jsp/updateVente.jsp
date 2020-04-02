@@ -21,7 +21,7 @@
 
 <link href="<%=request.getContextPath()%>/css/style.css"
 	rel="stylesheet">
-<title>Nouvelle vente</title>
+<title>Modifier votre article</title>
 </head>
 <body>
 	<%

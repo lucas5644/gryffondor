@@ -121,7 +121,7 @@ public class ServletModifierVente extends HttpServlet {
 		if (listeCodesErreur.size() > 0) {
 			// Je renvoie les codes d'erreurs
 			request.setAttribute("listeCodesErreur", listeCodesErreur);
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/ajouterArticle.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/updateVente.jsp");
 			rd.forward(request, response);
 		} else {
 			// je mets à jour l'article  j'ajoute l'article
