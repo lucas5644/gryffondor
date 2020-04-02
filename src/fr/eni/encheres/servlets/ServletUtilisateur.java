@@ -28,12 +28,13 @@ public class ServletUtilisateur extends HttpServlet {
 		// paramètres
 		String pseudo;
 		
-		pseudo =request.getParameter("rechercheUtilisateur");
+		pseudo =request.getParameter("pseudo");
 		EncheresManager em = new EncheresManager(); 
 		
 		try {
 			Utilisateur user ;
 			user=em.rechercheUtilisateur(pseudo);
+			System.out.println(pseudo);
 			if(user == null) {
 				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/RechercheUtilisateur.jsp");
 				rd.forward(request, response);
@@ -46,7 +47,7 @@ public class ServletUtilisateur extends HttpServlet {
 			
 		}
 		
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/AfficherUtilisateur.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/afficherUtilisateur.jsp");
 				rd.forward(request, response);
 	}
 

@@ -115,10 +115,10 @@
 					<div class="card-body contenu">
 						<div class="contenu">
 							<c:forEach var="article" items="${ListeResultat}">
-								<form action="RedirectionClicArticle" method="get">
-									<div class="col-lg-5 d-inline-block contenu portfolio-item">
-										<img src="C:\\uploadTP/articlenumero${article.noArticle}"
-          										  width="100px" alt="Photo de l'Article">
+								<div class="col-lg-5 d-inline-block contenu portfolio-item">
+									<form action="RedirectionClicArticle" method="get">
+<%-- 										<img src="C:\\uploadTP/articlenumero${article.noArticle}" --%>
+<!--           										  width="100px" alt="Photo de l'Article"> -->
 										<input type="hidden" name="article" value="${article.vendeur.noUtilisateur}">
 										 <a>Nom de l'article :</a><input type="submit" value="${article.nomArticle}"><br> <a>Prix
 											de départ : ${article.miseAPrix}</a><br> <a>Fin de
@@ -126,11 +126,11 @@
 											<label for="numeroArticle"></label>
 											<input name="numeroArticle" type="hidden"
 												value="${article.noArticle}">
-									</div>
-								</form>
-								<form action="RechercheUtilisateur" method="post">
-									<input type="submit" value="${article.vendeur.pseudo}" name="rechercheUtilisateur">
-								</form>
+									</form>
+									<form action="RechercheUtilisateur" method="post">
+										<input type="submit" value="${article.vendeur.pseudo}" name="pseudo">
+									</form>
+								</div>
 							</c:forEach>
 						</div>
 					</div>
