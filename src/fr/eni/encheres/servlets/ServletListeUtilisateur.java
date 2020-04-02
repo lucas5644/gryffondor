@@ -35,7 +35,7 @@ public class ServletListeUtilisateur extends HttpServlet {
 			listeUtilisateur = enchereManager.selectUtilisateurPourAdmin();
 			request.setAttribute("listeUtilisateur", listeUtilisateur);
 			System.out.println("liste "+listeUtilisateur);
-			System.out.println(user.getNoUtilisateur());
+			
 		} catch (BusinessException e1) {
 			e1.printStackTrace();
 		}

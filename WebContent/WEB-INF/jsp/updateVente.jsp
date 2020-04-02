@@ -54,7 +54,7 @@
 	<div class="container">
 		<!-- Page Heading -->
 		<h1 class="my-4">
-			Nouvelle vente <img alt="photo vente" width="100px"
+			Modifier votre article <img alt="photo vente" width="100px"
 				src="<%=request.getContextPath()%>/images/handshake.png">
 		</h1>
 		<div class="row">

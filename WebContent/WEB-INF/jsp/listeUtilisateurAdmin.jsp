@@ -68,7 +68,7 @@
 								 <a>Mot de passe : ${utilisateur.motDePasse}</a><br>
 								 <a>Crédit	: ${utilisateur.credit}</a><br>
 								 <a>Administrateur	: ${utilisateur.administrateur}</a><br>
-								 <input type="hidden" name="noUtilisateur" value="<%=request.getAttribute("noUtilisateur")%>">
+								 <input type="hidden" name="noUtilisateur" value="${utilisateur.noUtilisateur}">
 							<input type="submit" value="Supprimer Utilisateur" name="Supprimer utilisateur">
 							<input type="Button" value="desactiver comptes" name="Désactiver un compte">
 							
