@@ -53,6 +53,6 @@ public abstract class CodesResultatServlets {
 	/**
 	 * le délai pour changer la date est expiré
 	 */
-	public static final int ERREUR_ENCHERE_EN_COURS_NON_MODIFIABLE = 30012;
+	public static final int ERREUR_ENCHERE_NON_MODIFIABLE = 30012;
 	
 }
