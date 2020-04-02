@@ -38,7 +38,7 @@ import fr.eni.encheres.exception.BusinessException;
 public class ServletAjoutArticle extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	public static final int TAILLE_TAMPON = 10240;
-	public static final String CHEMIN_FICHIERS = "C:\\uploadTP/";
+	
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -68,6 +68,7 @@ public class ServletAjoutArticle extends HttpServlet {
 		user = (Utilisateur) session.getAttribute("userConnected");
 		request.setCharacterEncoding("UTF-8");
 		List<Integer> listeCodesErreur = new ArrayList<>();
+		
 		
 		
 		Part part = request.getPart("fichier");
@@ -173,11 +174,12 @@ public class ServletAjoutArticle extends HttpServlet {
 				newArticle.setEtatVente(etatVente);
 				newArticle.setVendeur(user);
 				newArticle.setLieuRetrait(newLieuDeRetrait);
+				String CHEMIN_FICHIERS = "C:\\uploadTP/";
 				int idArticle = encheresManager.ajouterArticle(newArticle, newLieuDeRetrait);
 				if(valider==true) {
 					//nomFichier = nomFichier.substring(nomFichier.lastIndexOf('/')+1).substring(nomFichier.lastIndexOf('\\')+1);
 					nomFichier = "articlenumero";
-					ecrireFichier(part, nomFichier, idArticle);
+					ecrireFichier(part, nomFichier, idArticle, CHEMIN_FICHIERS);
 				}
 				System.out.println(newArticle);
 				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/accueilConnecte.jsp");
@@ -193,7 +195,7 @@ public class ServletAjoutArticle extends HttpServlet {
 		}
 	}
 	
-	private void ecrireFichier(Part part, String nomFichier,int idArticle) throws IOException {
+	private void ecrireFichier(Part part, String nomFichier,int idArticle, String CHEMIN_FICHIERS) throws IOException {
 		BufferedInputStream entree = null;
 		BufferedOutputStream sortie = null;
 		
