@@ -125,6 +125,8 @@
 											<label for="numeroArticle"></label>
 											<input name="numeroArticle" type="hidden"
 												value="${article.noArticle}">
+											<img src="C:\\uploadTP/articlenumero${article.noArticle}"
+          										  width="100px" alt="Photo de l'Article">
 									</div>
 								</form>
 							</c:forEach>
