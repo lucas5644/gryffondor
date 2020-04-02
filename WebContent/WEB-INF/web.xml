@@ -101,9 +101,7 @@
     <servlet-name>JSP_LISTEUTILISATEURADMIN</servlet-name>
     <url-pattern>/listeUtilisateurAdmin</url-pattern>
   </servlet-mapping>
-  
-  
-   <servlet>
+  <servlet>
     <servlet-name>JSP_AFFICHAGE_UTILISATEUR</servlet-name>
     <jsp-file>/WEB-INF/jsp/afficherUtilisateur.jsp</jsp-file>
   </servlet>
@@ -111,14 +109,4 @@
     <servlet-name>JSP_AFFICHAGE_UTILISATEUR</servlet-name>
     <url-pattern>/AffichageUtilisateur</url-pattern>
   </servlet-mapping>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
 </web-app>
