@@ -36,19 +36,18 @@
     <url-pattern>/AccueilUtilisateur</url-pattern>
   </servlet-mapping>
   <servlet>
-  	<servlet-name>SerletAjoutArticle</servlet-name>
-  	<servlet-class>fr.eni.encheres.servlets.ServletAjoutArticle</servlet-class>
-  	<multipart-config>
-    	<location>C:\\uploadTP/</location>
-    	<max-file-size>10485760</max-file-size><!-- 10 mo de fichier max -->
-    	<max-request-size>52428800</max-request-size><!--  5 x 10 mo pour une requete -->
-    	<file-size-threshold>1048576</file-size-threshold><!-- 1 mo -->
+    <servlet-name>SerletAjoutArticle</servlet-name>
+    <servlet-class>fr.eni.encheres.servlets.ServletAjoutArticle</servlet-class>
+    <multipart-config>
+      <location>C:\\uploadTP/</location>
+      <max-file-size>10485760</max-file-size>
+      <max-request-size>52428800</max-request-size>
+      <file-size-threshold>1048576</file-size-threshold>
     </multipart-config>
   </servlet>
   <servlet>
     <servlet-name>JSP_VENDREARTICLE</servlet-name>
     <jsp-file>/WEB-INF/jsp/ajouterArticle.jsp</jsp-file>
-
   </servlet>
   <servlet-mapping>
     <servlet-name>JSP_VENDREARTICLE</servlet-name>
