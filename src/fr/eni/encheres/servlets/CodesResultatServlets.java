@@ -50,5 +50,9 @@ public abstract class CodesResultatServlets {
 	
 	
 	public static final int ERREUR_MOT_DE_PASSE = 30011;
+	/**
+	 * le délai pour changer la date est expiré
+	 */
+	public static final int ERREUR_ENCHERE_EN_COURS_NON_MODIFIABLE = 30012;
 	
 }

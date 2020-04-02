@@ -2,7 +2,6 @@ package fr.eni.encheres.servlets;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +12,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import fr.eni.encheres.bll.EncheresManager;
 import fr.eni.encheres.bo.Article;
@@ -59,7 +57,7 @@ public class ServletDeleteArticle extends HttpServlet {
 			dateDuJour = LocalDate.now();
 			// comparaison de dates
 			if (dateDuJour.equals(debutEnchere)||dateDuJour.isAfter(debutEnchere)) {
-				listeCodesErreur.add(CodesResultatServlets.FORMAT_DATE_ERREUR);
+				listeCodesErreur.add(CodesResultatServlets.ERREUR_ENCHERE_EN_COURS_NON_MODIFIABLE);
 			}
 			
 			// Réalisation du traitement
