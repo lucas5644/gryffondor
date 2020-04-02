@@ -25,18 +25,18 @@ public class ServletEmail extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-	Utilisateur user = new Utilisateur();
-	String email= request.getParameter("email");
-	RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/NewFile.jsp");
-	rd.forward(request, response);		
-	}
+	}	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+
+
+		
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/reinitialiserMDP.jsp");
+		rd.forward(request, response);		
+		
 	}
 
 }

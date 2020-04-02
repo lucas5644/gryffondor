@@ -39,11 +39,12 @@
 	<div class="container">
 
 		<!-- Page Heading -->
-		<h1 class="my-4">Reinitialiser mot de passe</h1>title>
+		<h1 class="my-4">Reinitialiser mot de passe</h1>
 		<p>Enregistre votre nouveau mot de passe</p>
-	<form action="" method="post" class="justify-content-center mb-2">
+	<form action="ReinitialisationMDP" method="post" class="justify-content-center mb-2">
 		<div>
-			<a>Email : ${user.email}</a>
+			<label for="email">Email : </label> <input
+				type="text" placeholder="email@mail.fr" name="email" id="email" />
 		
 		</div>
 		<div>
@@ -59,6 +60,6 @@
 		</div>
 	</form>
 
-
+</div>
 </body>
 </html>

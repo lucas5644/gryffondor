@@ -21,7 +21,7 @@
 
 <link href="<%=request.getContextPath()%>/css/style.css"
 	rel="stylesheet">
-<title> Email pour reinitialiser</title>
+<title> Email pour reinitialiser le mot de passe</title>
 </head>
 <body>
 
@@ -39,11 +39,12 @@
 	<div class="container">
 
 		<!-- Page Heading -->
-		<h1 class="my-4">Email pour reinitialiser</h1>title>
+		<h1 class="my-4">Email pour reinitialiser le mot de passe</h1>
 
 
 
-		<form action= "ReinitialisationMDP"method="post"class="justify-content-center mb-2">
+		<form action= "Email"method="post"class="justify-content-center mb-2">
+		<input type="hidden" name="email" value="<%=request.getAttribute("email")%>" />
 			<label for="email">Email : </label> <input type="text" placeholder ="exemple@email.fr" name ="email">
 			<input type="submit" name="Valider" class="btn btn-primary">
 		</form>

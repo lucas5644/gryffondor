@@ -25,7 +25,6 @@ public class ServletReinitialisationMDP extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
@@ -37,7 +36,7 @@ public class ServletReinitialisationMDP extends HttpServlet {
 		
 		 String email=request.getParameter("email");
 	   
-		   
+		   user.setEmail(email);
 		 String nouveauMotDePasse=request.getParameter("nouveauMotDePasse");
 		 String cNouveauMotDePasse=request.getParameter("cNouveauMotDePasse");
 		 if(nouveauMotDePasse.equals(cNouveauMotDePasse)){
@@ -60,6 +59,4 @@ public class ServletReinitialisationMDP extends HttpServlet {
 			}
 		}
 		
-		
-
 }
