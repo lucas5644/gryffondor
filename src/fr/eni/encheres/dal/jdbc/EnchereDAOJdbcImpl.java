@@ -51,7 +51,29 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 	private static final String CHECK_ENCHERE = "SELECT e.no_utilisateur, pseudo, no_article FROM UTILISATEURS u LEFT JOIN ENCHERES e on e.no_utilisateur = u.no_utilisateur WHERE u.no_utilisateur=? AND e.no_article = ?";
 	private static final String UPDATE_PRIX_VENTE_ARTICLE = "UPDATE ARTICLES set prix_vente = ? WHERE no_article = ?;";
 	private static final String UPDATE_MDP = "UPDATE UTILISATEURS set mot_de_passe =? WHERE email= ?";
-
+	private static final String UPDATE_CREDIT_USER="UPDATE UTILISATEURS set credit = ? WHERE no_utilisateur = ?;";
+	
+	public void updateCredit(String pseudo, int montantEnchere) throws BusinessException {
+		Utilisateur utilisateurCourant = new Utilisateur();
+		utilisateurCourant = selectUtilisateur(pseudo);
+		try {
+			Connection con = null;
+			con = ConnectionProvider.getConnection();
+			PreparedStatement psmt = con.prepareStatement(UPDATE_CREDIT_USER);
+			// insertion des données
+			psmt.setInt(1, (utilisateurCourant.getCredit() - montantEnchere));
+			psmt.setInt(2, utilisateurCourant.getNoUtilisateur());
+			if (psmt.executeUpdate() == 1) {
+				con.commit();
+				con.close();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			BusinessException be = new BusinessException();
+			be.ajouterErreur(CodesResultatDAL.UPDATE_ENCHERE);
+			throw be;		}
+	}
+	
 	public void updatePrixVente(int numeroArticle, int montantEnchere) throws BusinessException {
 		Article articleNewPrix = new Article();
 		articleNewPrix = selectArticleById(numeroArticle);
