@@ -31,7 +31,7 @@ public class EncheresManager {
 		return enchereDAO.checkEnchere(numeroArticle, numeroUtilisateur);
 	}
 
-	public void checkValiditeEnchere(int meilleureOffre, int newEnchere, LocalDate finEnchere, int prixDepart,
+	public void checkValiditeEnchere(int meilleureOffre, int newEnchere, LocalDate finEnchere, int prixDepart, int credit,
 			BusinessException be) {
 		LocalDate now = LocalDate.now();
 		if (meilleureOffre >= newEnchere || newEnchere == 0) {
