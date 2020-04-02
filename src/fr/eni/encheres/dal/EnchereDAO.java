@@ -61,5 +61,8 @@ public interface EnchereDAO {
 	public List<Enchere> selectEncheresUtilisateur(int noUtilisateur) throws BusinessException;
 
 	public Utilisateur selectUtilisateurById(int id) throws BusinessException;
+	
+	//Modifier le prix de vente d'un article
+	public Article updatePrixVente(int numeroArticle, int montantEnchere) throws BusinessException;
 
 }
