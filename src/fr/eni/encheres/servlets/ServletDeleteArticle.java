@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import fr.eni.encheres.bll.EncheresManager;
+import fr.eni.encheres.bo.Article;
 import fr.eni.encheres.exception.BusinessException;
 
 /**
@@ -40,17 +41,30 @@ public class ServletDeleteArticle extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		List<Integer> listeCodesErreur = new ArrayList<Integer>();
 		LocalDate debutEnchere = null;
 		LocalDate dateDuJour = null;
-		
+		EncheresManager encheresManager = new EncheresManager();
+		String noArticle = request.getParameter("noArticle");
+		int noArticle1 = Integer.parseInt(noArticle);
+		Article art = new Article();
 		try {
-			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-			debutEnchere = LocalDate.parse(request.getParameter("dateDebut"), dtf);
+			art = encheresManager.selectArticleById(noArticle1);
+		} catch (BusinessException e1) {
+			e1.printStackTrace();
+		}
+
+		debutEnchere = art.getDateDebutEncheres();
+		try {
 			dateDuJour = LocalDate.now();
+			// comparaison de dates
 			if (dateDuJour.equals(debutEnchere)||dateDuJour.isAfter(debutEnchere)) {
 				listeCodesErreur.add(CodesResultatServlets.FORMAT_DATE_ERREUR);
+			}
+			else {
+				
+				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/accueilConnecte.jsp");
+				
 			}
 			// Réalisation du traitement
 			if (listeCodesErreur.size() > 0) {
@@ -60,10 +74,10 @@ public class ServletDeleteArticle extends HttpServlet {
 				rd.forward(request, response);
 			} else {
 				//si pas d'erreur je suprime l'article
-				EncheresManager encheresManager = new EncheresManager();
-				int noArticle = Integer.parseInt(request.getParameter("noArticle"));
 				try {
-					encheresManager.removeArticle(noArticle);
+					encheresManager.removeArticle(noArticle1);
+					RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/accueilConnecte.jsp");
+					rd.forward(request, response);
 				} catch (BusinessException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -73,10 +87,6 @@ public class ServletDeleteArticle extends HttpServlet {
 		catch (DateTimeParseException e) {
 			e.printStackTrace();
 			return;
-		 
-		}
-		
-			
+		}		
 	}
-
 }

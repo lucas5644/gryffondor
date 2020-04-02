@@ -62,7 +62,7 @@ public class ServletDeleteUser extends HttpServlet {
 				rd.forward(request, response);		
 			}
 			else {
-				request.setAttribute("echec", "Erreur, le compte n'a pas été suprimé");
+				request.setAttribute("echec", "Erreur, le compte n'a pas etait suprimé");
 				RequestDispatcher rd = request.getRequestDispatcher("/profilCompte");
 				rd.forward(request, response);
 			}

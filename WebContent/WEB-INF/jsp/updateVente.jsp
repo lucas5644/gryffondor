@@ -140,7 +140,7 @@
 							</form><br>
 							<div>
 								<form action="DeleteArticle" method="post">
-									<input type="hidden" value="<%=request.getParameter("noArticle")%>" name="noArticle"> <a
+									<input type="hidden" value="<%=request.getAttribute("noArticle")%>" name="noArticle"> <a
 										href="<%=request.getContextPath()%>/AccueilUtilisateur"><input
 										type="button" value="Annuler" class="btn btn-primary" /></a> <input
 										type="submit" value="Annuler la vente" class="btn btn-primary" />
