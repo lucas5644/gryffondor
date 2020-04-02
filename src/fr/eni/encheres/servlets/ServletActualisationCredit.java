@@ -15,10 +15,10 @@ import fr.eni.encheres.bo.Utilisateur;
 /**
  * Servlet implementation class ServletActualisationCredit
  */
-@WebServlet("/ServletActualisationCredit")
+@WebServlet("/actualisationCredit")
 public class ServletActualisationCredit extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();

@@ -52,9 +52,10 @@
 				width="40px"> Bienvenue ${userConnected.prenom}
 			${userConnected.nom} (crédit restant : ${userConnected.credit})
 		</h1>
-		<form action="" method="post">
+		<form action="actualisationCredit" method="get">
 			<h6>
 				<input type="submit" value="Mettre à jour mon crédit">
+				<input value="${userConnected}" type="hidden">
 			</h6>
 		</form>
 		<div class="row">
