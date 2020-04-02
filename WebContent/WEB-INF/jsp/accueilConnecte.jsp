@@ -46,11 +46,11 @@
 	<div class="container">
 
 		<!-- Page Heading -->
-		<h1 class="my-4">
-			Bienvenue ${userConnected.prenom} ${userConnected.nom} <img
+		<h1 class="my-4"><img
 				alt="icône connecté"
 				src="<%=request.getContextPath()%>/images/connected.png"
 				width="40px">
+			Bienvenue ${userConnected.prenom} ${userConnected.nom} (crédit restant : ${userConnected.credit})
 		</h1>
 		<div class="row">
 			<div class="col-lg-12 col-md-12 col-sm-12 portfolio-item">
@@ -129,7 +129,7 @@
 									</div>
 								</form>
 								<form action="RechercheUtilisateur" method="post">
-									<input type="submit" value="{article.vendeur.pseudo}" name="rechercheUtilisateur">
+									<input type="submit" value="${article.vendeur.pseudo}" name="rechercheUtilisateur">
 								</form>
 							</c:forEach>
 						</div>
