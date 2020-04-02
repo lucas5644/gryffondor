@@ -176,7 +176,7 @@ public class ServletAjoutArticle extends HttpServlet {
 				newArticle.setLieuRetrait(newLieuDeRetrait);
 				String CHEMIN_FICHIERS = "C:\\uploadTP/";
 				int idArticle = encheresManager.ajouterArticle(newArticle, newLieuDeRetrait);
-				if(valider==true) {
+				if(valider) {
 					//nomFichier = nomFichier.substring(nomFichier.lastIndexOf('/')+1).substring(nomFichier.lastIndexOf('\\')+1);
 					nomFichier = "articlenumero";
 					ecrireFichier(part, nomFichier, idArticle, CHEMIN_FICHIERS);
@@ -209,19 +209,21 @@ public class ServletAjoutArticle extends HttpServlet {
 				sortie.write(tampon, 0, longueur);
 			}
 			
-		}finally {
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		finally {
 			try {
 				sortie.close();
 			}catch (IOException e){
+				e.printStackTrace();
 			}
 			try {
 				entree.close();
 			}catch (IOException e) {
-				
+				e.printStackTrace();
 			}
 		}
-		
-		
-		
 	}
 }
