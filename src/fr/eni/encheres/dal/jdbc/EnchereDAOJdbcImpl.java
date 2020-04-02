@@ -317,7 +317,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 		return articleCourant;
 	}
 
-	public void insertArticle(Article article, Retrait retrait) throws BusinessException {
+	public int insertArticle(Article article, Retrait retrait) throws BusinessException {
 		Connection con = null;
 		BusinessException be = new BusinessException();
 		int numeroArticle;
@@ -360,6 +360,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 			psmt.close();
 
 			con.commit();
+			return numeroArticle;
 		} catch (Exception e) {
 			e.printStackTrace();
 			be.ajouterErreur(CodesResultatDAL.INSERT_OBJET_ECHEC);
@@ -378,6 +379,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 				throw be;
 			}
 		}
+		return -1;
 	}
 	
 	private Retrait mappingRetrait(ResultSet rs) throws SQLException {

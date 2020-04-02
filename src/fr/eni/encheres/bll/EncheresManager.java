@@ -62,16 +62,17 @@ public class EncheresManager {
 		}
 	}
 	
-	public Article ajouterArticle(Article article, Retrait lieuRetrait) throws BusinessException {
+	public int ajouterArticle(Article article, Retrait lieuRetrait) throws BusinessException {
 		BusinessException be = new BusinessException();
+		int idArt = -1;
 		//valider la date
 		validerDate(article.getDateDebutEncheres(), article.getDateFinEncheres(), be);
 		if (!be.hasErreurs()) {
-			enchereDAO.insertArticle(article, lieuRetrait);
+			idArt = enchereDAO.insertArticle(article, lieuRetrait);
 		}else {
 			throw be;
 		}
-		return article;
+		return idArt;
 	}
 	
 	public void validerDate(LocalDate debutEnchere, LocalDate finEnchere, BusinessException be) {

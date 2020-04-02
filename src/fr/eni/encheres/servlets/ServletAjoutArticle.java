@@ -62,6 +62,7 @@ public class ServletAjoutArticle extends HttpServlet {
 		String codePostal = null;
 		String ville = null;
 		Utilisateur user = new Utilisateur();
+		boolean valider = false;
 		HttpSession session = request.getSession();
 		System.out.println(session);
 		user = (Utilisateur) session.getAttribute("userConnected");
@@ -116,8 +117,7 @@ public class ServletAjoutArticle extends HttpServlet {
 			listeCodesErreur.add(CodesResultatServlets.FORMAT_VILLE_ERREUR);
 		}
 		if(nomFichier != null && !nomFichier.isEmpty()) {
-			nomFichier = nomFichier.substring(nomFichier.lastIndexOf('/')+1).substring(nomFichier.lastIndexOf('\\')+1);
-			ecrireFichier(part, nomFichier);
+			valider = true;
 		}else {
 			listeCodesErreur.add(CodesResultatServlets.ERREUR_UPLOAD);
 		}
@@ -174,6 +174,8 @@ public class ServletAjoutArticle extends HttpServlet {
 				newArticle.setVendeur(user);
 				newArticle.setLieuRetrait(newLieuDeRetrait);
 				encheresManager.ajouterArticle(newArticle, newLieuDeRetrait);
+				nomFichier = nomFichier.substring(nomFichier.lastIndexOf('/')+1).substring(nomFichier.lastIndexOf('\\')+1);
+				ecrireFichier(part, nomFichier);
 				System.out.println(newArticle);
 				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/accueilConnecte.jsp");
 				rd.forward(request, response);
