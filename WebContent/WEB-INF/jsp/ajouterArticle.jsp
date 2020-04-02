@@ -56,6 +56,26 @@
 				<div class="card h-100">
 					<div class="card-body contenu">
 						<div class="contenu">
+							<%
+								if (request.getAttribute("listeCodesErreur") != null) {
+									List<Integer> listeCodesErreur = (List<Integer>)request.getAttribute("listeCodesErreur");
+							%>
+							<div class="alert alert-danger" role="alert">
+								<strong>Erreur!</strong>
+								<ul>
+									<%
+										for (Integer code : listeCodesErreur) {
+									%>
+
+									<li><%=LecteurMessage.getMessageErreur(code)%></li>
+									<%
+										}
+									%>
+								</ul>
+							</div>
+							<%
+								}
+							%>
 							<form action="ajoutArticle" method="post" encType="multipart/form-data">
 								<div class="saisie">
 									<label for="article">Article : </label> <input

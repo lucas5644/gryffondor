@@ -116,7 +116,6 @@ public class ServletAjoutArticle extends HttpServlet {
 			listeCodesErreur.add(CodesResultatServlets.FORMAT_VILLE_ERREUR);
 		}
 		if(nomFichier != null && !nomFichier.isEmpty()) {
-			String nomChamp = part.getName();
 			nomFichier = nomFichier.substring(nomFichier.lastIndexOf('/')+1).substring(nomFichier.lastIndexOf('\\')+1);
 			ecrireFichier(part, nomFichier, CHEMIN_FICHIERS);
 		}
