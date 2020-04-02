@@ -109,7 +109,7 @@
     <servlet-name>JSP_AFFICHAGE_UTILISATEUR</servlet-name>
     <url-pattern>/AffichageUtilisateur</url-pattern>
   </servlet-mapping>
-    <servlet>
+  <servlet>
     <servlet-name>JSP_EMAIL_REINITIALISER_MDP</servlet-name>
     <jsp-file>/WEB-INF/jsp/emailReinitialiserMDP.jsp</jsp-file>
   </servlet>
@@ -117,7 +117,7 @@
     <servlet-name>JSP_EMAIL_REINITIALISER_MDP</servlet-name>
     <url-pattern>/emailReinitialiserMDP</url-pattern>
   </servlet-mapping>
-      <servlet>
+  <servlet>
     <servlet-name>JSP_REINITIALISER_MDP</servlet-name>
     <jsp-file>/WEB-INF/jsp/reinitialiserMDP.jsp</jsp-file>
   </servlet>
@@ -125,5 +125,4 @@
     <servlet-name>JSP_REINITIALISER_MDP</servlet-name>
     <url-pattern>/reinitialiserMDP</url-pattern>
   </servlet-mapping>
-  
 </web-app>
