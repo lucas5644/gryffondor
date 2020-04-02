@@ -64,6 +64,7 @@ ul {
 								<li>Rue : ${userConnected.rue}</li>
 								<li>Code postal : ${userConnected.codePostal}</li>
 								<li>Ville : ${userConnected.ville}</li>
+								<li>Crédit : ${userConnected.credit} </li>
 							</ul>
 							<a href="<%=request.getContextPath()%>/profilmodifie"
 								class="button"><input type="submit" name="Modifier"
