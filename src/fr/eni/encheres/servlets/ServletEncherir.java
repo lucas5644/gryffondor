@@ -126,7 +126,7 @@ public class ServletEncherir extends HttpServlet {
 					// il n'y a pas d'enchère, je check la validité de la proposition
 					BusinessException be = new BusinessException();
 					enchereManager.checkValiditeEnchere(enchereCourante.getMontantEnchere(), montantEnchere,
-							articleCourant.getDateFinEncheres(), articleCourant.getMiseAPrix(), be);
+							articleCourant.getDateFinEncheres(), articleCourant.getMiseAPrix(), user.getCredit(), be);
 					if (!be.hasErreurs()) {
 						// j'insère la première offre
 						enchereManager.insertEnchere(user.getPseudo(), articleCourant.getNoArticle(), montantEnchere);
@@ -141,14 +141,13 @@ public class ServletEncherir extends HttpServlet {
 						// il a déjà enchéri, je check la validité de la proposition
 						BusinessException be = new BusinessException();
 						enchereManager.checkValiditeEnchere(enchereCourante.getMontantEnchere(), montantEnchere,
-								articleCourant.getDateFinEncheres(), articleCourant.getMiseAPrix(), be);
+								articleCourant.getDateFinEncheres(), articleCourant.getMiseAPrix(), user.getCredit(), be);
 						if (!be.hasErreurs()) {
 							// on update l'enchère
 							enchereManager.updateEnchere(user.getPseudo(), articleCourant.getNoArticle(),
 									montantEnchere);
 							enchereManager.updatePrixVente(articleCourant.getNoArticle(), montantEnchere);
-							// update crédit
-							// enchereEffectuee = true;
+							enchereManager.updateCreditEnchere(user.getPseudo(), montantEnchere);
 						} else {
 							throw be;
 						}
@@ -156,19 +155,19 @@ public class ServletEncherir extends HttpServlet {
 						// il n'a pas enchéri, je check la validité de sa proposition
 						BusinessException be = new BusinessException();
 						enchereManager.checkValiditeEnchere(enchereCourante.getMontantEnchere(), montantEnchere,
-								articleCourant.getDateFinEncheres(), articleCourant.getMiseAPrix(), be);
+								articleCourant.getDateFinEncheres(), articleCourant.getMiseAPrix(), user.getCredit(), be);
 						if (!be.hasErreurs()) {
 							// j'insère son enchère
 							enchereManager.insertEnchere(user.getPseudo(), articleCourant.getNoArticle(),
 									montantEnchere);
 							enchereManager.updatePrixVente(articleCourant.getNoArticle(), montantEnchere);
-							// update crédit
+							enchereManager.updateCreditEnchere(user.getPseudo(), montantEnchere);
 						} else {
 							throw be;
 						}
 					}
 				}
-				//je renvoie vers la page d'accueil
+				// je renvoie vers la page d'accueil
 				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/accueilConnecte.jsp");
 				rd.forward(request, response);
 			} catch (BusinessException e) {

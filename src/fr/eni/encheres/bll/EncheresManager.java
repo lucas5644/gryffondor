@@ -43,6 +43,9 @@ public class EncheresManager {
 		if (now.isAfter(finEnchere)) {
 			be.ajouterErreur(CodesResultatBLL.DATE_ERREUR_2);
 		}
+		if (newEnchere > credit) {
+			be.ajouterErreur(CodesResultatBLL.MONTANT_ERREUR);
+		}
 	}
 
 	public Enchere selectEnchere(int numeroArticle) throws BusinessException {

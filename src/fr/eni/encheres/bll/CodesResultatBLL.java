@@ -20,6 +20,7 @@ public abstract class CodesResultatBLL {
 	public static final int FORMAT_EMAIL_ERREUR=20008;
 	public static final int FORMAT_MOT_DE_PASSE_ERREUR=20009;
 	public static final int FORMAT_PSEUDO_ERREUR=20010;
+	public static final int MONTANT_ERREUR = 20011;
 
 
 }
