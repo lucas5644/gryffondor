@@ -48,4 +48,7 @@ public abstract class CodesResultatServlets {
 	 */
 	public static final int ERREUR_PROPOSITION = 30010;
 	
+	
+	public static final int ERREUR_MOT_DE_PASSE = 30011;
+	
 }

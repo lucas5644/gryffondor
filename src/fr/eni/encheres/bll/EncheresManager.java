@@ -167,7 +167,15 @@ public class EncheresManager {
 
 	public Utilisateur updateUtilisateur(Utilisateur utilisateur) throws BusinessException {
 		Utilisateur user;
-		user = enchereDAO.updateUtilisateur(utilisateur);
+		 BusinessException be = new BusinessException();
+		 checkUser(utilisateur, be);
+		 if(!be.hasErreurs()) {
+			 user = enchereDAO.updateUtilisateur(utilisateur);
+		 }
+		 else {
+			 throw be;
+		 }
+		
 		return user;
 
 	}

@@ -24,93 +24,97 @@ import fr.eni.encheres.exception.BusinessException;
 @WebServlet("/SerletUpdateUtilisateur")
 public class SerletUpdateUtilisateur extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-   
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		List<Integer> listeCodesErreur = new ArrayList<>();
-		
-		
-		EncheresManager enchereManager = new EncheresManager();
-		Utilisateur updateUtilisateur = new Utilisateur();
-		Utilisateur user; 
+
+		Utilisateur user = new Utilisateur();
+		Utilisateur user1;
 		BusinessException be = new BusinessException();
-		HttpSession session = request.getSession(); 
-		
-		
+		HttpSession session = request.getSession();
+
 		try {
-			
-		 user=(Utilisateur) session.getAttribute("userConnected");	
-		 System.out.println(user);
-		 String pseudo = request.getParameter("pseudo");
-		 String nom = request.getParameter("nom");
-		 String prenom = request.getParameter("prenom");
-		 String email = request.getParameter("email");
-		 String telephone = "non renseigne";
-		 if(!request.getParameter("telephone").equals(null)) {	 
-			  telephone = request.getParameter("telephone");
-		 }
-		 String rue = request.getParameter("rue");
-		 String code_postal = request.getParameter("codePostal");
-		 String ville = request.getParameter("ville");
-		 String motDePasse = request.getParameter("motDePasse");
-		 if(request.getParameter("motDePasse").equals("")) {
-			 motDePasse=user.getMotDePasse();
-		 }
-		
-		 String nouveauMotDePasse=request.getParameter("nouveauMotDePasse");
-		 String cNouveauMotDePasse=request.getParameter("cNouveauMotDePasse");
-		 if(nouveauMotDePasse.equals(cNouveauMotDePasse) && nouveauMotDePasse!=motDePasse && nouveauMotDePasse!= "") {
-			 motDePasse=nouveauMotDePasse;
-		 }
-		 
-			// Réalisation du traitement
-			if (listeCodesErreur.size() > 0) {
-				// Je renvoie les codes d'erreurs
-				request.setAttribute("listeCodesErreur", listeCodesErreur);
-				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/modifierProfil.jsp");
-				rd.forward(request, response);
-			} else {
+
+			user = (Utilisateur) session.getAttribute("userConnected");
+			System.out.println(user);
+			String pseudo = request.getParameter("pseudo");
+			String nom = request.getParameter("nom");
+			String prenom = request.getParameter("prenom");
+			String email = request.getParameter("email");
+			String telephone = "non renseigne";
+			if (!request.getParameter("telephone").equals(null)) {
+				telephone = request.getParameter("telephone");
 			}
-		 updateUtilisateur.setNoUtilisateur(user.getNoUtilisateur());
-		 updateUtilisateur.setPseudo(pseudo);
-		 updateUtilisateur.setNom(nom);
-		 updateUtilisateur.setPrenom(prenom);
-		 updateUtilisateur.setEmail(email);
-		 updateUtilisateur.setTelephone(telephone);
-		 updateUtilisateur.setRue(rue);
-		 updateUtilisateur.setCodePostal(code_postal);
-		 updateUtilisateur.setVille(ville);
-		 updateUtilisateur.setMotDePasse(motDePasse);
-		
-		 
-		enchereManager.checkUser(updateUtilisateur, be);
-		
-		user=enchereManager.updateUtilisateur(updateUtilisateur);
-		
-		session.setAttribute("userConnected", updateUtilisateur);
-		
-		System.out.println(user);
+			String rue = request.getParameter("rue");
+			String code_postal = request.getParameter("codePostal");
+			String ville = request.getParameter("ville");
+
+			String motDePasse = request.getParameter("motDePasse");
+			if (!request.getParameter("motDePasse").equals(user.getMotDePasse())) {
+				listeCodesErreur.add(CodesResultatServlets.ERREUR_MOT_DE_PASSE);
+			}
+
+			String nouveauMotDePasse = request.getParameter("nouveauMotDePasse");
+			String cNouveauMotDePasse = request.getParameter("cNouveauMotDePasse");
+			if (nouveauMotDePasse.equals(cNouveauMotDePasse) && nouveauMotDePasse != motDePasse
+					&& nouveauMotDePasse != "") {
+				motDePasse = nouveauMotDePasse;
+			}
+
+			user.setNoUtilisateur(user.getNoUtilisateur());
+			user.setPseudo(pseudo);
+			user.setNom(nom);
+			user.setPrenom(prenom);
+			user.setEmail(email);
+			user.setTelephone(telephone);
+			user.setRue(rue);
+			user.setCodePostal(code_postal);
+			user.setVille(ville);
+			user.setMotDePasse(motDePasse);
 		} catch (Exception e) {
 			e.printStackTrace();
-		
+			// listeCodesErreur
 		}
-		
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/afficherUtilisateur.jsp");
-		rd.forward(request, response);
-	
-	
+		// Réalisation du traitement
+		if (listeCodesErreur.size() > 0) {
+			// Je renvoie les codes d'erreurs
+			request.setAttribute("listeCodesErreur", listeCodesErreur);
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/modifierProfil.jsp");
+			rd.forward(request, response);
+		} else {
+			EncheresManager enchereManager = new EncheresManager();
+
+			try {
+				user1 = enchereManager.updateUtilisateur(user);
+
+				session.setAttribute("userConnected", user1);
+
+				System.out.println(user);
+				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/afficherUtilisateur.jsp");
+
+				rd.forward(request, response);
+
+			} catch (BusinessException e) {
+				e.printStackTrace();
+				request.setAttribute("listeCodesErreur", e.getListeCodesErreur());
+				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/modifierProfil.jsp");
+				rd.forward(request, response);
+			}
+		}
 	}
-	
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doGet(request, response);
 	}
 
