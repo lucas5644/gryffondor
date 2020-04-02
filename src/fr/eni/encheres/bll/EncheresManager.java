@@ -18,6 +18,10 @@ public class EncheresManager {
 	public EncheresManager() {
 		enchereDAO = DAOFactory.getEnchereDAO();
 	}
+	
+	public void updateCupdateCreditEnchere(String pseudo, int montantEnchere) throws BusinessException {
+		enchereDAO.updateCreditEnchere(pseudo, montantEnchere);
+	}
 
 	public void updatePrixVente(int numeroArticle, int montantEnchere) throws BusinessException {
 		enchereDAO.updatePrixVente(numeroArticle, montantEnchere);
