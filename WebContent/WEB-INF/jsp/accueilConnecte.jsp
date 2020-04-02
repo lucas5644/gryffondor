@@ -117,17 +117,19 @@
 							<c:forEach var="article" items="${ListeResultat}">
 								<form action="RedirectionClicArticle" method="get">
 									<div class="col-lg-5 d-inline-block contenu portfolio-item">
-									<input type="hidden" name="article" value="${article.vendeur.noUtilisateur}">
+										<img src="C:\\uploadTP/articlenumero${article.noArticle}"
+          										  width="100px" alt="Photo de l'Article">
+										<input type="hidden" name="article" value="${article.vendeur.noUtilisateur}">
 										 <a>Nom de l'article :</a><input type="submit" value="${article.nomArticle}"><br> <a>Prix
 											de départ : ${article.miseAPrix}</a><br> <a>Fin de
-											l'enchère : ${article.dateFinEncheres}</a><br> <a>Pseudo
-											: ${article.vendeur.pseudo}</a>
+											l'enchère : ${article.dateFinEncheres}</a><br> 
 											<label for="numeroArticle"></label>
 											<input name="numeroArticle" type="hidden"
 												value="${article.noArticle}">
-											<img src="C:\\uploadTP/articlenumero${article.noArticle}"
-          										  width="100px" alt="Photo de l'Article">
 									</div>
+								</form>
+								<form action="RechercheUtilisateur" method="post">
+									<input type="submit" value="{article.vendeur.pseudo}" name="rechercheUtilisateur">
 								</form>
 							</c:forEach>
 						</div>
