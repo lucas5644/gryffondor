@@ -34,12 +34,7 @@ public class ServletUtilisateur extends HttpServlet {
 		try {
 			Utilisateur user ;
 			user=em.rechercheUtilisateur(pseudo);
-			System.out.println(pseudo);
-			if(user == null) {
-				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/RechercheUtilisateur.jsp");
-				rd.forward(request, response);
-			}
-			
+			System.out.println(user);			
 			request.setAttribute("utilisateur", user);
 			
 		} catch (BusinessException e) {
