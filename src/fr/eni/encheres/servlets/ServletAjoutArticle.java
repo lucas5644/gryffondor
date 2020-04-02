@@ -117,7 +117,9 @@ public class ServletAjoutArticle extends HttpServlet {
 		}
 		if(nomFichier != null && !nomFichier.isEmpty()) {
 			nomFichier = nomFichier.substring(nomFichier.lastIndexOf('/')+1).substring(nomFichier.lastIndexOf('\\')+1);
-			ecrireFichier(part, nomFichier, CHEMIN_FICHIERS);
+			ecrireFichier(part, nomFichier);
+		}else {
+			listeCodesErreur.add(CodesResultatServlets.ERREUR_UPLOAD);
 		}
 
 		// Réalisation du traitement
@@ -186,13 +188,13 @@ public class ServletAjoutArticle extends HttpServlet {
 		}
 	}
 	
-	private void ecrireFichier(Part part, String nomFichier, String chemin) throws IOException {
+	private void ecrireFichier(Part part, String nomFichier) throws IOException {
 		BufferedInputStream entree = null;
 		BufferedOutputStream sortie = null;
 		
 		try {
 			entree = new BufferedInputStream(part.getInputStream(), TAILLE_TAMPON);
-			sortie = new BufferedOutputStream(new FileOutputStream(new File(chemin + nomFichier)), TAILLE_TAMPON);
+			sortie = new BufferedOutputStream(new FileOutputStream(new File(CHEMIN_FICHIERS + nomFichier)), TAILLE_TAMPON);
 			
 			byte[] tampon = new byte[TAILLE_TAMPON];
 			int longueur = 0;

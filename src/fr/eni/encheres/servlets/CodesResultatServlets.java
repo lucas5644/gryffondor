@@ -42,4 +42,6 @@ public abstract class CodesResultatServlets {
 	 */
 	public static final int ERREUR_UTILISATEUR = 30008;
 	
+	public static final int ERREUR_UPLOAD = 30009;
+	
 }
