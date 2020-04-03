@@ -1,3 +1,5 @@
+<%@page import="fr.eni.encheres.messages.LecteurMessage"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -63,7 +65,26 @@
 				<div class="card h-100">
 					<div class="card-body contenu">
 						<div class="contenu">
+							<%
+								if (request.getAttribute("listeCodesErreur") != null) {
+									List<Integer> listeCodesErreur = (List<Integer>) request.getAttribute("listeCodesErreur");
+							%>
+							<div class="alert alert-danger" role="alert">
+								<strong>Erreur!</strong>
+								<ul>
+									<%
+										for (Integer code : listeCodesErreur) {
+									%>
 
+									<li><%=LecteurMessage.getMessageErreur(code)%></li>
+									<%
+										}
+									%>
+								</ul>
+							</div>
+							<%
+								}
+							%>
 							<form action="RechercheArticleConnecte" method="post"
 								class="justify-content-center mb-2">
 								<div class="form-group">
