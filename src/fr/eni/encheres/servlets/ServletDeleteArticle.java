@@ -57,7 +57,7 @@ public class ServletDeleteArticle extends HttpServlet {
 			dateDuJour = LocalDate.now();
 			// comparaison de dates
 			if (dateDuJour.equals(debutEnchere)||dateDuJour.isAfter(debutEnchere)) {
-				listeCodesErreur.add(CodesResultatServlets.ERREUR_ENCHERE_NON_MODIFIABLE);
+				listeCodesErreur.add(CodesResultatServlets.ERREUR_ENCHERE_EN COURS_NON_MODIFIABLE);
 			}
 			
 			// Réalisation du traitement
