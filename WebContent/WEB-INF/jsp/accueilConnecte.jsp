@@ -130,10 +130,16 @@
 											value="${article.vendeur.noUtilisateur}"> <a>Nom
 											de l'article :</a><input type="submit"
 											value="${article.nomArticle}"><br> <a>Prix
-											de départ : ${article.miseAPrix}</a><br> <a>Fin de
-											l'enchère : ${article.dateFinEncheres}</a><br> <label
+											de départ : ${article.miseAPrix}</a><br>
+											<c:if test="${article.prixVente!=null}">
+												<a>Offre Actuelle : ${article.prixVente}</a>
+											</c:if>
+											
+											<br><a>Fin de l'enchère : ${article.dateFinEncheres}</a>
+											<br> <label
 											for="numeroArticle"></label> <input name="numeroArticle"
 											type="hidden" value="${article.noArticle}">
+											
 									</form>
 									<form action="RechercheUtilisateur" method="post">
 										<input type="submit" value="${article.vendeur.pseudo}"
