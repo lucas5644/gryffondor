@@ -122,7 +122,6 @@ public class ServletEncherir extends HttpServlet {
 			rd.forward(request, response);
 		} else {
 			try {
-				boolean enchereEffectuee = false;
 				// je vérifie s'il existe une enchère
 				if (enchereCourante.getMontantEnchere() == 0) {
 					// il n'y a pas d'enchère, je check la validité de la proposition
@@ -130,7 +129,6 @@ public class ServletEncherir extends HttpServlet {
 					enchereManager.checkValiditeEnchere(enchereCourante.getMontantEnchere(), montantEnchere,
 							articleCourant.getDateFinEncheres(), articleCourant.getMiseAPrix(), user.getCredit(), be);
 					if (!be.hasErreurs()) {
-						Enchere meilleureEnchere = new Enchere();
 						// j'insère la première offre
 						enchereManager.insertEnchere(user.getPseudo(), articleCourant.getNoArticle(), montantEnchere);
 						enchereManager.updatePrixVente(articleCourant.getNoArticle(), montantEnchere);
