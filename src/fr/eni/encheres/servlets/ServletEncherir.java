@@ -81,7 +81,8 @@ public class ServletEncherir extends HttpServlet {
 			int numeroArticle = Integer.parseInt(noArticle);
 			try {
 				articleCourant = enchereManager.selectArticleById(numeroArticle);
-				enchereCourante = enchereManager.selectEnchere(numeroArticle);
+//				enchereCourante = enchereManager.selectEnchere(numeroArticle);
+				enchereCourante = enchereManager.selectMeilleureEnchere(numeroArticle);
 				enchereCourante.setArticle(articleCourant);
 			} catch (BusinessException e) {
 				e.printStackTrace();
