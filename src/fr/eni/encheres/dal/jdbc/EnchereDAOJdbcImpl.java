@@ -50,8 +50,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 	private static final String UPDATE_PRIX_VENTE_ARTICLE = "UPDATE ARTICLES set prix_vente = ? WHERE no_article = ?;";
 	private static final String UPDATE_MDP = "UPDATE UTILISATEURS set mot_de_passe =? WHERE email= ?";
 	private static final String UPDATE_CREDIT_USER="UPDATE UTILISATEURS set credit = ? WHERE no_utilisateur = ?;";
-	private static final String SELECT_MEILLEURE_ENCHERE = "SELECT TOP(1) no_utilisateur, no_article, date_enchere, montant_enchere FROM ENCHERES WHERE no_article = ?;";
-	
+	private static final String SELECT_MEILLEURE_ENCHERE = "SELECT TOP(1) no_utilisateur,no_article, date_enchere, MAX(montant_enchere) as montant_enchere FROM ENCHERES WHERE no_article = ? GROUP BY no_article,no_utilisateur,date_enchere ORDER BY montant_enchere DESC;"; 
 	
 	public Enchere selectMeilleureEnchere(int numeroArticle) throws BusinessException {
 		Enchere meilleureEnchere = new Enchere();
@@ -60,7 +59,6 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 		try {
 			Connection con = null;
 			con = ConnectionProvider.getConnection();
-			con.setAutoCommit(false);
 			PreparedStatement psmt = con.prepareStatement(SELECT_MEILLEURE_ENCHERE);
 			// insertion des données
 			psmt.setInt(1, numeroArticle);
