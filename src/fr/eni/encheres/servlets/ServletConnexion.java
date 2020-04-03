@@ -28,7 +28,12 @@ public class ServletConnexion extends HttpServlet {
 		System.out.println("seSouvenirDeMoi :" +seSouvenirDeMoi);
 		if(seSouvenirDeMoi != null) {
 			Cookie cookie = new Cookie("pseudo", pseudo);
-			cookie.setMaxAge(60*60*24);
+			cookie.setMaxAge(60*60);
+			response.addCookie(cookie);
+		}else {
+			
+			Cookie cookie = new Cookie("pseudo", pseudo);
+			cookie.setMaxAge(-4000);
 			response.addCookie(cookie);
 		}
 		

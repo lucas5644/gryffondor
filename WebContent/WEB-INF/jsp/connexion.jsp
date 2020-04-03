@@ -38,15 +38,19 @@
 
 		<!-- Page Heading -->
 		<br></br>
-		<c:out value="${pseudo }"/>
+		
 		<div class="row">
 			<div class="col-lg-12 col-md-12 col-sm-12 portfolio-item">
 				<div class="card h-100">
 					<div class="card-body contenu">
 						<div class="contenu">
 							<form action=tryConnexion method="post">
+								
 								<label for="pseudo" class="bar">Pseudo</label>
-								<input type="text" value="" name="pseudo"> <label
+								<input type="text" value="${pseudo}" name="pseudo"> 
+								
+								
+								<label
 									for="mdp" class="bar">Mot de Passe</label>
 								<input type="password" value="" name="mdp"> <input
 									type="submit" value="Connexion">

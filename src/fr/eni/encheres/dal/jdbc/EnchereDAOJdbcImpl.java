@@ -939,6 +939,11 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 			psmt.setString(1, user.getMotDePasse());
 			psmt.setString(2, user.getEmail());
 
+			psmt.executeUpdate();
+			cnx.commit();
+			psmt.close();
+			cnx.close();
+			
 			return user;
 
 		} catch (SQLException e) {
