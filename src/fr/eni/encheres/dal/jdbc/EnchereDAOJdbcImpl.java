@@ -877,7 +877,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 	}
 
 	public Utilisateur updateMDP(Utilisateur user) throws BusinessException {
-		Utilisateur utilisateur = new Utilisateur();
+		
 		Connection cnx = null;
 		BusinessException be = new BusinessException();
 		try {
@@ -886,10 +886,10 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 
 			PreparedStatement psmt = cnx.prepareStatement(UPDATE_MDP);
 
-			psmt.setString(1, utilisateur.getMotDePasse());
-			psmt.setString(2, utilisateur.getEmail());
+			psmt.setString(1, user.getMotDePasse());
+			psmt.setString(2, user.getEmail());
 
-			return utilisateur;
+			return user;
 
 		} catch (SQLException e) {
 			e.printStackTrace();
