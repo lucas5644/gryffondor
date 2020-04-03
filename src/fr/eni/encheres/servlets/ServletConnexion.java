@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,6 +23,16 @@ public class ServletConnexion extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Cookie [] cookies = request.getCookies();
+		if(cookies != null) {
+			for(Cookie cookie : cookies) {
+				if(cookie.getName().equals("pseudo")) {
+					request.setAttribute("pseudo", cookie.getValue());
+				}
+			}
+		}
+		
+		
 		String tryPseudo = request.getParameter("pseudo");
 		String tryMdp = request.getParameter("mdp");
 		EncheresManager encheresManager = new EncheresManager();
@@ -57,6 +68,13 @@ public class ServletConnexion extends HttpServlet {
 	
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
+		String pseudo = request.getParameter("pseudo");
+		
+		Cookie cookie = new Cookie("pseudo", pseudo);
+		cookie.setMaxAge(60*60*24);
+		response.addCookie(cookie);
+		
 		doGet(request, response);
 	}
 
