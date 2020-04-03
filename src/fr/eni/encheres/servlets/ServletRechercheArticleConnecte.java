@@ -91,14 +91,16 @@ public class ServletRechercheArticleConnecte extends HttpServlet {
 			if(!AchatRemport.equals("non")) {
 				for (Article article : listeArticles) {
 					if(article.getEtatVente().equals("Enchères terminées")  && article.getVendeur().getNoUtilisateur()!= userConnected.getNoUtilisateur()) {
-						List<Utilisateur> checkList = article.getListeAcheteurs();
-						if(checkList != null) {
-							for (Utilisateur user : checkList) {
-								if(user.getNoUtilisateur() == userConnected.getNoUtilisateur()) {
-									MaListe.add(article);
-								}
+						try {
+							Enchere testEnchere=EM.selectMeilleureEnchere(article.getNoArticle());
+							if(testEnchere.getUtilisateur().getNoUtilisateur() == userConnected.getNoUtilisateur()) {
+								MaListe.add(article);
 							}
+						} catch (BusinessException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
 						}
+									
 					}
 				}
 			}
