@@ -28,7 +28,7 @@ public class EncheresManager {
 	}
 	
 	public void updateCreditNouveauEncherisseur(String pseudo, int montantEnchere) throws BusinessException {
-		enchereDAO.updateCreditEnchere(pseudo, montantEnchere);
+		enchereDAO.updateCreditNouveauEncherisseur(pseudo, montantEnchere);
 	}
 
 	public void updatePrixVente(int numeroArticle, int montantEnchere) throws BusinessException {
