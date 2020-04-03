@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,6 +38,7 @@
 
 		<!-- Page Heading -->
 		<br></br>
+		<c:out value="${pseudo }"/>
 		<div class="row">
 			<div class="col-lg-12 col-md-12 col-sm-12 portfolio-item">
 				<div class="card h-100">
@@ -49,13 +51,14 @@
 								<input type="password" value="" name="mdp"> <input
 									type="submit" value="Connexion">
 							<div class="contenu">
-							<input type="checkbox" name="se souvenir de moi" value="seSouvenirDeMoi">
+							<input type="checkbox" name="seSouvenirDeMoi" value="seSouvenirDeMoi">
 							<label for ="seSouvenirDeMoi"> Se souvenir de moi</label>
 						</div>
 							</form>
 						</div>
 						<div class="contenu"> 
 							<a href="inscription">Inscription</a>
+								
 						</div>
 						<div class="contenu">
 							<a href="emailReinitialiserMDP">Mot de passe oublié</a>

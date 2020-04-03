@@ -26,15 +26,15 @@ public class ServletConnexion extends HttpServlet {
 		String pseudo = request.getParameter("pseudo");
 		String seSouvenirDeMoi = request.getParameter("seSouvenirDeMoi");
 		System.out.println("seSouvenirDeMoi :" +seSouvenirDeMoi);
-//		if(seSouvenirDeMoi.equals("seSouvenirDeMoi")) {
-//			
-//		}
+		if(seSouvenirDeMoi != null) {
+			Cookie cookie = new Cookie("pseudo", pseudo);
+			cookie.setMaxAge(60*60*24);
+			response.addCookie(cookie);
+		}
 		
 		
 		
-		Cookie cookie = new Cookie("pseudo", pseudo);
-		cookie.setMaxAge(60*60*24);
-		response.addCookie(cookie);
+		
 		
 		
 		Cookie [] cookies = request.getCookies();
