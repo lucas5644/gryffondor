@@ -31,22 +31,22 @@ public class ServletReinitialisationMDP extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Utilisateur user = new Utilisateur();
+		Utilisateur utilisateur = new Utilisateur();
 		Utilisateur user1;
 		
 		 String email=request.getParameter("email");
-	   
-		   user.setEmail(email);
+	   System.out.println("Email : "+ email);
+		   utilisateur.setEmail(email);
 		 String nouveauMotDePasse=request.getParameter("nouveauMotDePasse");
 		 String cNouveauMotDePasse=request.getParameter("cNouveauMotDePasse");
 		 if(nouveauMotDePasse.equals(cNouveauMotDePasse)){
-			 user.setMotDePasse(cNouveauMotDePasse);
+			 utilisateur.setMotDePasse(cNouveauMotDePasse);
 		 }
 		
 		 EncheresManager enchereManager = new EncheresManager();
 
 			try {
-				user1 = enchereManager.updateMDP(email);
+				user1 = enchereManager.updateMDP(utilisateur);
 				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/accueil.jsp");
 
 				rd.forward(request, response);

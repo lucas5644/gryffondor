@@ -234,9 +234,9 @@ public class EncheresManager {
 
 	}
 
-	public Utilisateur updateMDP(String email)throws BusinessException{
-		Utilisateur user;
-		user= enchereDAO.updateMDP(email);
+	public Utilisateur updateMDP(Utilisateur user)throws BusinessException{
+		Utilisateur user1;
+		user= enchereDAO.updateMDP(user);
 		
 		return user;
 		

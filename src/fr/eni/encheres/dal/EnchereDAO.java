@@ -65,7 +65,7 @@ public interface EnchereDAO {
 	//Modifier le prix de vente d'un article
 	public void updatePrixVente(int numeroArticle, int montantEnchere) throws BusinessException;
 
-	public Utilisateur updateMDP(String email)throws BusinessException;
+	public Utilisateur updateMDP(Utilisateur user)throws BusinessException;
 	
 	//mise à jour du crédit pendant l'enchère
 	public void updateCreditEnchere(String pseudo, int montantEnchere) throws BusinessException;

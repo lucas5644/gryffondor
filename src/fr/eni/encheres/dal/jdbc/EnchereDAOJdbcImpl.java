@@ -876,7 +876,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 		}
 	}
 
-	public Utilisateur updateMDP(String email) throws BusinessException {
+	public Utilisateur updateMDP(Utilisateur user) throws BusinessException {
 		Utilisateur utilisateur = new Utilisateur();
 		Connection cnx = null;
 		BusinessException be = new BusinessException();
