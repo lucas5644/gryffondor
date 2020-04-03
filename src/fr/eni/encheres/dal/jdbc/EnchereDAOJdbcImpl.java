@@ -46,7 +46,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 	private static final String UPDATE_ENCHERE = "UPDATE ENCHERES set date_enchere = ?, montant_enchere = ? where no_article = ? AND no_utilisateur =?;";
 	private static final String SELECT_ENCHERE = "SELECT no_utilisateur,no_article,date_enchere, montant_enchere FROM ENCHERES WHERE no_article = ?;";
 	private static final String SELECT_UTILISATEUR_ADMIN = "SELECT no_utilisateur,pseudo,nom,prenom,email,telephone,rue,code_postal,ville,mot_de_passe,credit,administrateur FROM UTILISATEURS";
-	private static final String SELECT_UTILISATEUR_BY_ID = "SELECT pseudo,nom,prenom,email,telephone,rue,code_postal,ville,no_utilisateur FROM UTILISATEURS WHERE no_utilisateur = ?";
+	private static final String SELECT_UTILISATEUR_BY_ID = "SELECT pseudo,nom,prenom,email,telephone,rue,code_postal,ville,no_utilisateur,credit FROM UTILISATEURS WHERE no_utilisateur = ?";
 	private static final String SELECT_ENCHERES_UTILISATEUR = "SELECT u.no_utilisateur, e.no_article, e.date_enchere, e.montant_enchere FROM UTILISATEURS u LEFT JOIN ENCHERES e on e.no_utilisateur = u.no_utilisateur WHERE e.no_utilisateur= ?";
 	private static final String CHECK_ENCHERE = "SELECT e.no_utilisateur, pseudo, no_article FROM UTILISATEURS u LEFT JOIN ENCHERES e on e.no_utilisateur = u.no_utilisateur WHERE u.no_utilisateur=? AND e.no_article = ?";
 	private static final String UPDATE_PRIX_VENTE_ARTICLE = "UPDATE ARTICLES set prix_vente = ? WHERE no_article = ?;";
@@ -148,11 +148,11 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 		Enchere monEnchere = new Enchere();
 		try {
 			Utilisateur encherisseur = selectUtilisateurById(idUser);
-			Article monArticle = selectArticleById((rs.getInt("e.no_article")));
+			Article monArticle = selectArticleById((rs.getInt("no_article")));
 			monEnchere.setArticle(monArticle);
 			monEnchere.setUtilisateur(encherisseur);
-			monEnchere.setDateEnchere(rs.getDate("e.date_enchere").toLocalDate());
-			monEnchere.setMontantEnchere(rs.getInt("e.montant_enchere"));
+			monEnchere.setDateEnchere(rs.getDate("date_enchere").toLocalDate());
+			monEnchere.setMontantEnchere(rs.getInt("montant_enchere"));
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
