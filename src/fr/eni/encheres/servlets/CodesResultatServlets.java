@@ -55,5 +55,6 @@ public abstract class CodesResultatServlets {
 	 */
 	public static final int ERREUR_ENCHERE_EN_COURS_NON_MODIFIABLE = 30012;
 	public static final int ERREUR_ENCHERE_CREEE_NON_MODIFIABLE = 30013;
+	public static final int ERREUR_UTILISATEUR_ENCHERE = 30014;
 	
 }

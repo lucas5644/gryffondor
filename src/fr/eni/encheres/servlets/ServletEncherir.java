@@ -131,10 +131,6 @@ public class ServletEncherir extends HttpServlet {
 							articleCourant.getDateFinEncheres(), articleCourant.getMiseAPrix(), user.getCredit(), be);
 					if (!be.hasErreurs()) {
 						Enchere meilleureEnchere = new Enchere();
-						//Recherche du top 1 et update du crédit de l'ancien enchérisseur
-						meilleureEnchere = enchereManager.selectMeilleureEnchere(articleCourant.getNoArticle());
-						//update du crédit de l'ancien enchérisseur
-						enchereManager.updateCreditAncienEncherisseur(meilleureEnchere.getUtilisateur().getPseudo(), meilleureEnchere.getMontantEnchere());
 						// j'insère la première offre
 						enchereManager.insertEnchere(user.getPseudo(), articleCourant.getNoArticle(), montantEnchere);
 						enchereManager.updatePrixVente(articleCourant.getNoArticle(), montantEnchere);
@@ -143,15 +139,23 @@ public class ServletEncherir extends HttpServlet {
 						throw be;
 					}
 				} else {
+					//il y a déjà une enchère
 					// je check si l'utilisateur a déjà enchéri sur cette article
 					if (enchereManager.checkEnchere(articleCourant.getNoArticle(), user.getNoUtilisateur()) == true) {
 						// il a déjà enchéri, je check la validité de la proposition
 						BusinessException be = new BusinessException();
 						enchereManager.checkValiditeEnchere(enchereCourante.getMontantEnchere(), montantEnchere,
 								articleCourant.getDateFinEncheres(), articleCourant.getMiseAPrix(), user.getCredit(), be);
-					
+						
+						//je check si l'utilisateur est le dernier enchérisseur
+						Enchere meilleureEnchere = new Enchere();
+						meilleureEnchere = enchereManager.selectMeilleureEnchere(articleCourant.getNoArticle());
+						if (user.getNoUtilisateur() == meilleureEnchere.getUtilisateur().getNoUtilisateur()) {				
+							//si oui, je lui refuse l'enchère
+							be.ajouterErreur(CodesResultatServlets.ERREUR_UTILISATEUR_ENCHERE);
+						}
 						if (!be.hasErreurs()) {
-							Enchere meilleureEnchere = new Enchere();
+							meilleureEnchere = new Enchere();
 							//Recherche du top 1 et update du crédit de l'ancien enchérisseur
 							meilleureEnchere = enchereManager.selectMeilleureEnchere(articleCourant.getNoArticle());
 							//update du crédit de l'ancien enchérisseur
