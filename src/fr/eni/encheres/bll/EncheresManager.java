@@ -19,7 +19,15 @@ public class EncheresManager {
 		enchereDAO = DAOFactory.getEnchereDAO();
 	}
 	
-	public void updateCreditEnchere(String pseudo, int montantEnchere) throws BusinessException {
+	public Enchere selectMeilleureEnchere(int numeroArticle) throws BusinessException {
+		return enchereDAO.selectMeilleureEnchere(numeroArticle);
+	}
+	
+	public void updateCreditAncienEncherisseur(String pseudo, int montantEnchere) throws BusinessException {
+		enchereDAO.updateCreditAncienEncherisseur(pseudo, montantEnchere);
+	}
+	
+	public void updateCreditNouveauEncherisseur(String pseudo, int montantEnchere) throws BusinessException {
 		enchereDAO.updateCreditEnchere(pseudo, montantEnchere);
 	}
 

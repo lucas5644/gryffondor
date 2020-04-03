@@ -9,6 +9,13 @@ import fr.eni.encheres.bo.Utilisateur;
 import fr.eni.encheres.exception.BusinessException;
 
 public interface EnchereDAO {
+	
+	//update enchère de l'ancien enchérisseur
+	void updateCreditAncienEncherisseur(String pseudo, int montantEnchere) throws BusinessException;
+	
+	//Recherche de la meilleure enchère
+	Enchere selectMeilleureEnchere(int numeroArticle) throws BusinessException;
+	
 	// Ajouter un article
 	int insertArticle(Article data, Retrait lieuRetrait) throws BusinessException;
 
@@ -68,5 +75,5 @@ public interface EnchereDAO {
 	public Utilisateur updateMDP(Utilisateur user)throws BusinessException;
 	
 	//mise à jour du crédit pendant l'enchère
-	public void updateCreditEnchere(String pseudo, int montantEnchere) throws BusinessException;
+	public void updateCreditNouveauEncherisseur(String pseudo, int montantEnchere) throws BusinessException;
 }

@@ -128,10 +128,15 @@ public class ServletEncherir extends HttpServlet {
 					enchereManager.checkValiditeEnchere(enchereCourante.getMontantEnchere(), montantEnchere,
 							articleCourant.getDateFinEncheres(), articleCourant.getMiseAPrix(), user.getCredit(), be);
 					if (!be.hasErreurs()) {
+						Enchere meilleureEnchere = new Enchere();
+						//Recherche du top 1 et update du crédit de l'ancien enchérisseur
+						meilleureEnchere = enchereManager.selectMeilleureEnchere(numeroArticle);
+						//update du crédit de l'ancien enchérisseur
+						enchereManager.updateCreditAncienEncherisseur(meilleureEnchere.getUtilisateur().getPseudo(), meilleureEnchere.getMontantEnchere());
 						// j'insère la première offre
 						enchereManager.insertEnchere(user.getPseudo(), articleCourant.getNoArticle(), montantEnchere);
 						enchereManager.updatePrixVente(articleCourant.getNoArticle(), montantEnchere);
-						enchereManager.updateCreditEnchere(user.getPseudo(), montantEnchere);
+						enchereManager.updateCreditNouveauEncherisseur(user.getPseudo(), montantEnchere);
 					} else {
 						throw be;
 					}
@@ -142,12 +147,19 @@ public class ServletEncherir extends HttpServlet {
 						BusinessException be = new BusinessException();
 						enchereManager.checkValiditeEnchere(enchereCourante.getMontantEnchere(), montantEnchere,
 								articleCourant.getDateFinEncheres(), articleCourant.getMiseAPrix(), user.getCredit(), be);
+					
 						if (!be.hasErreurs()) {
+							Enchere meilleureEnchere = new Enchere();
+							//Recherche du top 1 et update du crédit de l'ancien enchérisseur
+							meilleureEnchere = enchereManager.selectMeilleureEnchere(numeroArticle);
+							//update du crédit de l'ancien enchérisseur
+							enchereManager.updateCreditAncienEncherisseur(meilleureEnchere.getUtilisateur().getPseudo(), meilleureEnchere.getMontantEnchere());
+							//Recherche du top 1 et update du crédit de l'ancien enchérisseur
 							// on update l'enchère
 							enchereManager.updateEnchere(user.getPseudo(), articleCourant.getNoArticle(),
 									montantEnchere);
 							enchereManager.updatePrixVente(articleCourant.getNoArticle(), montantEnchere);
-							enchereManager.updateCreditEnchere(user.getPseudo(), montantEnchere);
+							enchereManager.updateCreditNouveauEncherisseur(user.getPseudo(), montantEnchere);
 						} else {
 							throw be;
 						}
@@ -157,11 +169,17 @@ public class ServletEncherir extends HttpServlet {
 						enchereManager.checkValiditeEnchere(enchereCourante.getMontantEnchere(), montantEnchere,
 								articleCourant.getDateFinEncheres(), articleCourant.getMiseAPrix(), user.getCredit(), be);
 						if (!be.hasErreurs()) {
+							Enchere meilleureEnchere = new Enchere();
+							//Recherche du top 1 et update du crédit de l'ancien enchérisseur
+							meilleureEnchere = enchereManager.selectMeilleureEnchere(numeroArticle);
+							//update du crédit de l'ancien enchérisseur
+							enchereManager.updateCreditAncienEncherisseur(meilleureEnchere.getUtilisateur().getPseudo(), meilleureEnchere.getMontantEnchere());
+							//Recherche du top 1 et update du crédit de l'ancien enchérisseur
 							// j'insère son enchère
 							enchereManager.insertEnchere(user.getPseudo(), articleCourant.getNoArticle(),
 									montantEnchere);
 							enchereManager.updatePrixVente(articleCourant.getNoArticle(), montantEnchere);
-							enchereManager.updateCreditEnchere(user.getPseudo(), montantEnchere);
+							enchereManager.updateCreditNouveauEncherisseur(user.getPseudo(), montantEnchere);
 						} else {
 							throw be;
 						}

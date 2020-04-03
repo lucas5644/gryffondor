@@ -52,8 +52,62 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 	private static final String UPDATE_PRIX_VENTE_ARTICLE = "UPDATE ARTICLES set prix_vente = ? WHERE no_article = ?;";
 	private static final String UPDATE_MDP = "UPDATE UTILISATEURS set mot_de_passe =? WHERE email= ?";
 	private static final String UPDATE_CREDIT_USER="UPDATE UTILISATEURS set credit = ? WHERE no_utilisateur = ?;";
+	private static final String SELECT_MEILLEURE_ENCHERE = "SELECT TOP(1) no_utilisateur, no_article, date_enchere, montant_enchere FROM ENCHERES WHERE no_article = ?;";
 	
-	public void updateCreditEnchere(String pseudo, int montantEnchere) throws BusinessException {
+	
+	public Enchere selectMeilleureEnchere(int numeroArticle) throws BusinessException {
+		Enchere meilleureEnchere = new Enchere();
+		Utilisateur meilleureEncherisseur = new Utilisateur();
+		Article articleCourant = new Article();
+		try {
+			Connection con = null;
+			con = ConnectionProvider.getConnection();
+			con.setAutoCommit(false);
+			PreparedStatement psmt = con.prepareStatement(SELECT_MEILLEURE_ENCHERE);
+			// insertion des données
+			psmt.setInt(1, numeroArticle);
+			ResultSet rs = psmt.executeQuery();
+			while (rs.next()) {
+				meilleureEncherisseur.setNoUtilisateur(rs.getInt("no_utilisateur"));
+				meilleureEncherisseur = selectUtilisateurById(meilleureEncherisseur.getNoUtilisateur());
+				meilleureEnchere.setUtilisateur(meilleureEncherisseur);
+				meilleureEnchere.setMontantEnchere(rs.getInt("montant_enchere"));
+				meilleureEnchere.setDateEnchere(rs.getDate("date_enchere").toLocalDate());
+				articleCourant = selectArticleById(numeroArticle);
+				meilleureEnchere.setArticle(articleCourant);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			BusinessException be = new BusinessException();
+			be.ajouterErreur(CodesResultatDAL.UPDATE_ENCHERE);
+			throw be;
+		}
+		return meilleureEnchere;
+	}
+	
+	public void updateCreditAncienEncherisseur(String pseudo, int montantEnchere) throws BusinessException {
+		Utilisateur utilisateurCourant = new Utilisateur();
+		utilisateurCourant = selectUtilisateur(pseudo);
+		try {
+			Connection con = null;
+			con = ConnectionProvider.getConnection();
+			PreparedStatement psmt = con.prepareStatement(UPDATE_CREDIT_USER);
+			// insertion des données
+			psmt.setInt(1, (utilisateurCourant.getCredit() + montantEnchere));
+			psmt.setInt(2, utilisateurCourant.getNoUtilisateur());
+			if (psmt.executeUpdate() == 1) {
+				con.commit();
+				con.close();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			BusinessException be = new BusinessException();
+			be.ajouterErreur(CodesResultatDAL.UPDATE_ENCHERE);
+			throw be;
+		}
+	}
+	
+	public void updateCreditNouveauEncherisseur(String pseudo, int montantEnchere) throws BusinessException {
 		Utilisateur utilisateurCourant = new Utilisateur();
 		utilisateurCourant = selectUtilisateur(pseudo);
 		try {
