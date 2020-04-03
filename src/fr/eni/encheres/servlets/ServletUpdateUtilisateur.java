@@ -21,8 +21,8 @@ import fr.eni.encheres.exception.BusinessException;
 /**
  * Servlet implementation class SerletUpdateUtilisateur
  */
-@WebServlet("/SerletUpdateUtilisateur")
-public class SerletUpdateUtilisateur extends HttpServlet {
+@WebServlet("/updateUtilisateur")
+public class ServletUpdateUtilisateur extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -96,7 +96,7 @@ public class SerletUpdateUtilisateur extends HttpServlet {
 				session.setAttribute("userConnected", user1);
 
 				System.out.println(user);
-				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/afficherUtilisateur.jsp");
+				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/utilisateurBtnModifier.jsp");
 
 				rd.forward(request, response);
 

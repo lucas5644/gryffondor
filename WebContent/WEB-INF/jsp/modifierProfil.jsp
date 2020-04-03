@@ -76,7 +76,7 @@
 								</div>
 							<%} %>
 
-							<form action= "SerletUpdateUtilisateur"
+							<form action= "updateUtilisateur"
 								method="post" class="justify-content-center mb-2">
 								<div class="saisie">
 									<label for="pseudo"> Pseudo: </label>
