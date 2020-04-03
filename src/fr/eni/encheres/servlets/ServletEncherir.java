@@ -46,7 +46,7 @@ public class ServletEncherir extends HttpServlet {
 
 		HttpSession session = request.getSession();
 		session.setAttribute("articleCourant", articleCourant);
-
+		
 		request.setAttribute("nomArticle", articleCourant.getNomArticle());
 		request.setAttribute("description", articleCourant.getDescription());
 		request.setAttribute("categorie", articleCourant.getCategorieArticle().getLibelle());
@@ -82,6 +82,7 @@ public class ServletEncherir extends HttpServlet {
 			try {
 				articleCourant = enchereManager.selectArticleById(numeroArticle);
 				enchereCourante = enchereManager.selectEnchere(numeroArticle);
+				enchereCourante.setArticle(articleCourant);
 			} catch (BusinessException e) {
 				e.printStackTrace();
 			}
@@ -130,7 +131,7 @@ public class ServletEncherir extends HttpServlet {
 					if (!be.hasErreurs()) {
 						Enchere meilleureEnchere = new Enchere();
 						//Recherche du top 1 et update du crédit de l'ancien enchérisseur
-						meilleureEnchere = enchereManager.selectMeilleureEnchere(numeroArticle);
+						meilleureEnchere = enchereManager.selectMeilleureEnchere(articleCourant.getNoArticle());
 						//update du crédit de l'ancien enchérisseur
 						enchereManager.updateCreditAncienEncherisseur(meilleureEnchere.getUtilisateur().getPseudo(), meilleureEnchere.getMontantEnchere());
 						// j'insère la première offre
@@ -151,7 +152,7 @@ public class ServletEncherir extends HttpServlet {
 						if (!be.hasErreurs()) {
 							Enchere meilleureEnchere = new Enchere();
 							//Recherche du top 1 et update du crédit de l'ancien enchérisseur
-							meilleureEnchere = enchereManager.selectMeilleureEnchere(numeroArticle);
+							meilleureEnchere = enchereManager.selectMeilleureEnchere(articleCourant.getNoArticle());
 							//update du crédit de l'ancien enchérisseur
 							enchereManager.updateCreditAncienEncherisseur(meilleureEnchere.getUtilisateur().getPseudo(), meilleureEnchere.getMontantEnchere());
 							//Recherche du top 1 et update du crédit de l'ancien enchérisseur
@@ -171,7 +172,7 @@ public class ServletEncherir extends HttpServlet {
 						if (!be.hasErreurs()) {
 							Enchere meilleureEnchere = new Enchere();
 							//Recherche du top 1 et update du crédit de l'ancien enchérisseur
-							meilleureEnchere = enchereManager.selectMeilleureEnchere(numeroArticle);
+							meilleureEnchere = enchereManager.selectMeilleureEnchere(articleCourant.getNoArticle());
 							//update du crédit de l'ancien enchérisseur
 							enchereManager.updateCreditAncienEncherisseur(meilleureEnchere.getUtilisateur().getPseudo(), meilleureEnchere.getMontantEnchere());
 							//Recherche du top 1 et update du crédit de l'ancien enchérisseur
@@ -191,6 +192,12 @@ public class ServletEncherir extends HttpServlet {
 			} catch (BusinessException e) {
 				e.printStackTrace();
 				request.setAttribute("listeCodesErreur", e.getListeCodesErreur());
+				if (enchereCourante.getMontantEnchere() == 0) {
+					enchereVide = "Aucune enchère en cours";
+					request.setAttribute("meilleureOffre", enchereVide);
+				} else {
+					request.setAttribute("meilleureOffre", enchereCourante.getMontantEnchere());
+				}
 				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/miserEnchere.jsp");
 				rd.forward(request, response);
 			}
