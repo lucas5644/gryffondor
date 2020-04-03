@@ -64,7 +64,7 @@ public class ServletDeleteArticle extends HttpServlet {
 			if (listeCodesErreur.size() > 0) {
 				// Je renvoie les codes d'erreurs
 				request.setAttribute("listeCodesErreur", listeCodesErreur);
-				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/updateVente.jsp");
+				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/accueilConnecte.jsp");
 				rd.forward(request, response);
 			} else {
 				//si pas d'erreur je suprime l'article
