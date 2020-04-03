@@ -35,7 +35,7 @@ public class ServletEncherir extends HttpServlet {
 			throws ServletException, IOException {
 		// Je récupère le numéro de l'article
 		numeroArticle = Integer.parseInt(request.getParameter("numeroArticle"));
-		System.out.println("Numéro de l'article" + numeroArticle);
+		System.out.println("Numéro de l'article " + numeroArticle);
 		// Je récupère l'article
 		try {
 			articleCourant = enchereManager.selectArticleById(numeroArticle);
@@ -61,7 +61,7 @@ public class ServletEncherir extends HttpServlet {
 			enchereVide = "Aucune enchère en cours";
 			request.setAttribute("meilleureOffre", enchereVide);
 		} else {
-			request.setAttribute("meilleureOffre", enchereCourante.getMontantEnchere());
+			request.setAttribute("meilleureOffre", articleCourant.getPrixVente());
 		}
 		request.setAttribute("prixDepart", articleCourant.getMiseAPrix());
 		request.setAttribute("dateFin", articleCourant.getDateFinEncheres());
@@ -187,6 +187,7 @@ public class ServletEncherir extends HttpServlet {
 					}
 				}
 				// je renvoie vers la page d'accueil
+				request.setAttribute("meilleureOffre", articleCourant.getPrixVente());
 				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/accueilConnecte.jsp");
 				rd.forward(request, response);
 			} catch (BusinessException e) {
@@ -196,7 +197,7 @@ public class ServletEncherir extends HttpServlet {
 					enchereVide = "Aucune enchère en cours";
 					request.setAttribute("meilleureOffre", enchereVide);
 				} else {
-					request.setAttribute("meilleureOffre", enchereCourante.getMontantEnchere());
+					request.setAttribute("meilleureOffre", articleCourant.getPrixVente());
 				}
 				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/miserEnchere.jsp");
 				rd.forward(request, response);

@@ -58,7 +58,7 @@ public class ServletRedirectionClicArticle extends HttpServlet {
 				enchereVide = "Aucune enchère en cours";
 				request.setAttribute("meilleureOffre", enchereVide);
 			} else {
-				request.setAttribute("meilleureOffre", enchereCourante.getMontantEnchere());
+				request.setAttribute("meilleureOffre", articleCourant.getPrixVente());
 			}
 			request.setAttribute("prixDepart", articleCourant.getMiseAPrix());
 			request.setAttribute("dateFin", articleCourant.getDateFinEncheres());
