@@ -28,25 +28,33 @@ import fr.eni.encheres.exception.BusinessException;
 @WebServlet("/ModifierVente")
 public class ServletModifierVente extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
-		
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		Article art;
+		Article articleCourant = new Article();
+		EncheresManager enchereManager = new EncheresManager();
 		String noArticle = request.getParameter("noArticle");
 		int noArticle1 = Integer.parseInt(noArticle);
-		System.out.println("Teste : "+noArticle1);
+		try {
+			articleCourant = enchereManager.selectArticleById(noArticle1);
+		} catch (BusinessException e1) {
+			e1.printStackTrace();
+		}
+		System.out.println("Teste : " + noArticle1);
 		String nomArticle = null;
 		String description = null;
 		String categorie;
@@ -60,12 +68,11 @@ public class ServletModifierVente extends HttpServlet {
 		LocalDate dateDuJour = null;
 		Utilisateur user = new Utilisateur();
 		HttpSession session = request.getSession();
-		
-	
-		System.out.println("C'est :"+session);
+
+		System.out.println("C'est :" + session);
 		user = (Utilisateur) session.getAttribute("userConnected");
-		System.out.println("Teste : "+user);
-		
+		System.out.println("Teste : " + user);
+
 		request.setCharacterEncoding("UTF-8");
 		List<Integer> listeCodesErreur = new ArrayList<>();
 		// lecture article
@@ -89,14 +96,19 @@ public class ServletModifierVente extends HttpServlet {
 
 		// lecture date
 		try {
-			
+
 			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 			debutEnchere = LocalDate.parse(request.getParameter("dateDebut"), dtf);
+			LocalDate dateDebutArticleCourant = articleCourant.getDateDebutEncheres(); 
 			dateDuJour = LocalDate.now();
-			if (debutEnchere.isBefore(dateDuJour)||dateDuJour.isAfter(debutEnchere)) {
-				listeCodesErreur.add(CodesResultatServlets.FORMAT_DATE_ERREUR);
-			}
 			finEnchere = LocalDate.parse(request.getParameter("dateFin"), dtf);
+			if (dateDebutArticleCourant.isBefore(dateDuJour)) {
+				listeCodesErreur.add(CodesResultatServlets.ERREUR_ENCHERE_CREEE_NON_MODIFIABLE);
+			}
+			if (debutEnchere.isBefore(dateDuJour) || dateDuJour.isAfter(debutEnchere) || debutEnchere.isAfter(finEnchere)) {
+				listeCodesErreur.add(CodesResultatServlets.ERREUR_ENCHERE_CREEE_NON_MODIFIABLE);
+			}
+			
 		} catch (DateTimeParseException e) {
 			e.printStackTrace();
 			listeCodesErreur.add(CodesResultatServlets.FORMAT_DATE_ERREUR);
@@ -121,10 +133,10 @@ public class ServletModifierVente extends HttpServlet {
 		if (listeCodesErreur.size() > 0) {
 			// Je renvoie les codes d'erreurs
 			request.setAttribute("listeCodesErreur", listeCodesErreur);
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/updateVente.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/accueilConnecte.jsp");
 			rd.forward(request, response);
 		} else {
-			// je mets à jour l'article  j'ajoute l'article
+			// je mets à jour l'article j'ajoute l'article
 			EncheresManager encheresManager = new EncheresManager();
 			try {
 				Article newArticle = new Article();
@@ -169,18 +181,18 @@ public class ServletModifierVente extends HttpServlet {
 				newArticle.setVendeur(user);
 				newArticle.setLieuRetrait(newLieuDeRetrait);
 				newArticle.setNoArticle(noArticle1);
-				art=encheresManager.updateArticle(newArticle, newLieuDeRetrait);
+				art = encheresManager.updateArticle(newArticle, newLieuDeRetrait);
 				encheresManager.updateEtatVentes();
 				System.out.println(newArticle);
-				
+
 				System.out.println();
-				System.out.println("Fin"+newArticle);
+				System.out.println("Fin" + newArticle);
 				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/accueilConnecte.jsp");
 				rd.forward(request, response);
 
 			} catch (BusinessException e) {
 				// Sinon je retourne à la page d'ajout pour indiquer les problèmes:
-				// Modifier vers la jsp  
+				// Modifier vers la jsp
 				e.printStackTrace();
 				request.setAttribute("listeCodesErreur", e.getListeCodesErreur());
 				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/UpdateVente.jsp");
@@ -189,7 +201,3 @@ public class ServletModifierVente extends HttpServlet {
 		}
 	}
 }
-		
-		
-	
-		
