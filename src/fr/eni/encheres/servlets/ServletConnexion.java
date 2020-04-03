@@ -23,11 +23,25 @@ public class ServletConnexion extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String pseudo = request.getParameter("pseudo");
+		String seSouvenirDeMoi = request.getParameter("seSouvenirDeMoi");
+		System.out.println("seSouvenirDeMoi :" +seSouvenirDeMoi);
+//		if(seSouvenirDeMoi.equals("seSouvenirDeMoi")) {
+//			
+//		}
+		
+		
+		
+		Cookie cookie = new Cookie("pseudo", pseudo);
+		cookie.setMaxAge(60*60*24);
+		response.addCookie(cookie);
+		
+		
 		Cookie [] cookies = request.getCookies();
 		if(cookies != null) {
-			for(Cookie cookie : cookies) {
-				if(cookie.getName().equals("pseudo")) {
-					request.setAttribute("pseudo", cookie.getValue());
+			for(Cookie cookie1 : cookies) {
+				if(cookie1.getName().equals("pseudo")) {
+					request.setAttribute("pseudo", cookie1.getValue());
 				}
 			}
 		}
@@ -68,12 +82,7 @@ public class ServletConnexion extends HttpServlet {
 	
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-		String pseudo = request.getParameter("pseudo");
 		
-		Cookie cookie = new Cookie("pseudo", pseudo);
-		cookie.setMaxAge(60*60*24);
-		response.addCookie(cookie);
 		
 		doGet(request, response);
 	}

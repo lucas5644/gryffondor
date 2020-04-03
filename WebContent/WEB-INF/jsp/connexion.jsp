@@ -48,6 +48,10 @@
 									for="mdp" class="bar">Mot de Passe</label>
 								<input type="password" value="" name="mdp"> <input
 									type="submit" value="Connexion">
+							<div class="contenu">
+							<input type="checkbox" name="se souvenir de moi" value="seSouvenirDeMoi">
+							<label for ="seSouvenirDeMoi"> Se souvenir de moi</label>
+						</div>
 							</form>
 						</div>
 						<div class="contenu"> 
@@ -56,6 +60,7 @@
 						<div class="contenu">
 							<a href="emailReinitialiserMDP">Mot de passe oublié</a>
 						</div>
+						
 					</div>
 				</div>
 			</div>
