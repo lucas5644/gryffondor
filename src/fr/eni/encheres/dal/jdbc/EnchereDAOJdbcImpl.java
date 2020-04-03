@@ -7,7 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +19,6 @@ import fr.eni.encheres.dal.CodesResultatDAL;
 import fr.eni.encheres.dal.ConnectionProvider;
 import fr.eni.encheres.dal.EnchereDAO;
 import fr.eni.encheres.exception.BusinessException;
-import microsoft.sql.DateTimeOffset;
 
 public class EnchereDAOJdbcImpl implements EnchereDAO {
 	private static final String INSERT_ARTICLE = "INSERT INTO ARTICLES(nom_article,description,prix_initial,date_debut_encheres,date_fin_encheres,no_utilisateur,no_categorie,etat_vente) VALUES(?,?,?,?,?,?,?,?);";
